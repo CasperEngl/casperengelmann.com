@@ -1,7 +1,13 @@
 title: Hjem
 description: Vue.js, React, TypeScript, PHP and Node.js - Casper Engelmann
+top_section:
+  title: Test titel
+  description: Test beskrivelse
+  buttons:
+    - Test knap
+image: /img/briks-samtalerum-2.jpg
 body: >-
-  # Hej,
+  # Hej
 
 
   Mit navn er Casper Engelmann. Jeg arbejder med frontend frameworks som Vue og React, og på backend bruger jeg PHP og Node.js.
@@ -96,12 +102,6 @@ body: >-
 
 
   Jeg har hjulpet [Mimer](https://www.letmimer.com/) med at blive klar til de nye Strong Customer Authentication (SCA) krav, som EU har stillet alle europæiske virksomheder, der modtager betalinger. Det har vi gjort ved hjælp af [Stripe](https://stripe.com)'s nye Checkout API.
-top_section:
-  title: Test titel
-  description: Test beskrivelse
-  buttons:
-    - Test knap
-image: /img/briks-samtalerum-2.jpg
 "body,": >-
   # Hey,
 
