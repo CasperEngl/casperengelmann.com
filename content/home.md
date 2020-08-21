@@ -1,6 +1,7 @@
 ---
 title: Home
 headline: Vue.js, React, TypeScript, PHP and Node.js - Casper Engelmann
+description: Vue.js, React, TypeScript, PHP and Node.js - Casper Engelmann
 ---
 
 # Hej,
