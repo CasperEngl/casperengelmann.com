@@ -1,21 +1,31 @@
 backend:
-  name: casperengelmann.com
-  branch: master
+  name: github
+  repo: casperengl/casperengelmann.com
 
 media_folder: static/img
 public_folder: /img
 
 collections:
-  - name: 'blog'
-    label: 'Blog'
-    format: 'json'
-    folder: 'content/blog'
-    create: true
-    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
-    editor:
-      preview: false
-    fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
-      - { label: 'Description', name: 'description', widget: 'string' }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
+  - label: Pages
+    name: pages
+    files:
+      - label: Home Page
+        name: home
+        file: content/home.yml
+        fields:
+          - { label: Titel, name: title, widget: string }
+          - { label: Beskrivelse, name: description, widget: string }
+          - label: Top Sektion
+            name: top_section
+            widget: object
+            collapsed: false
+            fields: 
+              - { label: Titel, name: title, widget: string }
+              - { label: Beskrivelse, name: description, widget: string }
+              - { label: Knapper, name: buttons, widget: list, default: ["news"] }
+          - label: Billede
+            name: image
+            widget: file
+          - label: Body,
+            name: body,
+            widget: markdown

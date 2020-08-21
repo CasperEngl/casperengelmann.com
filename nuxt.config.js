@@ -76,9 +76,16 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    extractCSS: true,
+    filenames: {
+      css: ({ isDev }) => isDev ? '[name].css' : '[name].css',
+    },
   },
   dayjs: {
     locales: ['en', 'da'],
     defaultLocale: 'en',
+  },
+  tailwindcss: {
+    cssPath: '~/assets/style/style.scss',
   },
 }
