@@ -26,6 +26,6 @@ collections:
           - label: Billede
             name: image
             widget: file
-          - label: Body,
-            name: body,
+          - label: Body
+            name: body
             widget: markdown
