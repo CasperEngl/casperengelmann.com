@@ -39,7 +39,7 @@
       <div class="absolute top-0 inset-x-0 z-10 py-32 lg:py-40 text-gray-900" style="background: linear-gradient(150deg, rgba(0,0,0,0) 0%, currentColor 50%);">
         <div class="container">
           <h1 class="text-3xl lg:text-6xl font-bold text-white">
-            {{ home.headline }}
+            {{ home.description }}
           </h1>
         </div>
       </div>
@@ -50,42 +50,11 @@
   </main>
 </template>
 
-<style lang="scss">
-.nuxt-content {
-  h1, h2, h3 {
-    @apply text-gray-200;
-  }
-
-  h1 {
-    @apply text-4xl font-bold mt-6 mb-4;
-  }
-
-  h2 {
-    @apply text-2xl font-bold mt-6 mb-4;
-  }
-
-  h3 {
-    @apply text-sm font-bold mt-6 mb-4;
-  }
-
-  p {
-    @apply text-xl mb-4;
-  }
-
-  a {
-    @apply text-blue-400 underline transition duration-75;
-
-    &:hover {
-      @apply text-blue-200;
-    }
-  }
-}
-</style>
-
 <script>
 export default {
   async asyncData ({ $content }) {
-    const home = await $content('home').fetch()
+    const homes = await $content('home').fetch()
+    const home = homes.slice().shift()
 
     return {
       home,
