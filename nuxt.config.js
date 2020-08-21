@@ -23,6 +23,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;700&display=swap' },
     ],
   },
   /*
@@ -58,6 +59,7 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt/content
     '@nuxt/content',
+    '@nuxtjs/dayjs',
   ],
   /*
   ** Axios module configuration
@@ -74,5 +76,9 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+  },
+  dayjs: {
+    locales: ['en', 'da'],
+    defaultLocale: 'en',
   },
 }

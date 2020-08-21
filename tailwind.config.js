@@ -1,16 +1,17 @@
-/*
-** TailwindCSS Configuration File
-**
-** Docs: https://tailwindcss.com/docs/configuration
-** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
-*/
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   experimental: {
     extendedFontSizeScale: true,
+    applyComplexClasses: true,
   },
   theme: {
     container: {
       center: true,
+      padding: '2rem',
+    },
+    fontFamily: {
+      sans: ['Ubuntu', ...defaultTheme.fontFamily.sans],
     },
   },
   variants: {},
