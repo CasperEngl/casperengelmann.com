@@ -1,6 +1,12 @@
 ---
 title: Home
 headline: Vue.js, React, TypeScript, PHP and Node.js - Casper Engelmann
+image: /img/briks-samtalerum-2.jpg
+top_section:
+  title: Test titel
+  description: Test beskrivelse
+  buttons:
+    - Test knap
 description: Vue.js, React, TypeScript, PHP and Node.js - Casper Engelmann
 ---
 
