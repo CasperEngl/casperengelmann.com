@@ -16,5 +16,6 @@ module.exports = {
   // add your custom rules here
   rules: {
     'comma-dangle': [2, 'always-multiline'],
+    'vue/no-v-html': 0,
   },
 }

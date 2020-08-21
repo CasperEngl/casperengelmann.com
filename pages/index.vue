@@ -36,11 +36,9 @@
           />
         </div>
       </div>
-      <div class="absolute top-0 inset-x-0 z-10 py-32 lg:py-40 text-gray-900" style="background: linear-gradient(150deg, rgba(0,0,0,0) 0%, currentColor 50%);">
+      <div class="absolute top-0 inset-x-0 z-10 py-32 lg:py-40 text-gray-900" style="background: linear-gradient(150deg, rgba(0,0,0,0) 0%, currentColor 40%);">
         <div class="container">
-          <h1 class="text-3xl lg:text-6xl font-bold text-white">
-            {{ home.description }}
-          </h1>
+          <h1 class="max-w-4xl text-3xl lg:text-6xl font-bold text-white" v-html="home.description" />
         </div>
       </div>
     </section>
@@ -51,10 +49,25 @@
 </template>
 
 <script>
+/**
+ * @param {string} text
+ * @param {string} word
+ * @param {string} color
+ * @returns {this} Text
+ */
+function wrapTextWithColor (text, word, color) {
+  return text.replace(word, `<span style="color: ${color};">${word}</span>`)
+}
+
 export default {
   async asyncData ({ $content }) {
-    const homes = await $content('home').fetch()
-    const home = homes.slice().shift()
+    const home = await $content('home').fetch()
+
+    home.description = wrapTextWithColor(home.description, 'Vue', '#42b883')
+    home.description = wrapTextWithColor(home.description, 'React', '#00d8ff')
+    home.description = wrapTextWithColor(home.description, 'TypeScript', '#3178c6')
+    home.description = wrapTextWithColor(home.description, 'PHP', '#8892be')
+    home.description = wrapTextWithColor(home.description, 'Node', '#6cc24a')
 
     return {
       home,
