@@ -13,6 +13,11 @@ module.exports = {
     fontFamily: {
       sans: ['Ubuntu', ...defaultTheme.fontFamily.sans],
     },
+    extend: {
+      minHeight: {
+        64: '16rem',
+      },
+    },
   },
   variants: {},
   plugins: [],

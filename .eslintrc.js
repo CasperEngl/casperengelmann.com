@@ -17,5 +17,6 @@ module.exports = {
   rules: {
     'comma-dangle': [2, 'always-multiline'],
     'vue/no-v-html': 0,
+    'no-extend-native': 0,
   },
 }

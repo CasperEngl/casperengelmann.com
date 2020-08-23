@@ -38,14 +38,14 @@
             />
           </div>
         </div>
-        <div class="relative z-10 py-16 lg:py-24 text-gray-900" style="background: linear-gradient(150deg, rgba(0,0,0,0) 0%, currentColor 40%);">
+        <div class="relative z-10 pt-16 pb-8 lg:pt-24 text-gray-900 min-h-64" style="background: linear-gradient(150deg, rgba(0,0,0,0) 0%, currentColor 40%);">
           <div class="container">
             <h1 class="max-w-6xl text-4xl lg:text-6xl font-bold text-white" v-html="home.headline" />
           </div>
         </div>
       </div>
     </section>
-    <section class="container pt-16 pb-64">
+    <section class="container pb-64">
       <nuxt-content :document="home" class="max-w-4xl text-gray-500 leading-relaxed" />
     </section>
   </main>
@@ -53,33 +53,36 @@
 
 <script>
 /**
- * @param {string} text
  * @param {string} word
  * @param {string} color
- * @returns {this} Text
+ * @param {string} [textStrokeColor] textStrokeColor
+ * @returns {string}
  */
-function wrapTextWithColor (text, word, color, textStrokeColor = '') {
-  return text.replace(word, `<span style="color: ${color}; -webkit-text-stroke: 2px ${textStrokeColor || 'transparent'}; text-stroke: 2px ${textStrokeColor || 'transparent'}">${word}</span>`)
+function wrapTextWithColor (word, color, textStrokeColor = '#333') {
+  return this.replace(word, `<span style="color: ${color}; -webkit-text-stroke: 1px ${textStrokeColor || 'transparent'}; text-stroke: 1px ${textStrokeColor || 'transparent'}">${word}</span>`)
 }
+
+String.prototype.wrapTextWithColor = wrapTextWithColor
 
 export default {
   async asyncData ({ $content }) {
     const home = await $content('home').fetch()
 
-    home.headline = wrapTextWithColor(home.headline, 'Vue.js', '#42B883')
-    home.headline = wrapTextWithColor(home.headline, 'React', '#00D8FF')
-    home.headline = wrapTextWithColor(home.headline, 'TypeScript', '#3178C6')
-    home.headline = wrapTextWithColor(home.headline, 'PHP', '#8892BE')
-    home.headline = wrapTextWithColor(home.headline, 'Node.js', '#6CC24A')
-    home.headline = wrapTextWithColor(home.headline, 'Nuxt.js', '#00C68E')
-    home.headline = wrapTextWithColor(home.headline, 'Next.js', '#000000', '#FFFFFF')
-    home.headline = wrapTextWithColor(home.headline, 'Serverless', '#fd5750')
-    home.headline = wrapTextWithColor(home.headline, 'Laravel', '#ff2d21')
-    home.headline = wrapTextWithColor(home.headline, 'WordPress', '#0073aa')
-    home.headline = wrapTextWithColor(home.headline, 'SQL', '#e08c09')
-    home.headline = wrapTextWithColor(home.headline, 'SCSS', '#cf639a')
-    home.headline = wrapTextWithColor(home.headline, 'Git', '#f64d29')
-    home.headline = wrapTextWithColor(home.headline, 'ES6+', '#f8dc3c')
+    home.headline = home.headline
+      .wrapTextWithColor('Vue.js', '#42B883')
+      .wrapTextWithColor('React', '#00D8FF')
+      .wrapTextWithColor('TypeScript', '#3178C6')
+      .wrapTextWithColor('PHP', '#8892BE')
+      .wrapTextWithColor('Node.js', '#6CC24A')
+      .wrapTextWithColor('Nuxt.js', '#00C68E')
+      .wrapTextWithColor('Next.js', '#000000', '#FFFFFF')
+      .wrapTextWithColor('Serverless', '#fd5750')
+      .wrapTextWithColor('Laravel', '#ff2d21')
+      .wrapTextWithColor('WordPress', '#0073aa')
+      .wrapTextWithColor('SQL', '#e08c09')
+      .wrapTextWithColor('SCSS', '#cf639a')
+      .wrapTextWithColor('Git', '#f64d29')
+      .wrapTextWithColor('ES6+', '#f8dc3c')
 
     return {
       home,
