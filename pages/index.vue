@@ -40,7 +40,23 @@
         </div>
         <div class="relative z-10 pt-16 pb-8 lg:pt-24 text-gray-900 min-h-64" style="background: linear-gradient(150deg, rgba(0,0,0,0) 0%, currentColor 40%);">
           <div class="container">
-            <h1 class="max-w-6xl text-4xl lg:text-6xl font-bold text-white" v-html="home.headline" />
+            <h1 class="max-w-6xl text-4xl lg:text-6xl font-bold text-white space-x-4">
+              {let ,$}skills =
+              <span>[</span>
+              <span
+                v-for="(skill, index) in skills"
+                :key="skill.name"
+                class="inline-block transform hover:-translate-y-2 hover:scale-105 transition duration-150"
+                :style="{
+                  color: skill.color,
+                  textStroke: `1px ${skill.stroke || 'transparent'}`
+                }"
+              >
+                '{{ skill.name }}'
+                <template v-if="index < skills.length - 1">,</template>
+              </span>
+              <span>]</span>
+            </h1>
           </div>
         </div>
       </div>
@@ -52,40 +68,14 @@
 </template>
 
 <script>
-/**
- * @param {string} word
- * @param {string} color
- * @param {string} [textStrokeColor] textStrokeColor
- * @returns {string}
- */
-function wrapTextWithColor (word, color, textStrokeColor = '#333') {
-  return this.replace(word, `<span style="color: ${color}; -webkit-text-stroke: 1px ${textStrokeColor || 'transparent'}; text-stroke: 1px ${textStrokeColor || 'transparent'}">${word}</span>`)
-}
-
-String.prototype.wrapTextWithColor = wrapTextWithColor
-
 export default {
   async asyncData ({ $content }) {
     const home = await $content('home').fetch()
-
-    home.headline = home.headline
-      .wrapTextWithColor('Vue.js', '#42B883')
-      .wrapTextWithColor('React', '#00D8FF')
-      .wrapTextWithColor('TypeScript', '#3178C6')
-      .wrapTextWithColor('PHP', '#8892BE')
-      .wrapTextWithColor('Node.js', '#6CC24A')
-      .wrapTextWithColor('Nuxt.js', '#00C68E')
-      .wrapTextWithColor('Next.js', '#000000', '#FFFFFF')
-      .wrapTextWithColor('Serverless', '#fd5750')
-      .wrapTextWithColor('Laravel', '#ff2d21')
-      .wrapTextWithColor('WordPress', '#0073aa')
-      .wrapTextWithColor('SQL', '#e08c09')
-      .wrapTextWithColor('SCSS', '#cf639a')
-      .wrapTextWithColor('Git', '#f64d29')
-      .wrapTextWithColor('ES6+', '#f8dc3c')
+    const skills = await $content('skills').sortBy('name').fetch()
 
     return {
       home,
+      skills,
     }
   },
   data: () => ({
