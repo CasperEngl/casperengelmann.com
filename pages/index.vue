@@ -1,24 +1,27 @@
 <template>
   <main class="min-h-screen bg-gray-900 space-y-16 lg:space-y-32">
     <section class="relative p-8">
-      <div class="relative z-10 flex space-x space-x-2">
+      <div class="relative z-20 flex space-x space-x-2">
         <div
-          class="w-4 h-4 rounded-full"
+          class="w-4 h-4 rounded-full cursor-pointer"
           :style="{
             'background': 'var(--red)'
           }"
+          @click="alert('It didn\'t work!. Sadly, modern browsers no longer lets us close the current tab.')"
         />
         <div
-          class="w-4 h-4 rounded-full"
+          class="w-4 h-4 rounded-full cursor-pointer"
           :style="{
             'background': 'var(--yellow)'
           }"
+          @click="alert('Much like closing the tab, minimizing the window doesn\'t work either. No fun!')"
         />
         <div
-          class="w-4 h-4 rounded-full"
+          class="w-4 h-4 rounded-full cursor-pointer"
           :style="{
             'background': 'var(--green)'
           }"
+          @click="launchFullscreen"
         />
       </div>
       <div class="py-8 space-y-8">
@@ -38,7 +41,7 @@
       </div>
       <div class="absolute top-0 inset-x-0 z-10 py-32 lg:py-40 text-gray-900" style="background: linear-gradient(150deg, rgba(0,0,0,0) 0%, currentColor 40%);">
         <div class="container">
-          <h1 class="max-w-4xl text-3xl lg:text-6xl font-bold text-white" v-html="home.description" />
+          <h1 class="max-w-4xl text-3xl lg:text-6xl font-bold text-white" v-html="home.headline" />
         </div>
       </div>
     </section>
@@ -63,11 +66,11 @@ export default {
   async asyncData ({ $content }) {
     const home = await $content('home').fetch()
 
-    home.description = wrapTextWithColor(home.description, 'Vue', '#42b883')
-    home.description = wrapTextWithColor(home.description, 'React', '#00d8ff')
-    home.description = wrapTextWithColor(home.description, 'TypeScript', '#3178c6')
-    home.description = wrapTextWithColor(home.description, 'PHP', '#8892be')
-    home.description = wrapTextWithColor(home.description, 'Node', '#6cc24a')
+    home.headline = wrapTextWithColor(home.headline, 'Vue', '#42b883')
+    home.headline = wrapTextWithColor(home.headline, 'React', '#00d8ff')
+    home.headline = wrapTextWithColor(home.headline, 'TypeScript', '#3178c6')
+    home.headline = wrapTextWithColor(home.headline, 'PHP', '#8892be')
+    home.headline = wrapTextWithColor(home.headline, 'Node', '#6cc24a')
 
     return {
       home,
@@ -161,6 +164,21 @@ export default {
       ],
     ],
   }),
+  methods: {
+    alert (message) {
+      alert(message)
+    },
+    isFullscreen () {
+      return window.innerHeight === screen.height
+    },
+    launchFullscreen () {
+      if (document.fullscreenElement) {
+        document.exitFullscreen()
+      } else {
+        document.documentElement.requestFullscreen()
+      }
+    },
+  },
   head () {
     return {
       script: [{ src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }],
