@@ -1,8 +1,6 @@
 ---
 title: Hjem
-headline: competences = [ 'Vue.js', 'React', 'TypeScript', 'SCSS',
-  'ES6+',   'Node.js', 'Nuxt.js', 'Next.js', 'Serverless', 'PHP', 'Laravel',
-  'WordPress', 'SQL',   'Git' ]
+headline: competences = [ 'Vue.js', 'React', 'TypeScript', 'SCSS', 'ES6+', 'Node.js', 'Nuxt.js', 'Next.js', 'Serverless', 'PHP', 'Laravel', 'WordPress', 'SQL', 'Git' ]
 ---
 # Hey,
 
