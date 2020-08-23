@@ -42,7 +42,7 @@
           <div class="container">
             <h1 class="max-w-6xl text-4xl lg:text-6xl font-bold text-white space-x-4">
               <vue-typed-js
-                :strings="['let ^1', '^200$']"
+                :strings="['let ^1', 'this.', '^200$', '$this->']"
                 :loop="true"
                 :show-cursor="false"
                 :back-speed="75"
@@ -55,7 +55,7 @@
               <span
                 v-for="(skill, index) in skills"
                 :key="skill.name"
-                class="group"
+                class="group inline-flex"
                 :style="{
                   color: skill.color,
                   textStroke: `1px ${skill.stroke || 'transparent'}`
@@ -79,8 +79,10 @@
 <script>
 export default {
   async asyncData ({ $content }) {
-    const home = await $content('home').fetch()
-    const skills = await $content('skills').sortBy('name').fetch()
+    const [home, skills] = await Promise.all([
+      $content('home').fetch(),
+      $content('skills').sortBy('name').fetch(),
+    ])
 
     return {
       home,
