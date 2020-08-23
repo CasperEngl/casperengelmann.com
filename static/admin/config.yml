@@ -13,7 +13,29 @@ collections:
         name: home
         file: content/home.md
         fields:
-          - { label: Overskrift, name: headline, widget: string }
+          - label: Headline
+            name: headline
+            widget: string
           - label: Body
             name: body
             widget: markdown
+  - label: Skills
+    name: skills
+    summary: '{{fields.name}}'
+    folder: 'content/skills'
+    create: true
+    identifier_field: name
+    fields:
+      - label: Name
+        name: name
+        widget: string
+      - label: Since
+        name: since
+        widget: date
+      - label: Color
+        name: color
+        widget: string
+      - label: Stroke
+        name: stroke
+        widget: string
+        required: false
