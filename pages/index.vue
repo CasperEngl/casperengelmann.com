@@ -41,19 +41,28 @@
         <div class="relative z-10 pt-16 pb-8 lg:pt-24 text-gray-900 min-h-64" style="background: linear-gradient(150deg, rgba(0,0,0,0) 0%, currentColor 40%);">
           <div class="container">
             <h1 class="max-w-6xl text-4xl lg:text-6xl font-bold text-white space-x-4">
-              {let ,$}skills =
+              <vue-typed-js
+                :strings="['let ^1', '^200$']"
+                :loop="true"
+                :show-cursor="false"
+                :back-speed="75"
+                :type-speed="100"
+                :back-delay="5000"
+              >
+                <span><span class="typing text-gray-500" />skills =<br></span>
+              </vue-typed-js>
               <span>[</span>
               <span
                 v-for="(skill, index) in skills"
                 :key="skill.name"
-                class="inline-block transform hover:-translate-y-2 hover:scale-105 transition duration-150"
+                class="group"
                 :style="{
                   color: skill.color,
                   textStroke: `1px ${skill.stroke || 'transparent'}`
                 }"
               >
-                '{{ skill.name }}'
-                <template v-if="index < skills.length - 1">,</template>
+                <span class="inline-block transform group-hover:-translate-y-1 group-hover:scale-105 origin-bottom transition duration-150">'{{ skill.name }}'</span>
+                <span v-if="index < skills.length - 1" class="text-white">,</span>
               </span>
               <span>]</span>
             </h1>
