@@ -2,41 +2,39 @@
 title: Hjem
 headline: Vue.js, React, TypeScript, PHP and Node.js
 ---
-# Hej
+# Hey,
 
-Mit navn er Casper Engelmann. Jeg arbejder med frontend frameworks som Vue og React, og på backend bruger jeg PHP og Node.js.
+My name is Casper Engelmann. I work with frontend frameworks such as Vue and React. On the backend I like to utilize PHP and Node.js.
 
-I min fritid ser jeg mange serier og film. Cirka en gang om måneden, så kører jeg også gokart sammen med en gokart klub jeg er medlem af.
+In my spare time, I like to watching TV shows and movies. About once a month I also race in gokarts with a gokart club I'm part of.
 
 ## Web-Koncept
 
-Hos [Web-Koncept](https://web-koncept.dk/) arbejdede jeg som frontend-udvikler. Jeg lavede nogle få WordPress backend plugins, som indgik i frontend delen af mit arbejde. [Web-Koncept](https://web-koncept.dk/) bruger til deres hjemmesider WordPress. Mine arbejdsopgaver bestod for det meste at implementere forskellige interaktive formularer.
+At [Web-Koncept](https://web-koncept.dk/) I worked as a frontend engineer. I made a few WordPress backend plugins, that went with some frontend work I did. [Web-Koncept](https://web-koncept.dk/) uses WordPress for their customers sites. My usual tasks included implementing custom interactive forms.
 
-Eksempler:
+Examples:
 
 * [Jydsk Tagmaling Beregner](https://jydsktagmaling.dk/prisberegner/tagmaling-beregner/)
-
 * [Søften Tagrenovering](https://softentagrenovering.dk/tag-beregner/)
 
 ## Designheroes
 
-OpenCart, WordPress og Laravel. Sådan så hverdagen hos [Designheroes](https://designheroes.dk/) ud. 
+OpenCart, WordPress and Laravel. That's what I worked with at [Designheroes](https://designheroes.dk/).
 
 ### OpenCart
 
-Jeg arbejdede meget med backend udvikling og frontend fixes på Designheroes' OpenCart løsninger. Her drejede det bla. om at implementere forskellige POS (point-of-sale) systemer til at synkronisere med kundens hjemmeside.
+I worked a lot with backend development and frontend fixes on Designheroes' OpenCart solutions. In the OpenCart solutions, I worked implementing various POS (point-of-sale) systems to synchronize with the customer's website.
 
 Links
 
 * [Jagt og Lystfiskerhuset](https://jagtoglystfiskerhuset.dk/)
-
 * [The Hunting Shop](https://thehuntingshop.dk/)
 
 ### WordPress
 
-I WordPress afdelingen hjalp jeg vores kunder hos [Roskilde Håndbold](https://roskildehaandbold.dk) til nemt at kunne oprette nyheder for holdene, samt holdenes profil sider. Det gjorde jeg ved hjælp af CPT (Custom Post Types). På den måde, så vælger [Roskilde Håndbold](https://roskildehaandbold.dk) bare hvilken type de gerne vil oprette i WordPress admin menuen, udfylder de data vi har aftalt og så bliver de vist på hjemmesiden med det samme.
+In the WordPress department, I helped our customers at [Roskilde Håndbold](https://roskildehaandbold.dk) to easily create news for the teams, as well as the teams' profile pages. I did this using CPT (Custom Post Types). That way, [Roskilde Håndbold](https://roskildehaandbold.dk) just chooses which type they want to create in the WordPress admin menu, fills in the data we have agreed and then they are displayed on the website immediately.
 
-Vi har gjort det så nemt for dem, at de kun har skulle bruge vores hjælp 2 gange det seneste år.
+We have made it so easy for them that they have only had to use our help twice in the last year.
 
 Links
 
@@ -44,13 +42,13 @@ Links
 
 ### Laravel
 
-Det største projekt, [Petsbnb](https://petsbnb.dk), som er en platform for kæledyrsejere og passere er baseret på [Laravel](https://laravel.com). Udviklingen på platformen startede i slutningen af 2018, hvor jeg først kom ind og arbejdede på projektet i foråret 2019.
+The largest project, [Petsbnb](https://petsbnb.dk), which is a platform for pet owners and sitters is based on [Laravel](https://laravel.com). The development on the platform started at the end of 2018, and then I came in and started working on the project in the spring of 2019.
 
-På projektet har jeg haft mange opgaver. Jeg har bla. stået for deres [søge funktion](https://petsbnb.dk/search), som gør det nemt at finde en kæledyrspasser i dit nærområde.
+On the project I have had many assignments. Among other things, I created their [search function](https://petsbnb.dk/search), which makes it easy to find a pet sitter in your area.
 
-Derudover, så er det muligt for kæledyrspasserne at omdanne deres optjente penge på platformen til et gavekort hos bla. [Maxi Zoo](https://www.maxizoo.dk/). Her får kæledyrspasserne helt op til 20% ekstra værdi for pengene, fordi Petsbnb har et godt samarbejde med [Maxi Zoo](https://www.maxizoo.dk/).
+In addition, it is possible for sitters to turn their earned money on the platform into a gift card at  [Maxi Zoo](https://www.maxizoo.dk/). Here, the sitter gets up to 20% extra value for their money, because Petsbnb has a good collaboration with [Maxi Zoo](https://www.maxizoo.dk/).
 
-Alle kæledyrene er forsikret under pasning af Tryg Forsikring, så kæledyrsejerne kan være trygge, når deres kæledyr bliver passet.
+All pets are insured under the care of Tryg Forsikring, so that pet owners can feel safe when their pets are cared for.
 
 Links
 
@@ -58,12 +56,12 @@ Links
 
 ## Devant
 
-Devant IVS er en virksomhed som min kammerat og jeg oprettede tilbage i 2018. Jeg har primært brugt virksomheden mod slutningen af 2019, frem til slut forår 2020. 
+Devant IVS is a company that my buddy and I set up back in 2018. I have primarily used the company towards the end of 2019, until the end of spring 2020.
 
-Vores egen hjemmeside, [Devant](https://devant.dk), er lavet i Next.js med TailwindCSS. Ved kontaktformularen gjorde vi brug af [Vercel's](https://vercel.com/) serverless functions til at sende beskeder gennem et REST endpoint.
+Our own website, [Devant](https://devant.dk), is made in Next.js with TailwindCSS. For the contact form, we used [Vercel's](https://vercel.com/) serverless functions to send messages through a REST endpoint.
 
-I virksomheden har vi fælles haft 5 hjemmeside projekter, som næsten alle har bygget på WordPress. Vi gik med det sidste projekt, [Impotensklinikken](https://impotensklinikken.vercel.app), over til at bruge Nuxt.js. Det gjorde vi da Netlify CMS dækkede vores kundes behov for at kunne ændre i tekst mm.
+In the company, we have jointly had 5 website projects, almost all of which have been built on WordPress. We switched to using Nuxt.js. with the last project, [Impotensklinikken](https://impotensklinikken.vercel.app). We did this when Netlify CMS covered our customer's need to be able to change texts etc.
 
-Udover det, så har jeg hjulpet med at få [Gulvfix'](https://gulvfix.dk) hjemmeside fra en score på 30 til en score på 94 på [gtmetrix.com](https://gtmetrix.com). Resultatet af mine optimeringer gjorde at hjemmesiden gik fra en load tid på 3.5 sekunder til at loade på 1.5 sekunder, samt den bruger langt mindre data.
+Besides that, I have helped to get [Gulvfix '](https://gulvfix.dk) website from a score of 30 to a score of 94 on [gtmetrix.com](https://gtmetrix.com). The result of my optimizations made the website go from a load time of 3.5 seconds to a load of 1.5 seconds, as well as it uses much less data.
 
-Jeg har hjulpet [Mimer](https://www.letmimer.com/) med at blive klar til de nye Strong Customer Authentication (SCA) krav, som EU har stillet alle europæiske virksomheder, der modtager betalinger. Det har vi gjort ved hjælp af [Stripe](https://stripe.com)'s nye Checkout API.
+I have helped [Mimer](https://www.letmimer.com/) get ready for the new Strong Customer Authentication (SCA) requirements that the EU has set for all European companies receiving payments. We've done this using [Stripe]'s https://stripe.com)'s [new Checkout API](https://stripe.com/docs/payments/checkout).
