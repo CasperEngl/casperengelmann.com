@@ -1,6 +1,6 @@
 ---
 title: Hjem
-headline: Vue.js, React, TypeScript, PHP and Node.js
+headline: competences = ['Vue.js', 'React', 'TypeScript', 'PHP', 'Node.js']
 ---
 # Hey,
 
