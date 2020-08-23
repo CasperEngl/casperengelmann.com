@@ -1,13 +1,6 @@
 ---
 title: Hjem
-description: Test
 headline: Vue.js, React, TypeScript, PHP and Node.js
-top_section:
-  title: Test
-  description: Test
-  buttons:
-    - Test
-image: /img/briks-samtalerum-2.jpg
 ---
 # Hej
 

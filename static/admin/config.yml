@@ -11,21 +11,9 @@ collections:
     files:
       - label: Home Page
         name: home
-        file: content/home.yml
+        file: content/home.md
         fields:
-          - { label: Titel, name: title, widget: string }
-          - { label: Beskrivelse, name: description, widget: string }
-          - label: Top Sektion
-            name: top_section
-            widget: object
-            collapsed: false
-            fields: 
-              - { label: Titel, name: title, widget: string }
-              - { label: Beskrivelse, name: description, widget: string }
-              - { label: Knapper, name: buttons, widget: list, default: ["news"] }
-          - label: Billede
-            name: image
-            widget: file
+          - { label: Overskrift, name: headline, widget: string }
           - label: Body
             name: body
             widget: markdown
