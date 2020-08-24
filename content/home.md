@@ -7,6 +7,12 @@ skills:
   - ES6
   - Git
   - Laravel
+skill_variables: skills
+skill_prefixes:
+  - let ^1
+  - this.
+  - ^200$
+  - $this->
 ---
 # Hey,
 
