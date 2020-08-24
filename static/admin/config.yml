@@ -13,15 +13,24 @@ collections:
         name: home
         file: content/home.md
         fields:
-          - label: Headline
-            name: headline
+          - label: Skill Variable
+            name: skill_variable
             widget: string
+          - label: Skill Prefixes
+            name: skill_prefixes
+            widget: list
+            summary: '{{fields.prefix}}'
+            field: {
+              label: Prefix,
+              name: prefix,
+              widget: string,
+            }
           - label: Body
             name: body
             widget: markdown
   - label: Skills
     name: skills
-    summary: '{{fields.name}}'
+    summary: '{{fields.name}} {{fields.color}}'
     folder: 'content/skills'
     create: true
     identifier_field: name
@@ -39,3 +48,20 @@ collections:
         name: stroke
         widget: string
         required: false
+  - label: Socials
+    name: socials
+    summary: '{{fields.brand}}'
+    folder: 'content/socials'
+    create: true
+    identifier_field: brand
+    fields:
+      - label: Brand
+        name: brand
+        widget: string
+      - label: Url
+        name: url
+        widget: string
+        pattern: ['https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)', 'Must be a URL']
+      - label: Icon
+        name: icon
+        widget: file

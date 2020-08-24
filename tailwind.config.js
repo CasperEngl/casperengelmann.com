@@ -22,6 +22,7 @@ module.exports = {
   variants: {
     translate: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
     scale: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
+    textDecoration: ['responsive', 'hover', 'focus', 'group-hover'],
   },
   plugins: [],
   purge: {
