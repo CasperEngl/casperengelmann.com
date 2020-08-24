@@ -40,7 +40,7 @@
         </div>
         <div class="relative z-10 pt-16 pb-8 lg:pt-24 text-gray-900 min-h-64" style="background: linear-gradient(150deg, rgba(0,0,0,0) 0%, currentColor 40%);">
           <div class="container space-y-8 lg:space-y-16">
-            <h1 class="max-w-6xl text-4xl lg:text-6xl font-bold text-white space-x-4">
+            <h1 class="max-w-6xl text-4xl lg:text-6xl font-bold text-white space-x-4 cursor-default">
               <vue-typed-js
                 :strings="home.skill_prefixes"
                 :loop="true"
@@ -66,22 +66,24 @@
               </span>
               <span>]</span>
             </h1>
-            <div v-cloak class="flex flex-col items-center space-y-4">
-              <h2 class="text-gray-700 text-7xl font-bold">
-                Socials
-              </h2>
-              <div class="flex space-x-4">
-                <a
-                  v-for="social in socials"
-                  :key="social.brand"
-                  :href="social.url"
-                  target="blank"
-                  class="transform hover:-translate-y-1 hover:scale-105 origin-bottom transition duration-150"
-                >
-                  <img :src="social.icon" :alt="social.brand" class="w-16 text-white hover:text-gray-400 transition duration-150" onload="SVGInject(this)">
-                </a>
+            <client-only>
+              <div v-cloak class="flex flex-col items-center space-y-4">
+                <h2 class="text-gray-700 text-7xl font-bold">
+                  Socials
+                </h2>
+                <div class="flex space-x-4">
+                  <a
+                    v-for="social in socials"
+                    :key="social.brand"
+                    :href="social.url"
+                    target="blank"
+                    class="transform hover:-translate-y-1 hover:scale-105 origin-bottom transition duration-150"
+                  >
+                    <img :src="social.icon" :alt="social.brand" class="w-16 text-white hover:text-gray-400 transition duration-150" onload="SVGInject(this)">
+                  </a>
+                </div>
               </div>
-            </div>
+            </client-only>
           </div>
         </div>
       </div>
@@ -100,8 +102,6 @@ export default {
       $content('skills').sortBy('name').fetch(),
       $content('socials').sortBy('brand').fetch(),
     ])
-
-    console.log(home)
 
     return {
       home,
