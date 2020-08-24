@@ -3,6 +3,17 @@ title: Hjem
 headline: "{let ,$}competences = [ 'Vue.js', 'React', 'TypeScript', 'SCSS',
   'ES6+', 'Node.js', 'Nuxt.js', 'Next.js', 'Serverless', 'PHP', 'Laravel',
   'WordPress', 'SQL', 'Git' ]"
+skills:
+  - ES6
+  - Git
+  - Laravel
+skill_variables: skills
+skill_variable: skills
+skill_prefixes:
+  - let ^1
+  - this.
+  - ^200$
+  - $this->
 ---
 # Hey,
 
