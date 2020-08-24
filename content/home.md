@@ -3,6 +3,50 @@ title: Hjem
 headline: "{let ,$}competences = [ 'Vue.js', 'React', 'TypeScript', 'SCSS',
   'ES6+', 'Node.js', 'Nuxt.js', 'Next.js', 'Serverless', 'PHP', 'Laravel',
   'WordPress', 'SQL', 'Git' ]"
+skills:
+  - since: 2020-08-24T01:22:06.274Z
+    name: ES6
+    color: "#F8DC3C"
+  - since: 2020-08-24T01:22:15.733Z
+    name: Git
+    color: "#F64D29"
+  - since: 2020-08-24T01:23:32.597Z
+    name: Laravel
+    color: "#FF2D21"
+  - since: 2020-08-24T01:23:52.716Z
+    name: Next.js
+    color: "#000000"
+    stroke: "#FFFFFF"
+  - since: 2020-08-24T01:24:06.770Z
+    name: Node.js
+    color: "#6CC24A"
+  - since: 2020-08-24T01:24:19.100Z
+    name: Nuxt.js
+    color: "#00C68E"
+  - since: 2020-08-24T01:24:31.906Z
+    name: PHP
+    color: "#8892BE"
+  - since: 2020-08-24T01:24:43.890Z
+    name: React
+    color: "#00D8FF"
+  - since: 2020-08-24T01:24:52.938Z
+    name: SCSS
+    color: "#CF639A"
+  - since: 2020-08-24T01:25:05.505Z
+    name: SQL
+    color: "#E08C09"
+  - since: 2020-08-24T01:25:16.671Z
+    name: Serverless
+    color: "#FD5750"
+  - since: 2020-08-24T01:25:27.150Z
+    name: TypeScript
+    color: "#3178C6"
+  - since: 2020-08-24T01:25:42.100Z
+    name: Vue.js
+    color: "#42B883"
+  - since: 2020-08-24T01:25:52.892Z
+    name: WordPress
+    color: "#0073AA"
 ---
 # Hey,
 
