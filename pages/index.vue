@@ -40,7 +40,7 @@
         </div>
         <div class="relative z-10 pt-16 pb-8 lg:pt-24 text-gray-900 min-h-64" style="background: linear-gradient(150deg, rgba(0,0,0,0) 0%, currentColor 40%);">
           <div class="container space-y-8 lg:space-y-16">
-            <h1 class="max-w-6xl text-4xl lg:text-6xl font-bold text-white space-x-4 cursor-default">
+            <h1 class="-mx-4 max-w-6xl text-4xl lg:text-6xl font-bold text-white space-x-4 cursor-default">
               <vue-typed-js
                 :strings="home.skill_prefixes"
                 :loop="true"
@@ -48,6 +48,7 @@
                 :back-speed="75"
                 :type-speed="100"
                 :back-delay="5000"
+                class="ml-4"
               >
                 <span><span class="typing text-gray-500" />{{ home.skill_variable }} =<br></span>
               </vue-typed-js>
@@ -68,10 +69,10 @@
             </h1>
             <client-only>
               <div v-cloak class="flex flex-col items-center space-y-4">
-                <h2 class="text-gray-700 text-7xl font-bold">
+                <h2 class="text-gray-700 text-3xl lg:text-7xl font-bold">
                   Socials
                 </h2>
-                <div class="flex space-x-4">
+                <div class="flex space-x-6 lg:space-x-8">
                   <a
                     v-for="social in socials"
                     :key="social.brand"
@@ -79,7 +80,7 @@
                     target="blank"
                     class="transform hover:-translate-y-1 hover:scale-105 origin-bottom transition duration-150"
                   >
-                    <img :src="social.icon" :alt="social.brand" class="w-16 text-white hover:text-gray-400 transition duration-150" onload="SVGInject(this)">
+                    <img :src="social.icon" :alt="social.brand" class="w-12 lg:w-16 text-white hover:text-gray-400 transition duration-150" onload="SVGInject(this)">
                   </a>
                 </div>
               </div>
@@ -218,7 +219,6 @@ export default {
   head () {
     return {
       script: [
-        { src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' },
         { src: 'https://unpkg.com/@iconfu/svg-inject@1.2.3/dist/svg-inject.js' },
       ],
     }
