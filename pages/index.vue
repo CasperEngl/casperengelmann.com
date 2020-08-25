@@ -4,21 +4,21 @@
       <div class="overflow-hidden">
         <div class="relative z-20 flex space-x space-x-2">
           <div
-            class="w-4 h-4 rounded-full cursor-pointer"
+            class="w-3 h-3 rounded-full cursor-pointer"
             :style="{
               'background': 'var(--red)'
             }"
             @click="alert('It didn\'t work!. Sadly, modern browsers no longer lets us close the current tab.')"
           />
           <div
-            class="w-4 h-4 rounded-full cursor-pointer"
+            class="w-3 h-3 rounded-full cursor-pointer"
             :style="{
               'background': 'var(--yellow)'
             }"
             @click="alert('Much like closing the tab, minimizing the window doesn\'t work either. No fun!')"
           />
           <div
-            class="w-4 h-4 rounded-full cursor-pointer"
+            class="w-3 h-3 rounded-full cursor-pointer"
             :style="{
               'background': 'var(--green)'
             }"
