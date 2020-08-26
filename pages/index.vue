@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { codelines } from '~/util/codelines'
+import { codelines } from '~/utils/codelines'
 
 export default {
   async asyncData ({ $content }) {
