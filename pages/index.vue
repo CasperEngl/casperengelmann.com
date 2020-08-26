@@ -1,7 +1,7 @@
 <template>
   <main class="min-h-screen bg-gray-900 space-y-16 lg:space-y-32">
     <section class="relative p-8">
-      <div class="overflow-hidden">
+      <div class="relative overflow-hidden">
         <div class="relative z-20 flex space-x space-x-2">
           <div
             class="w-3 h-3 rounded-full cursor-pointer"
@@ -25,16 +25,16 @@
             @click="launchFullscreen"
           />
         </div>
-        <div class="absolute inset-0 z-0 py-24 px-8 space-y-8">
-          <div v-for="(codeLine, i) in codeLines" :key="i" class="relative overflow-hidden flex justify-start rounded-full w-full space-x-4">
+        <div class="absolute inset-0 z-0 py-24 space-y-6">
+          <div v-for="(codeline, i) in codelines" :key="i" class="relative overflow-hidden flex justify-start rounded-full w-full space-x-3">
             <div
-              v-for="(code, j) in codeLine"
+              v-for="(code, j) in codeline"
               :key="j"
               :style="{
                 background: `var(${code.color})`,
               }"
               :class="code.width"
-              class="h-4 rounded-full"
+              class="h-3 rounded-full"
             />
           </div>
         </div>
@@ -96,6 +96,8 @@
 </template>
 
 <script>
+import { codelines } from '~/util/codelines'
+
 export default {
   async asyncData ({ $content }) {
     const [home, skills, socials] = await Promise.all([
@@ -114,92 +116,7 @@ export default {
     home: null,
     skills: null,
     socials: null,
-    codeLines: [
-      [
-        {
-          width: 'w-4/12',
-          color: '--gray',
-        },
-        {
-          width: 'w-4/12',
-          color: '--blue',
-        },
-      ],
-      [
-        {
-          width: 'w-1/12',
-          color: '--red',
-        },
-        {
-          width: 'w-4/12',
-          color: '--purple',
-        },
-        {
-          width: 'w-3/12',
-          color: '--yellow',
-        },
-        {
-          width: 'w-2/12',
-          color: '--green',
-        },
-      ],
-      [
-        {
-          width: 'w-3/12',
-          color: '--blue',
-        },
-        {
-          width: 'w-2/12',
-          color: '--green',
-        },
-        {
-          width: 'w-7/12',
-          color: '--gray',
-        },
-      ],
-      [
-        {
-          width: 'w-5/12',
-          color: '--yellow',
-        },
-        {
-          width: 'w-6/12',
-          color: '--red',
-        },
-        {
-          width: 'w-7/12',
-          color: '--indigo',
-        },
-      ],
-      [
-        {
-          width: 'w-8/12',
-          color: '--slate',
-        },
-        {
-          width: 'w-1/12',
-          color: '--light',
-        },
-        {
-          width: 'w-2/12',
-          color: '--yellow',
-        },
-      ],
-      [
-        {
-          width: 'w-3/12',
-          color: '--green',
-        },
-        {
-          width: 'w-7/12',
-          color: '--red',
-        },
-        {
-          width: 'w-4/12',
-          color: '--gray',
-        },
-      ],
-    ],
+    codelines,
   }),
   methods: {
     alert (message) {
