@@ -60,7 +60,10 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt/content
     '@nuxt/content',
+    // Doc: https://github.com/nuxt-community/dayjs-module
     '@nuxtjs/dayjs',
+    // Doc: https://github.com/nuxt-community/svg-module
+    '@nuxtjs/svg',
   ],
   /*
   ** Axios module configuration
