@@ -26,7 +26,7 @@
           />
         </div>
         <div class="absolute inset-0 z-0 py-24 space-y-6">
-          <div v-for="(codeline, i) in codelines" :key="i" class="relative overflow-hidden flex justify-start rounded-full w-full space-x-3">
+          <div v-for="(codeline, i) in $options.codelines" :key="i" class="relative overflow-hidden flex justify-start rounded-full w-full space-x-3">
             <div
               v-for="(code, j) in codeline"
               :key="j"
@@ -99,6 +99,7 @@
 import { codelines } from '~/utils/codelines'
 
 export default {
+  codelines,
   async asyncData ({ $content }) {
     const [home, skills, socials] = await Promise.all([
       $content('home').fetch(),
@@ -116,7 +117,6 @@ export default {
     home: null,
     skills: null,
     socials: null,
-    codelines,
   }),
   methods: {
     alert (message) {
@@ -136,7 +136,8 @@ export default {
   head () {
     return {
       script: [
-        { src: 'https://unpkg.com/@iconfu/svg-inject@1.2.3/dist/svg-inject.js' },
+        { src: 'https://cdn.jsdelivr.net/npm/@iconfu/svg-inject@1.2.3/dist/svg-inject.min.js' },
+        { src: 'https://cdn.jsdelivr.net/npm/@casperengl/try-catch@1.7.0/lib/index.js' },
       ],
     }
   },
