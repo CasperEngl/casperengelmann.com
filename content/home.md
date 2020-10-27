@@ -19,7 +19,7 @@ skill_prefixes:
 
 My name is Casper Engelmann. I work with frontend frameworks such as Vue and React. On the backend I like to utilize PHP and Node.js.
 
-In my spare time, I like to watching TV shows and movies. About once a month I also race in gokarts with a gokart club I'm part of.
+In my spare time, I like to watch TV shows and movies. If you haven't, go watch Outlander! About once a month I also race in gokarts, as I'm a member of a gokart club.
 
 ## Web-Koncept
 
@@ -77,4 +77,4 @@ In the company, we have jointly had 5 website projects, almost all of which have
 
 Besides that, I have helped to get [Gulvfix '](https://gulvfix.dk) website from a score of 30 to a score of 94 on [gtmetrix.com](https://gtmetrix.com). The result of my optimizations made the website go from a load time of 3.5 seconds to a load of 1.5 seconds, as well as it uses much less data.
 
-I have helped [Mimer](https://www.letmimer.com/) get ready for the new Strong Customer Authentication (SCA) requirements that the EU has set for all European companies receiving payments. We've done this using [Stripe]'s https://stripe.com)'s [new Checkout API](https://stripe.com/docs/payments/checkout).
+I have helped [Mimer](https://www.letmimer.com/) get ready for the new Strong Customer Authentication (SCA) requirements that the EU has set for all European companies receiving payments. We've done this using \[Stripe]'s https://stripe.com)'s [new Checkout API](https://stripe.com/docs/payments/checkout).
