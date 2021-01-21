@@ -247,4 +247,4 @@ export const codelines = [
       color: '--gray',
     },
   ],
-]
+];

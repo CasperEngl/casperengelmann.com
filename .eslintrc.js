@@ -10,13 +10,16 @@ module.exports = {
   extends: [
     '@nuxtjs',
     'plugin:nuxt/recommended',
+    'plugin:vue/recommended',
+    'plugin:vue/vue3-essential',
+    'eslint:recommended',
+    '@vue/prettier',
   ],
-  plugins: [
-  ],
+  plugins: [],
   // add your custom rules here
   rules: {
-    'comma-dangle': [2, 'always-multiline'],
+    /* 'comma-dangle': [2, 'always-multiline'],
     'vue/no-v-html': 0,
-    'no-extend-native': 0,
+    'no-extend-native': 0, */
   },
-}
+};
