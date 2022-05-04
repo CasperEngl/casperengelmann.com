@@ -1,13 +1,75 @@
 ---
+import {frontmatter as home, Content} from '~/home.md'
+import Layout from '~/components/layout.astro'
 
+const timeline = await Astro.glob('../timeline/*.md')
+
+const dateFormat = new Intl.DateTimeFormat('en', {
+  year: 'numeric',
+  month: '2-digit',
+})
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+
+  if (date.getTime() - Date.now() > 0) {
+    return 'Present'
+  }
+
+  return dateFormat.format(date)
+}
+
+const sortDates = (a: string, b: string) => {
+  const aDate = new Date(a)
+  const bDate = new Date(b)
+
+  return aDate.getTime() - bDate.getTime()
+}
+
+const isPast = (dateString: string) => {
+  const date = new Date(dateString)
+
+  return date.getTime() - Date.now() < 0
+}
 ---
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+
+<Layout>
+  <main class="max-w-[65ch]">
+    <h1>{home.title}</h1>
+
+    <div class="mt-3">
+      <div class="dark:text-gray-200">
+        <Content />
+      </div>
+
+      <ul class="mt-6 space-y-3 dark:text-gray-200">
+        {timeline
+          // Sort by date, oldest last
+          .sort((a, b) => sortDates(b.frontmatter.start, a.frontmatter.start))
+          .map(({ frontmatter }) => (
+            <li class="flex flex-col">
+              {frontmatter.end ? (
+                <span>{formatDate(frontmatter.start)} through {formatDate(frontmatter.end)}</span>
+              ) : (
+                <span>{formatDate(frontmatter.start)} to date</span>
+              )}
+              <span>{frontmatter.role} @ {frontmatter.company}</span>
+              {frontmatter.link ? (
+                <a
+                  href={frontmatter.link}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  class="text-blue-600 dark:text-blue-200 underline"
+                  title={frontmatter.link_title}
+                >
+                  visit them {'/^'}
+                </a>
+              ) : (
+                <span>404 website not found</span>
+              )}
+            </li>
+          ))}
+      </ul>
+    </div>
+  </main>
+</Layout>
