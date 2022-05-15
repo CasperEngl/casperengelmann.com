@@ -55,7 +55,7 @@ const obfuscate = (string: string) => {
           // Sort by date, oldest last
           .sort((a, b) => sortDates(b.frontmatter.start, a.frontmatter.start))
           .map(({ frontmatter }) => (
-            <li class="flex flex-col">
+            <li class="flex flex-col items-start">
               {frontmatter.end ? (
                 <span>{formatDate(frontmatter.start)} through {formatDate(frontmatter.end)}</span>
               ) : (
@@ -80,5 +80,5 @@ const obfuscate = (string: string) => {
     </div>
   </main>
 
-  <footer class="mt-6" set:html={obfuscate(home.email)}></footer>
+  <footer class="mt-6 inline-block" set:html={obfuscate(home.email)} tabindex={0}></footer>
 </Layout>
