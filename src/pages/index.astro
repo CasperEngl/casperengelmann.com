@@ -4,11 +4,6 @@ import Layout from '~/components/layout.astro'
 
 const timeline = await Astro.glob('../timeline/*.md')
 
-const dateFormat = new Intl.DateTimeFormat('en', {
-  year: 'numeric',
-  month: '2-digit',
-})
-
 const formatDate = (dateString: string) => {
   const date = new Date(dateString)
 
@@ -16,7 +11,7 @@ const formatDate = (dateString: string) => {
     return 'Present'
   }
 
-  return dateFormat.format(date)
+  return date.getFullYear()
 }
 
 const sortDates = (a: string, b: string) => {
