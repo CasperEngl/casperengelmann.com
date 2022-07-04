@@ -27,4 +27,4 @@ jobs:
         with:
           project: casperengelmann
           entrypoint: entry.mjs
-          root: dist/serverr
+          root: dist/server
