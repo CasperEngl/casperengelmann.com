@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@astrojs/deno": "^0.1.8",
+    "@astrojs/partytown": "^0.1.6",
     "@astrojs/react": "^0.1.1",
     "@astrojs/tailwind": "^0.2.1",
     "@sanity/client": "^3.3.2",

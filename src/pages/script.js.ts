@@ -1,7 +1,5 @@
 export async function get() {
-  const text = await fetch(
-    'https://instinctive-gorgeous.casperengelmann.com/script.js'
-  ).then((r) => r.text())
+  const text = `console.log('Hello from API', ${Date.now()});`
 
   return new Response(text, {
     status: 200,
