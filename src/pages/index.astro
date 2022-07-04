@@ -38,9 +38,12 @@ const obfuscate = (string: string) => {
 const timeline = (await Astro.glob('../timeline/*.md'))
   // Sort by date, oldest last
   .sort((a, b) => sortDates(b.frontmatter.start, a.frontmatter.start))
+
+const now = Math.round(Date.now() / 1000)
 ---
 
 <Layout>
+  {now}
   <main class="max-w-prose">
     <h1>{home.title}</h1>
 
