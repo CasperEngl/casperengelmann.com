@@ -2,10 +2,6 @@
 import { frontmatter as home, Content } from '~/home.md'
 import Layout from '~/components/layout.astro'
 
-const timeline = (await Astro.glob('../timeline/*.md'))
-  // Sort by date, oldest last
-  .sort((a, b) => sortDates(b.frontmatter.start, a.frontmatter.start))
-
 const formatDate = (dateString: string) => {
   const date = new Date(dateString)
 
@@ -38,6 +34,10 @@ const obfuscate = (string: string) => {
 
   return obfuscatedLetters.join(';')
 }
+
+const timeline = (await Astro.glob('../timeline/*.md'))
+  // Sort by date, oldest last
+  .sort((a, b) => sortDates(b.frontmatter.start, a.frontmatter.start))
 ---
 
 <Layout>
