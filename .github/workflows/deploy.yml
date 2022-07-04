@@ -26,5 +26,4 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: casperengelmann
-          entrypoint: entry.mjs
-          root: dist/server
+          entrypoint: dist/server/entry.mjs
