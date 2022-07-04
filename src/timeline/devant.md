@@ -1,6 +1,6 @@
 ---
 company: Devant
 role: Self-employed
-start: 2019-11
-end: 2020-05
+startDate: 2019-11
+endDate: 2020-05
 ---

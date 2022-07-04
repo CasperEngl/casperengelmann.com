@@ -35,6 +35,26 @@ const obfuscate = (string: string) => {
   return obfuscatedLetters.join(';')
 }
 
+type Job = {
+  endDate: string
+  startDate: string
+  role: string
+  company: string
+  link: string
+  linkTitle: string
+}
+
+// const t = await client.fetch<Job[]>(`*[_type == 'job'] | order(startDate) {
+//   endDate,
+//   startDate,
+//   role,
+//   company,
+//   link,
+//   linkTitle
+// }`)
+
+// console.log(t)
+
 const timeline = (await Astro.glob('../timeline/*.md'))
   // Sort by date, oldest last
   .sort((a, b) => sortDates(b.frontmatter.start, a.frontmatter.start))
@@ -52,20 +72,20 @@ const now = Math.round(Date.now() / 1000)
 
       <ul class="mt-6 space-y-3 dark:text-gray-200">
         {timeline
-          .map(({ frontmatter }) => (
+          .map(({ frontmatter: { endDate, startDate, role, company, link, linkTitle } }) => (
             <li class="flex flex-col items-start">
-              {frontmatter.end ? (
-                <span>{formatDate(frontmatter.start)} through {formatDate(frontmatter.end)}</span>
+              {endDate ? (
+                <span>{formatDate(startDate)} through {formatDate(endDate)}</span>
               ) : (
-                <span>{formatDate(frontmatter.start)} to date</span>
+                <span>{formatDate(startDate)} to date</span>
               )}
-              <span>{frontmatter.role} @ {frontmatter.company}</span>
-              {frontmatter.link ? (
+              <span>{role} @ {company}</span>
+              {link ? (
                 <a
-                  href={frontmatter.link}
+                  href={link}
                   rel="noopener noreferrer"
                   target="_blank"
-                  title={frontmatter.link_title}
+                  title={linkTitle}
                 >
                   visit them {'/^'}
                 </a>
