@@ -2,18 +2,13 @@
 let { title } = Astro.props
 ---
 
-<html lang="en" class="h-full">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title || 'Casper Engelmann'}</title>
   </head>
-  <body class="h-full dark:bg-black dark:text-white m-4">
+  <body class="dark:bg-black dark:text-white p-4">
     <slot />
-
-    <!-- Fathom - beautiful, simple website analytics -->
-    <script src="/script.js" data-site="QPAXEQAR" type="text/partytown">
-    </script>
-    <!-- / Fathom -->
   </body>
 </html>
