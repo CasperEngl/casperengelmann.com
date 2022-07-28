@@ -1,12 +1,13 @@
-import { defineConfig } from 'astro/config';
-import adapter from '@astrojs/deno';
-import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
+import { defineConfig } from 'astro/config'
+import adapter from '@astrojs/deno'
+import react from '@astrojs/react'
+import tailwind from '@astrojs/tailwind'
 
-import partytown from "@astrojs/partytown";
+import partytown from '@astrojs/partytown'
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
   adapter: adapter(),
-  integrations: [react(), tailwind(), partytown()]
-});
+  integrations: [react(), tailwind(), partytown()],
+})

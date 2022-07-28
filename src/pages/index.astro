@@ -45,20 +45,20 @@ const sortedTimeline = timeline.sort((a, b) => {
                   <span>{formatDate(startDate)} to date</span>
                 )}
                 <span>
-                  {role} @ {company}
+                  {role} @{' '}
+                  {link ? (
+                    <a
+                      href={link}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      title={linkTitle}
+                    >
+                      {company}
+                    </a>
+                  ) : (
+                    company
+                  )}
                 </span>
-                {link ? (
-                  <a
-                    href={link}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    title={linkTitle}
-                  >
-                    visit them {'/^'}
-                  </a>
-                ) : (
-                  <span>404 website not found</span>
-                )}
               </div>
             </li>
           )
