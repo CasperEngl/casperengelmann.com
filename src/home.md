@@ -5,16 +5,18 @@ email: me@casperengelmann.com
 
 I'm a frontend developer. Based in Denmark.
 
-### Current tech stack highlights
+### Most used technologies
 
-- [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/)
 - [Stitches](https://stitches.dev/)
 - [Radix UI](https://www.radix-ui.com/)
 - [Turborepo](https://turborepo.org/)
+- [Vite](https://vitejs.dev/)
 
 ### My focus areas
 
-- Accessibility
+- Accessibility and user experience
 - Web fundamentals
+- Type-safe applications
 - [Building for the future](https://frontendmastery.com/posts/building-future-facing-frontend-architectures/)
