@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     // Enable top-level await, and other modern ESM features.
     "target": "ESNext",
     "module": "ESNext",
