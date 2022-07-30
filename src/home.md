@@ -5,8 +5,6 @@ email: me@casperengelmann.com
 
 I'm a frontend developer. Based in Denmark.
 
-Testing 123.
-
 ### Most used technologies
 
 - [TypeScript](https://www.typescriptlang.org/)
