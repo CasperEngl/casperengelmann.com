@@ -75,15 +75,35 @@ let { title } = Astro.props
 			// Show email helper message when email is selected
 
 			let timeout = null
+			let copyCount = 0
 
 			function messageCopied() {
+				let timeoutMs = 1500
 				clearTimeout(timeout)
 
-				emailHelper.textContent = 'Email copied! 🎉'
+				copyCount++
+
+				if (copyCount > 15) {
+					emailHelper.textContent = '😉'
+
+					timeoutMs = 3000
+				} else if (copyCount > 10) {
+					emailHelper.textContent = `That's gotta be enough copies...`
+
+					timeoutMs = 4000
+				} else if (emailHelper.textContent.includes('copied')) {
+					emailHelper.textContent += '🎉'
+
+					timeoutMs = 500
+				} else {
+					emailHelper.textContent = 'Email copied! 🎉'
+				}
 
 				timeout = setTimeout(() => {
 					emailHelper.textContent = getEmailHelperText()
-				}, 1500)
+
+					copyCount = 0
+				}, timeoutMs)
 			}
 
 			email.addEventListener('focus', () => {
