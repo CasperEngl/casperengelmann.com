@@ -79,6 +79,7 @@ let { title } = Astro.props
 
 			function messageCopied() {
 				let timeoutMs = 1500
+
 				clearTimeout(timeout)
 
 				copyCount++
@@ -88,6 +89,10 @@ let { title } = Astro.props
 
 					timeoutMs = 3000
 				} else if (copyCount > 10) {
+					emailHelper.textContent = `You still haven't had enough?`
+
+					timeoutMs = 4000
+				} else if (copyCount > 7) {
 					emailHelper.textContent = `That's gotta be enough copies...`
 
 					timeoutMs = 4000
