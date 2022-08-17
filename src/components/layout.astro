@@ -99,7 +99,7 @@ let { title } = Astro.props
 				} else if (emailHelper.textContent.includes('copied')) {
 					emailHelper.textContent += '🎉'
 
-					timeoutMs = 500
+					timeoutMs = 1000
 				} else {
 					emailHelper.textContent = 'Email copied! 🎉'
 				}
