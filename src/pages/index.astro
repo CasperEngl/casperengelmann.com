@@ -1,76 +1,68 @@
 ---
-import * as home from '~/home.md'
 import Layout from '~/components/layout.astro'
-import { obfuscate } from '~/utils/obfuscate'
+import * as home from '~/home.md'
 import { sortDates } from '~/utils/sort-dates'
 
 const formatDate = (dateString: string) => {
-  const date = new Date(dateString)
+	const date = new Date(dateString)
 
-  if (date.getTime() - Date.now() > 0) {
-    return 'Present'
-  }
+	if (date.getTime() - Date.now() > 0) {
+		return 'Present'
+	}
 
-  return date.getFullYear()
+	return date.getFullYear()
 }
 
 const timeline = await Astro.glob('../timeline/*.md')
 // sort timeline with most recent first
 const sortedTimeline = timeline.sort((a, b) => {
-  return sortDates(b.frontmatter.startDate, a.frontmatter.startDate)
+	return sortDates(b.frontmatter.startDate, a.frontmatter.startDate)
 })
 ---
 
 <Layout>
-  <main class="max-w-prose">
-    <div class="mt-3 prose dark:prose-invert">
-      <h1 class="text-2xl">{home.frontmatter.title}</h1>
+	<main class="max-w-prose">
+		<div class="mt-3 prose dark:prose-invert">
+			<h1 class="text-2xl">{home.frontmatter.title}</h1>
 
-      <home.Content />
+			<home.Content />
 
-      <h3>Experience</h3>
+			<h3>Experience</h3>
 
-      <ul class="mt-6 space-y-3 dark:text-gray-200">
-        {sortedTimeline.map(
-          ({
-            frontmatter: { endDate, startDate, role, company, link, linkTitle },
-          }) => (
-            <li>
-              <div class="flex flex-col items-start">
-                {endDate ? (
-                  <span>
-                    {formatDate(startDate)} &mdash; {formatDate(endDate)}
-                  </span>
-                ) : (
-                  <span>{formatDate(startDate)} to date</span>
-                )}
-                <span>
-                  {role} @{' '}
-                  {link ? (
-                    <a
-                      href={link}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      title={linkTitle}
-                    >
-                      {company}
-                    </a>
-                  ) : (
-                    company
-                  )}
-                </span>
-              </div>
-            </li>
-          )
-        )}
-      </ul>
-    </div>
-  </main>
-
-  <footer
-    class="mt-6 inline-block"
-    set:html={obfuscate(home.frontmatter.email)}
-    tabindex={0}
-  >
-  </footer>
+			<ul class="mt-6 space-y-3 dark:text-gray-200">
+				{sortedTimeline.map(
+					({
+						frontmatter: { endDate, startDate, role, company, link, linkTitle },
+					}) => (
+						<li>
+							<div class="flex flex-col items-start">
+								{endDate ? (
+									<span>
+										{formatDate(startDate)} &mdash; {formatDate(endDate)}
+									</span>
+								) : (
+									<span>{formatDate(startDate)} to date</span>
+								)}
+								<span>
+									{role} @{' '}
+									{link ? (
+										<a
+											href={link}
+											rel="noopener noreferrer"
+											target="_blank"
+											title={linkTitle}
+										>
+											{company}
+										</a>
+									) : (
+										company
+									)}
+								</span>
+							</div>
+						</li>
+					)
+				)}
+			</ul>
+		</div>
+	</main>
 </Layout>

@@ -1,14 +1,89 @@
 ---
+import * as home from '~/home.md'
+import { obfuscate } from '~/utils/obfuscate'
+
 let { title } = Astro.props
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title || 'Casper Engelmann'}</title>
-  </head>
-  <body class="dark:bg-black dark:text-white m-8">
-    <slot />
-  </body>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title || 'Casper Engelmann'}</title>
+	</head>
+	<body class="dark:bg-black dark:text-white m-8">
+		<slot />
+
+		<footer class="mt-6">
+			<div class="relative inline-flex gap-2">
+				<p
+					class="js-email-select inline-block"
+					tabindex={0}
+					set:html={obfuscate(home.frontmatter.email)}
+					onfocus="window.getSelection().selectAllChildren(this)"
+					onblur="window.getSelection().empty()"
+				>
+				</p>
+
+				<p
+					class="js-email-select-helper hidden text-xs w-36 absolute bottom-0 -right-2 translate-x-full text-gray-500"
+				>
+					Email selected and ready to copy, just Super + C
+				</p>
+			</div>
+
+			<p class="text-gray-500 text-xs mt-1">
+				(sorry but you'll have to copy this yourself, to protect me from
+				spammers)
+			</p>
+		</footer>
+
+		<script is:inline>
+			function usesCommandKey() {
+				return (
+					navigator.platform.includes('Mac') ||
+					navigator.platform.includes('iPhone') ||
+					navigator.platform.includes('iPad') ||
+					navigator.platform.includes('iPod')
+				)
+			}
+
+			function usesControlKey() {
+				return (
+					navigator.platform.includes('Win') ||
+					navigator.platform.includes('Linux')
+				)
+			}
+
+			function getSuperKey() {
+				if (usesCommandKey()) {
+					return '⌘'
+				} else if (usesControlKey()) {
+					return '^'
+				}
+
+				return 'Super'
+			}
+
+			const email = document.querySelector('.js-email-select')
+			const emailHelper = document.querySelector('.js-email-select-helper')
+
+			emailHelper.textContent = emailHelper.textContent.replace(
+				'Super',
+				getSuperKey()
+			)
+
+			email.addEventListener('focus', () => {
+				window.getSelection().selectAllChildren(email)
+
+				emailHelper.classList.remove('hidden')
+			})
+
+			email.addEventListener('blur', () => {
+				window.getSelection().empty()
+
+				emailHelper.classList.add('hidden')
+			})
+		</script>
+	</body>
 </html>
