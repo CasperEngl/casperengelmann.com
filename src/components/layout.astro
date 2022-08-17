@@ -20,21 +20,21 @@ let { title } = Astro.props
 					class="js-email-select inline-block"
 					tabindex={0}
 					set:html={obfuscate(home.frontmatter.email)}
-					onfocus="window.getSelection().selectAllChildren(this)"
-					onblur="window.getSelection().empty()"
 				>
 				</p>
 
 				<p
 					class="js-email-select-helper hidden text-xs w-36 absolute bottom-0 -right-2 translate-x-full text-gray-500"
 				>
-					Email selected and ready to copy, just Super + C
 				</p>
 			</div>
 
-			<p class="text-gray-500 text-xs mt-1">
-				(sorry but you'll have to copy this yourself, to protect me from
-				spammers)
+			<p
+				class="js-sorry text-gray-500 text-xs mt-1 w-96 cursor-zoom-in select-none"
+			>
+				Sorry but you'll have to copy this yourself, to protect me from
+				spammers. If you have JavaScript enabled, clicking the email will select
+				it for you.
 			</p>
 		</footer>
 
@@ -59,7 +59,7 @@ let { title } = Astro.props
 				if (usesCommandKey()) {
 					return '⌘'
 				} else if (usesControlKey()) {
-					return '^'
+					return 'ctrl'
 				}
 
 				return 'Super'
@@ -68,21 +68,60 @@ let { title } = Astro.props
 			const email = document.querySelector('.js-email-select')
 			const emailHelper = document.querySelector('.js-email-select-helper')
 
-			emailHelper.textContent = emailHelper.textContent.replace(
-				'Super',
-				getSuperKey()
-			)
+			function getEmailHelperText() {
+				return `Email selected and ready to copy, just press ${getSuperKey()} + C`
+			}
+
+			// Show email helper message when email is selected
+
+			let timeout = null
+
+			function messageCopied() {
+				clearTimeout(timeout)
+
+				emailHelper.textContent = 'Email copied! 🎉'
+
+				timeout = setTimeout(() => {
+					emailHelper.textContent = getEmailHelperText()
+				}, 1500)
+			}
 
 			email.addEventListener('focus', () => {
 				window.getSelection().selectAllChildren(email)
 
 				emailHelper.classList.remove('hidden')
+				emailHelper.textContent = getEmailHelperText()
+
+				email.addEventListener('copy', messageCopied)
 			})
 
 			email.addEventListener('blur', () => {
 				window.getSelection().empty()
 
 				emailHelper.classList.add('hidden')
+				emailHelper.textContent = ''
+
+				email.removeEventListener('copy', messageCopied)
+			})
+
+			// Allow user to make the sorry text larger.
+
+			const sorry = document.querySelector('.js-sorry')
+
+			sorry.addEventListener('click', () => {
+				if (sorry.classList.contains('cursor-zoom-in')) {
+					sorry.classList.remove('cursor-zoom-in')
+					sorry.classList.add('cursor-zoom-out')
+
+					sorry.classList.add('text-base')
+					sorry.classList.remove('text-xs')
+				} else if (sorry.classList.contains('cursor-zoom-out')) {
+					sorry.classList.remove('cursor-zoom-out')
+					sorry.classList.add('cursor-zoom-in')
+
+					sorry.classList.remove('text-base')
+					sorry.classList.add('text-xs')
+				}
 			})
 		</script>
 	</body>
