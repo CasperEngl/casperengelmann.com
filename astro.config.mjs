@@ -8,4 +8,9 @@ export default defineConfig({
 	output: 'server',
 	adapter: adapter(),
 	integrations: [react(), tailwind()],
+	vite: {
+		ssr: {
+			external: ['svgo'],
+		},
+	},
 })
