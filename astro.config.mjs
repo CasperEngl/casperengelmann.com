@@ -1,5 +1,6 @@
 import adapter from '@astrojs/deno'
 import react from '@astrojs/react'
+import solid from '@astrojs/solid-js'
 import tailwind from '@astrojs/tailwind'
 import { defineConfig } from 'astro/config'
 
@@ -7,5 +8,5 @@ import { defineConfig } from 'astro/config'
 export default defineConfig({
 	output: 'server',
 	adapter: adapter(),
-	integrations: [react(), tailwind()],
+	integrations: [react(), tailwind(), solid()],
 })

@@ -1,15 +1,15 @@
 export function obfuscate(string: string) {
-  let obfuscatedLetters = []
+	const obfuscatedLetters = []
 
-  for (const letter of string.split('')) {
-    let charCode = letter.charCodeAt(0)
+	for (const letter of string.split('')) {
+		const charCode = letter.charCodeAt(0)
 
-    if (charCode > 128) {
-      obfuscatedLetters.push(letter)
-    } else {
-      obfuscatedLetters.push('&#'.concat(charCode.toString()))
-    }
-  }
+		if (charCode > 128) {
+			obfuscatedLetters.push(letter)
+		} else {
+			obfuscatedLetters.push('&#'.concat(charCode.toString()))
+		}
+	}
 
-  return obfuscatedLetters.join(';')
+	return obfuscatedLetters.join(';')
 }

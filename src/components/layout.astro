@@ -1,4 +1,5 @@
 ---
+import { CopyEmail } from './CopyEmail'
 import * as home from '~/home.md'
 import { obfuscate } from '~/utils/obfuscate'
 
@@ -15,19 +16,7 @@ let { title } = Astro.props
 		<slot />
 
 		<footer class="mt-6">
-			<div class="relative inline-flex flex-wrap gap-2">
-				<p
-					class="js-email-select inline-block"
-					tabindex={0}
-					set:html={obfuscate(home.frontmatter.email)}
-				>
-				</p>
-
-				<p
-					class="js-email-select-helper hidden text-xs max-w-[9rem] absolute bottom-0 -right-2 translate-x-full text-gray-500"
-				>
-				</p>
-			</div>
+			<CopyEmail client:idle email={home.frontmatter.email} />
 
 			<p
 				class="js-sorry text-gray-500 text-xs mt-1 max-w-sm cursor-zoom-in select-none"
@@ -39,98 +28,7 @@ let { title } = Astro.props
 		</footer>
 
 		<script is:inline>
-			function usesCommandKey() {
-				return (
-					navigator.platform.includes('Mac') ||
-					navigator.platform.includes('iPhone') ||
-					navigator.platform.includes('iPad') ||
-					navigator.platform.includes('iPod')
-				)
-			}
-
-			function usesControlKey() {
-				return (
-					navigator.platform.includes('Win') ||
-					navigator.platform.includes('Linux')
-				)
-			}
-
-			function getSuperKey() {
-				if (usesCommandKey()) {
-					return '⌘'
-				} else if (usesControlKey()) {
-					return 'ctrl'
-				}
-
-				return 'Super'
-			}
-
-			const email = document.querySelector('.js-email-select')
-			const emailHelper = document.querySelector('.js-email-select-helper')
-
-			function getEmailHelperText() {
-				return `Email selected and ready to copy, just press ${getSuperKey()} + C`
-			}
-
-			// Show email helper message when email is selected
-
-			let timeout = null
-			let copyCount = 0
-
-			function messageCopied() {
-				let timeoutMs = 1500
-
-				clearTimeout(timeout)
-
-				copyCount++
-
-				if (copyCount > 15) {
-					emailHelper.textContent = '😉'
-
-					timeoutMs = 3000
-				} else if (copyCount > 10) {
-					emailHelper.textContent = `You still haven't had enough?`
-
-					timeoutMs = 4000
-				} else if (copyCount > 7) {
-					emailHelper.textContent = `That's gotta be enough copies...`
-
-					timeoutMs = 4000
-				} else if (emailHelper.textContent.includes('copied')) {
-					emailHelper.textContent += '🎉'
-
-					timeoutMs = 1000
-				} else {
-					emailHelper.textContent = 'Email copied! 🎉'
-				}
-
-				timeout = setTimeout(() => {
-					emailHelper.textContent = getEmailHelperText()
-
-					copyCount = 0
-				}, timeoutMs)
-			}
-
-			email.addEventListener('focus', () => {
-				window.getSelection().selectAllChildren(email)
-
-				emailHelper.classList.remove('hidden')
-				emailHelper.textContent = getEmailHelperText()
-
-				email.addEventListener('copy', messageCopied)
-			})
-
-			email.addEventListener('blur', () => {
-				window.getSelection().empty()
-
-				emailHelper.classList.add('hidden')
-				emailHelper.textContent = ''
-
-				email.removeEventListener('copy', messageCopied)
-			})
-
 			// Allow user to make the sorry text larger.
-
 			const sorry = document.querySelector('.js-sorry')
 
 			sorry.addEventListener('click', () => {
@@ -138,8 +36,8 @@ let { title } = Astro.props
 					sorry.classList.remove('cursor-zoom-in')
 					sorry.classList.add('cursor-zoom-out')
 
-					sorry.classList.add('text-base')
 					sorry.classList.remove('text-xs')
+					sorry.classList.add('text-base')
 				} else if (sorry.classList.contains('cursor-zoom-out')) {
 					sorry.classList.remove('cursor-zoom-out')
 					sorry.classList.add('cursor-zoom-in')
