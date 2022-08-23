@@ -1,7 +1,7 @@
 import { createSignal, Show } from 'solid-js'
 import { getSuperKey } from '~/utils/get-super-key'
 
-type Props = {
+type Properties = {
 	email: string
 }
 
@@ -10,7 +10,7 @@ const helperText = `Email selected and ready to copy, just press ${getSuperKey()
 let emailRef: HTMLParagraphElement
 let timeout: number | undefined
 
-export const CopyEmail = ({ email }: Props) => {
+export const CopyEmail = ({ email }: Properties) => {
 	const [message, setMessage] = createSignal('')
 	const [copyCount, setCopyCount] = createSignal(0)
 
@@ -18,14 +18,16 @@ export const CopyEmail = ({ email }: Props) => {
 		clearTimeout(timeout)
 		let timeoutMs = 0
 
-		setMessage((msg) => msg.replace(/x/, '').replace(/\d+/, '').trim())
+		setMessage((message_) =>
+			message_.replace(/x/, '').replace(/\d+/, '').trim()
+		)
 
 		if (copyCount() > 30) {
-			setMessage((msg) => msg + '😉'.repeat(copyCount()))
+			setMessage((message_) => message_ + '😉'.repeat(copyCount()))
 
 			timeoutMs = 2500
 		} else if (copyCount() > 20) {
-			setMessage((msg) => msg + '😉')
+			setMessage((message_) => message_ + '😉')
 
 			timeoutMs = 2500
 		} else if (copyCount() > 15) {
@@ -41,7 +43,7 @@ export const CopyEmail = ({ email }: Props) => {
 
 			timeoutMs = 3000
 		} else if (copyCount() > 0) {
-			setMessage((msg) => msg + '🎉')
+			setMessage((message_) => message_ + '🎉')
 
 			timeoutMs = 1000
 		} else {
@@ -51,7 +53,7 @@ export const CopyEmail = ({ email }: Props) => {
 		}
 
 		if (message().length > 1500) {
-			setMessage((msg) => `${msg}\nx ${msg.length}`)
+			setMessage((message_) => `${message_}\nx ${message_.length}`)
 		}
 
 		setCopyCount((count) => count + 1)
