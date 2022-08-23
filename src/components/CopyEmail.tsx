@@ -89,7 +89,7 @@ export const CopyEmail = ({ email }: Props) => {
 
 			<Show when={message()}>
 				{(message) => (
-					<span class="text-xs max-w-[9rem] absolute bottom-0 -right-2 translate-x-full text-gray-500 whitespace-pre-line">
+					<span class="absolute bottom-0 -right-2 max-w-[9rem] translate-x-full whitespace-pre-line text-xs text-gray-500">
 						{message}
 					</span>
 				)}
