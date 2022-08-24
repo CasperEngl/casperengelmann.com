@@ -13,43 +13,49 @@ let { title } = Astro.props
 		<title>{title || 'Casper Engelmann'}</title>
 	</head>
 	<body class="dark:bg-black dark:text-white m-8">
-		<slot />
+		<div
+			class="mt-3 prose dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-li:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white"
+		>
+			<slot />
 
-		<footer class="mt-6">
-			<!-- In case JS is not loaded, show the email anyways -->
-			<noscript set:html={obfuscate(home.frontmatter.email)}></noscript>
+			<footer class="mt-6 mb-24">
+				<h3>Contact</h3>
 
-			<!-- Enhance email copy experience -->
-			<CopyEmail client:idle email={obfuscate(home.frontmatter.email)} />
+				<!-- In case JS is not loaded, show the email anyways -->
+				<noscript set:html={obfuscate(home.frontmatter.email)}></noscript>
 
-			<p
-				class="js-sorry text-gray-500 text-xs mt-1 max-w-sm cursor-zoom-in select-none"
-			>
-				Sorry but you'll have to copy this yourself, to protect me from
-				spammers. If you have JavaScript enabled, clicking the email will select
-				it for you.
-			</p>
-		</footer>
+				<!-- Enhance email copy experience -->
+				<CopyEmail client:idle email={obfuscate(home.frontmatter.email)} />
 
-		<script is:inline>
-			// Allow user to make the sorry text larger.
-			const sorry = document.querySelector('.js-sorry')
+				<p
+					class="js-sorry text-gray-500 text-xs mt-1 max-w-sm cursor-zoom-in select-none"
+				>
+					Sorry but you'll have to copy this yourself, to protect me from
+					spammers. If you have JavaScript enabled, clicking the email will
+					select it for you.
+				</p>
+			</footer>
 
-			sorry.addEventListener('click', () => {
-				if (sorry.classList.contains('cursor-zoom-in')) {
-					sorry.classList.remove('cursor-zoom-in')
-					sorry.classList.add('cursor-zoom-out')
+			<script is:inline>
+				// Allow user to make the sorry text larger.
+				const sorry = document.querySelector('.js-sorry')
 
-					sorry.classList.remove('text-xs')
-					sorry.classList.add('text-base')
-				} else if (sorry.classList.contains('cursor-zoom-out')) {
-					sorry.classList.remove('cursor-zoom-out')
-					sorry.classList.add('cursor-zoom-in')
+				sorry.addEventListener('click', () => {
+					if (sorry.classList.contains('cursor-zoom-in')) {
+						sorry.classList.remove('cursor-zoom-in')
+						sorry.classList.add('cursor-zoom-out')
 
-					sorry.classList.remove('text-base')
-					sorry.classList.add('text-xs')
-				}
-			})
-		</script>
+						sorry.classList.remove('text-xs')
+						sorry.classList.add('text-base')
+					} else if (sorry.classList.contains('cursor-zoom-out')) {
+						sorry.classList.remove('cursor-zoom-out')
+						sorry.classList.add('cursor-zoom-in')
+
+						sorry.classList.remove('text-base')
+						sorry.classList.add('text-xs')
+					}
+				})
+			</script>
+		</div>
 	</body>
 </html>

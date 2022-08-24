@@ -13,16 +13,3 @@ export function obfuscate(value: string) {
 
 	return obfuscatedLetters.join(';')
 }
-
-export function clarify(value: string) {
-	const clarifiedLetters: string[] = []
-
-	for (const letter of value.split(';')) {
-		const digitsString = letter.replace(/[^\d.]+/g, '')
-		const codePoint = Number.parseInt(digitsString, 10)
-
-		clarifiedLetters.push(String.fromCodePoint(codePoint))
-	}
-
-	return clarifiedLetters
-}

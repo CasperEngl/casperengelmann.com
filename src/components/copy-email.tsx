@@ -1,6 +1,6 @@
 import { createSignal, Show } from 'solid-js'
+import { clarify } from '~/utils/clarify'
 import { getSuperKey } from '~/utils/get-super-key'
-import { clarify } from '~/utils/obfuscate'
 
 type Properties = {
 	email: string
