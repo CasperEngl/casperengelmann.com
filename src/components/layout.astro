@@ -27,13 +27,13 @@ let { title } = Astro.props
 				<!-- Enhance email copy experience -->
 				<CopyEmail client:idle email={obfuscate(home.frontmatter.email)} />
 
-				<p
+				<div
 					class="js-sorry text-gray-500 text-xs mt-1 max-w-sm cursor-zoom-in select-none"
 				>
 					Sorry but you'll have to copy this yourself, to protect me from
 					spammers. If you have JavaScript enabled, clicking the email will
 					select it for you.
-				</p>
+				</div>
 			</footer>
 
 			<script is:inline>

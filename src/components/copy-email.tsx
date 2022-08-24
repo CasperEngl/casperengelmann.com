@@ -83,7 +83,7 @@ export const CopyEmail = ({ email }: Properties) => {
 
 	return (
 		<div class="relative inline-flex flex-wrap gap-2">
-			<p
+			<div
 				class="inline-block"
 				tabIndex={0}
 				ref={emailRef}
@@ -92,7 +92,7 @@ export const CopyEmail = ({ email }: Properties) => {
 				onCopy={handleCopy}
 			>
 				{clarify(email)}
-			</p>
+			</div>
 
 			<Show when={message()}>
 				{(message) => (
