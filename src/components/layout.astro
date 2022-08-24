@@ -16,8 +16,10 @@ let { title } = Astro.props
 		<slot />
 
 		<footer class="mt-6">
+			<!-- In case JS is not loaded, show the email anyways -->
 			<noscript set:html={obfuscate(home.frontmatter.email)}></noscript>
 
+			<!-- Enhance email copy experience -->
 			<CopyEmail client:idle email={obfuscate(home.frontmatter.email)} />
 
 			<p
