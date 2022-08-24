@@ -1,5 +1,6 @@
 import { createSignal, Show } from 'solid-js'
 import { getSuperKey } from '~/utils/get-super-key'
+import { clarify } from '~/utils/obfuscate'
 
 type Properties = {
 	email: string
@@ -76,6 +77,10 @@ export const CopyEmail = ({ email }: Properties) => {
 		window.getSelection().empty()
 	}
 
+	if (typeof window === 'undefined') {
+		return
+	}
+
 	return (
 		<div class="relative inline-flex flex-wrap gap-2">
 			<p
@@ -86,7 +91,7 @@ export const CopyEmail = ({ email }: Properties) => {
 				onBlur={handleBlur}
 				onCopy={handleCopy}
 			>
-				{email}
+				{clarify(email)}
 			</p>
 
 			<Show when={message()}>

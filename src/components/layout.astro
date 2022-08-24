@@ -1,6 +1,7 @@
 ---
 import { CopyEmail } from './copy-email'
 import * as home from '~/home.md'
+import { obfuscate } from '~/utils/obfuscate'
 
 let { title } = Astro.props
 ---
@@ -15,7 +16,9 @@ let { title } = Astro.props
 		<slot />
 
 		<footer class="mt-6">
-			<CopyEmail client:idle email={home.frontmatter.email} />
+			<noscript set:html={obfuscate(home.frontmatter.email)}></noscript>
+
+			<CopyEmail client:idle email={obfuscate(home.frontmatter.email)} />
 
 			<p
 				class="js-sorry text-gray-500 text-xs mt-1 max-w-sm cursor-zoom-in select-none"
