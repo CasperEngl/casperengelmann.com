@@ -77,10 +77,6 @@ export const CopyEmail = ({ email }: Properties) => {
 		window.getSelection().empty()
 	}
 
-	if (typeof window === 'undefined') {
-		return
-	}
-
 	return (
 		<div class="relative inline-flex flex-wrap gap-2">
 			<div
@@ -90,9 +86,8 @@ export const CopyEmail = ({ email }: Properties) => {
 				onFocus={handleFocus}
 				onBlur={handleBlur}
 				onCopy={handleCopy}
-			>
-				{clarify(email)}
-			</div>
+				innerHTML={typeof window === 'undefined' ? email : clarify(email)}
+			></div>
 
 			<Show when={message()}>
 				{(message) => (

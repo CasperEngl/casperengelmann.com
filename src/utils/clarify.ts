@@ -8,5 +8,5 @@ export function clarify(value: string) {
 		clarifiedLetters.push(String.fromCodePoint(codePoint))
 	}
 
-	return clarifiedLetters
+	return clarifiedLetters.join('')
 }
