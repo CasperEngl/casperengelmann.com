@@ -87,7 +87,7 @@ export const CopyEmail = ({ email }: Properties) => {
 				onBlur={handleBlur}
 				onCopy={handleCopy}
 				innerHTML={typeof window === 'undefined' ? email : clarify(email)}
-			></div>
+			/>
 
 			<Show when={message()}>
 				{(message) => (
