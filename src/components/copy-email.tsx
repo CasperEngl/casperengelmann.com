@@ -2,7 +2,7 @@ import { createSignal, Show } from 'solid-js'
 import { clarify } from '~/utils/clarify'
 import { getSuperKey } from '~/utils/get-super-key'
 
-type Properties = {
+type Props = {
 	email: string
 }
 
@@ -11,7 +11,7 @@ const helperText = `Email selected and ready to copy, just press ${getSuperKey()
 let emailRef: HTMLParagraphElement
 let timeout: number | undefined
 
-export const CopyEmail = ({ email }: Properties) => {
+export const CopyEmail = ({ email }: Props) => {
 	const [message, setMessage] = createSignal('')
 	const [copyCount, setCopyCount] = createSignal(0)
 
