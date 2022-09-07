@@ -1,4 +1,4 @@
-import adapter from '@astrojs/cloudflare'
+import adapter from '@astrojs/deno'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import solid from '@astrojs/solid-js'
