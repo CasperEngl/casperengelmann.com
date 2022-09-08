@@ -31,31 +31,31 @@ let { title } = Astro.props
 				<CopyEmail client:idle email={obfuscate(email)} />
 
 				<div
-					class="js-sorry text-gray-500 text-xs mt-1 max-w-sm cursor-zoom-in select-none"
+					class="js-manual-copy text-gray-500 text-xs mt-1 max-w-sm cursor-zoom-in select-none"
 				>
-					Sorry but you'll have to copy this yourself, to protect me from
-					spammers. If you have JavaScript enabled, clicking the email will
-					select it for you.
+					To protect me from spammers you will have to copy this yourself. If
+					you have JavaScript enabled, clicking the email will select it for
+					you.
 				</div>
 			</footer>
 
 			<script is:inline>
-				// Allow user to make the sorry text larger.
-				const sorry = document.querySelector('.js-sorry')
+				// Allow user to make the manu copy text larger.
+				const manualCopy = document.querySelector('.js-manual-copy')
 
-				sorry.addEventListener('click', () => {
-					if (sorry.classList.contains('cursor-zoom-in')) {
-						sorry.classList.remove('cursor-zoom-in')
-						sorry.classList.add('cursor-zoom-out')
+				manualCopy.addEventListener('click', () => {
+					if (manualCopy.classList.contains('cursor-zoom-in')) {
+						manualCopy.classList.remove('cursor-zoom-in')
+						manualCopy.classList.add('cursor-zoom-out')
 
-						sorry.classList.remove('text-xs')
-						sorry.classList.add('text-base')
-					} else if (sorry.classList.contains('cursor-zoom-out')) {
-						sorry.classList.remove('cursor-zoom-out')
-						sorry.classList.add('cursor-zoom-in')
+						manualCopy.classList.remove('text-xs')
+						manualCopy.classList.add('text-base')
+					} else if (manualCopy.classList.contains('cursor-zoom-out')) {
+						manualCopy.classList.remove('cursor-zoom-out')
+						manualCopy.classList.add('cursor-zoom-in')
 
-						sorry.classList.remove('text-base')
-						sorry.classList.add('text-xs')
+						manualCopy.classList.remove('text-base')
+						manualCopy.classList.add('text-xs')
 					}
 				})
 			</script>
