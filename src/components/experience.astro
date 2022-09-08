@@ -4,26 +4,26 @@ import OutboundLink from '~/components/outbound-link.astro'
 const { endDate, startDate, role, link, linkTitle, company } = Astro.props
 
 const formatDate = (dateString: string) => {
-	const date = new Date(dateString)
+  const date = new Date(dateString)
 
-	if (date.getTime() - Date.now() > 0) {
-		return 'Present'
-	}
+  if (date.getTime() - Date.now() > 0) {
+    return 'Present'
+  }
 
-	return date.getFullYear()
+  return date.getFullYear()
 }
 ---
 
 <div class="flex flex-col items-start">
-	{endDate ? (
-		<span>
-			{formatDate(startDate)} &mdash; {formatDate(endDate)}
-		</span>
-	) : (
-		<span>{formatDate(startDate)} to date</span>
-	)}
-	<span>
-		{role} @{' '}
-		{link ? <OutboundLink href={link}>{company}</OutboundLink> : company}
-	</span>
+  {endDate ? (
+    <span>
+      {formatDate(startDate)} &mdash; {formatDate(endDate)}
+    </span>
+  ) : (
+    <span>{formatDate(startDate)} to date</span>
+  )}
+  <span>
+    {role} @{' '}
+    {link ? <OutboundLink href={link}>{company}</OutboundLink> : company}
+  </span>
 </div>

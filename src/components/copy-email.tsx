@@ -3,102 +3,95 @@ import { clarify } from '~/utils/clarify'
 import { getSuperKey } from '~/utils/get-super-key'
 
 type Props = {
-	email: string
+  email: string
 }
 
 const helperText = `Email selected and ready to copy, just press ${getSuperKey()} + C`
 
-let emailRef: HTMLParagraphElement
+let emailRef: HTMLDivElement
 let timeout: number | undefined
 
 export const CopyEmail = ({ email }: Props) => {
-	const [message, setMessage] = createSignal('')
-	const [copyCount, setCopyCount] = createSignal(0)
+  const [message, setMessage] = createSignal('')
+  const [copyCount, setCopyCount] = createSignal(0)
+  const [timeoutMs, setTimeoutMs] = createSignal(0)
 
-	const handleCopy = () => {
-		clearTimeout(timeout)
-		let timeoutMs = 0
+  const handleCopy = () => {
+    clearTimeout(timeout)
 
-		setMessage((message_) =>
-			message_.replace(/x/, '').replace(/\d+/, '').trim()
-		)
+    setCopyCount((count) => count + 1)
 
-		if (copyCount() > 30) {
-			setMessage((message_) => message_ + '😉'.repeat(copyCount()))
+    if (copyCount() > 25) {
+      setMessage(`${'😉'.repeat(copyCount() - 15)} \nx ${copyCount() - 15}`)
 
-			timeoutMs = 2500
-		} else if (copyCount() > 20) {
-			setMessage((message_) => message_ + '😉')
+      setTimeoutMs(2500)
+    } else if (copyCount() > 15) {
+      setMessage('😉'.repeat(copyCount() - 15))
 
-			timeoutMs = 2500
-		} else if (copyCount() > 15) {
-			setMessage('😉')
+      setTimeoutMs(2500)
+    } else if (copyCount() > 10) {
+      setMessage(`You still haven't had enough?`)
 
-			timeoutMs = 2500
-		} else if (copyCount() > 10) {
-			setMessage(`You still haven't had enough?`)
+      setTimeoutMs(4000)
+    } else if (copyCount() > 5) {
+      setMessage(`You're getting there!`)
 
-			timeoutMs = 4000
-		} else if (copyCount() > 5) {
-			setMessage(`You're getting there!`)
+      setTimeoutMs(3000)
+    } else {
+      setMessage(`Copied! ${'🎉'.repeat(copyCount())}`)
 
-			timeoutMs = 3000
-		} else if (copyCount() > 0) {
-			setMessage((message_) => message_ + '🎉')
+      setTimeoutMs(1500)
+    }
 
-			timeoutMs = 1000
-		} else {
-			setMessage(`Copied! 🎉`)
+    timeout = setTimeout(() => {
+      setMessage(helperText)
+      setCopyCount(0)
+    }, timeoutMs())
+  }
 
-			timeoutMs = 1500
-		}
+  const handleFocus = () => {
+    setMessage(helperText)
+    window.getSelection().selectAllChildren(emailRef)
+  }
 
-		if (message().length > 1500) {
-			setMessage((message_) => `${message_}\nx ${message_.length}`)
-		}
+  const handleBlur = () => {
+    setMessage('')
+    clearTimeout(timeout)
+    window.getSelection().empty()
+  }
 
-		setCopyCount((count) => count + 1)
+  // Email should be obfuscated on the server and not in the client
+  const emailHTML = typeof window === 'undefined' ? email : clarify(email)
 
-		timeout = setTimeout(() => {
-			setMessage(helperText)
-			setCopyCount(0)
-		}, timeoutMs)
-	}
+  return (
+    <div class="relative inline-flex flex-wrap gap-2">
+      <div
+        class="inline-block"
+        tabIndex={0}
+        ref={emailRef}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onCopy={handleCopy}
+        innerHTML={emailHTML}
+      />
 
-	const handleFocus = () => {
-		setMessage(helperText)
-
-		window.getSelection().selectAllChildren(emailRef)
-	}
-
-	const handleBlur = () => {
-		setMessage('')
-
-		window.getSelection().empty()
-	}
-
-	// Email should be obfuscated on the server and not in the client
-	const emailHTML = typeof window === 'undefined' ? email : clarify(email)
-
-	return (
-		<div class="relative inline-flex flex-wrap gap-2">
-			<div
-				class="inline-block"
-				tabIndex={0}
-				ref={emailRef}
-				onFocus={handleFocus}
-				onBlur={handleBlur}
-				onCopy={handleCopy}
-				innerHTML={emailHTML}
-			/>
-
-			<Show when={message()}>
-				{(message) => (
-					<span class="absolute bottom-0 -right-2 max-w-[9rem] translate-x-full whitespace-pre-line text-xs text-gray-500">
-						{message}
-					</span>
-				)}
-			</Show>
-		</div>
-	)
+      <Show when={message()}>
+        {(message) => (
+          <span
+            class="absolute bottom-0 -right-2 translate-x-full whitespace-pre-line text-xs text-gray-500"
+            style={
+              copyCount() > 15
+                ? {
+                    'font-size': `${0.75 + copyCount() / 40}rem`,
+                    'line-height': `${0.75 + copyCount() / 40}rem`,
+                  }
+                : undefined
+            }
+          >
+            {message}
+          </span>
+        )}
+      </Show>
+    </div>
+  )
 }

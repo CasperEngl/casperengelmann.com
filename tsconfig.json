@@ -1,22 +1,22 @@
 {
-	"compilerOptions": {
-		"lib": ["ESNext", "DOM", "DOM.Iterable"],
-		// Enable top-level await, and other modern ESM features.
-		"target": "ESNext",
-		"module": "ESNext",
-		// Enable node-style module resolution, for things like npm package imports.
-		"moduleResolution": "node",
-		// Enable JSON imports.
-		"resolveJsonModule": true,
-		// Enable stricter transpilation for better output.
-		"isolatedModules": true,
-		// Add type definitions for our Vite runtime.
-		"types": ["vite/client"],
-		"baseUrl": "src",
-		"jsx": "preserve",
-		"jsxImportSource": "solid-js",
-		"paths": {
-			"~/*": ["*"]
-		}
-	}
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    // Enable top-level await, and other modern ESM features.
+    "target": "ESNext",
+    "module": "ESNext",
+    // Enable node-style module resolution, for things like npm package imports.
+    "moduleResolution": "node",
+    // Enable JSON imports.
+    "resolveJsonModule": true,
+    // Enable stricter transpilation for better output.
+    "isolatedModules": true,
+    // Add type definitions for our Vite runtime.
+    "types": ["vite/client"],
+    "baseUrl": "src",
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "paths": {
+      "~/*": ["*"]
+    }
+  }
 }
