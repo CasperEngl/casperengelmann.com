@@ -38,11 +38,11 @@ export const CopyEmail = ({ email }: Props) => {
 
       setTimeoutMs(2500)
     } else if (copyCount() > 10) {
-      setMessage(`You still haven't had enough?`)
+      setMessage(`You still haven't had enough? 😳`)
 
       setTimeoutMs(4000)
     } else if (copyCount() > 5) {
-      setMessage(`You're getting there!`)
+      setMessage(`You're getting there! 😁`)
 
       setTimeoutMs(3000)
     } else {
