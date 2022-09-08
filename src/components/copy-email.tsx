@@ -16,17 +16,25 @@ export const CopyEmail = ({ email }: Props) => {
   const [copyCount, setCopyCount] = createSignal(0)
   const [timeoutMs, setTimeoutMs] = createSignal(0)
 
+  const emojiCount = () => {
+    return copyCount() - 15
+  }
+
   const handleCopy = () => {
     clearTimeout(timeout)
 
     setCopyCount((count) => count + 1)
 
-    if (copyCount() > 25) {
-      setMessage(`${'😉'.repeat(copyCount() - 15)} \nx ${copyCount() - 15}`)
+    if (emojiCount() === 69) {
+      setMessage(`${'😉'.repeat(emojiCount())} \nx ${emojiCount()}... nice`)
+
+      setTimeoutMs(2500)
+    } else if (copyCount() > 25) {
+      setMessage(`${'😉'.repeat(emojiCount())} \nx ${emojiCount()}`)
 
       setTimeoutMs(2500)
     } else if (copyCount() > 15) {
-      setMessage('😉'.repeat(copyCount() - 15))
+      setMessage('😉'.repeat(emojiCount()))
 
       setTimeoutMs(2500)
     } else if (copyCount() > 10) {
