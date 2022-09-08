@@ -28,7 +28,7 @@ let { title } = Astro.props
 				<noscript set:html={obfuscate(email)}></noscript>
 
 				<!-- Enhance email copy experience -->
-				<CopyEmail client:idle email={obfuscate(email)} />
+				<CopyEmail client:visible email={obfuscate(email)} />
 
 				<div
 					class="js-manual-copy text-gray-500 text-xs mt-1 max-w-sm cursor-zoom-in select-none"
