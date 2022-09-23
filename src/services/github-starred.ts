@@ -20,13 +20,12 @@ export async function getStarredRepos() {
   if (import.meta.env.PROD) {
     const cache = await upstashRequest<CacheResult>('/get/my-starred-repos')
 
-    if (cache?.expires > Date.now()) {
-      console.log('Starred repos: cache hit')
-
+    if (cache) {
+      console.log('My starred repos: cache hit')
       return cache.repos
     }
 
-    console.log('Starred repos: cache miss')
+    console.log('My starred repos: cache miss')
   }
 
   const response = await fetch(
@@ -39,11 +38,11 @@ export async function getStarredRepos() {
   )
 
   const json = (await response.json()) as Repo[]
+  const expires = Date.now() + 1000 * 60 * 60 // 1 hour
 
-  await upstashRequest('/set/my-starred-repos', {
+  await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
     method: 'POST',
     body: JSON.stringify({
-      expires: Date.now() + 1000 * 60 * 60, // 1 hour
       repos: json,
     }),
   })
