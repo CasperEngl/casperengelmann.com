@@ -3,6 +3,7 @@ import { CopyEmail } from '~/components/copy-email'
 import Layout from '~/components/layout.astro'
 import GitHub from '~/pages/_sections/_github.mdx'
 import Main from '~/pages/_sections/_main.mdx'
+import Me from '~/pages/_sections/_me.mdx'
 import { obfuscate } from '~/utils/obfuscate'
 
 const email = 'me@casperengelmann.com'
@@ -15,9 +16,9 @@ Astro.response.headers.set(
 
 <Layout>
   <div
-    class="grid 2xl:grid-cols-4 lg:grid-cols-2 prose max-w-full dark:prose-invert prose-h1:text-2xl dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-li:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white"
+    class="pr-24 flex flex-wrap gap-x-12 prose max-w-full dark:prose-invert prose-h1:text-2xl dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-li:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white"
   >
-    <section class="2xl:col-span-4 lg:col-span-2">
+    <section class="w-full">
       <h1>Casper Engelmann</h1>
 
       <p>I'm a frontend developer. Based in Denmark.</p>
@@ -27,11 +28,15 @@ Astro.response.headers.set(
       <Main />
     </section>
 
+    <section class="max-w-prose w-full">
+      <Me />
+    </section>
+
     <section>
       <GitHub />
     </section>
 
-    <footer class="mt-6 mb-24 2xl:col-span-4 lg:col-span-2">
+    <footer class="mt-6 mb-24 2xl:col-span-4 w-full">
       <h3>Contact</h3>
 
       <!-- In case JS is not loaded, show the email anyways -->

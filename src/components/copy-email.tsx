@@ -83,7 +83,7 @@ export const CopyEmail = ({ email }: Props) => {
         innerHTML={emailHTML}
       />
 
-      <Show when={message()}>
+      <Show when={message()} keyed>
         {(message) => (
           <span
             class="absolute bottom-0 -right-2 translate-x-full whitespace-pre-line text-xs text-gray-500"

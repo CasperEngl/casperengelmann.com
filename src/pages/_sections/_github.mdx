@@ -1,5 +1,15 @@
 import GithubStarred from '~/components/github-starred.astro'
+import OutboundLink from '~/components/outbound-link.astro'
+import UpstashIcon from '~/icons/upstash.astro'
 
 ### My latest starred repos
+
+<OutboundLink
+  href="https://upstash.com"
+  class="flex items-center gap-2 text-xs no-underline"
+>
+  <span>Cached with</span>
+  <UpstashIcon class="inline-block h-6" aria-label="Upstash" />
+</OutboundLink>
 
 <GithubStarred />
