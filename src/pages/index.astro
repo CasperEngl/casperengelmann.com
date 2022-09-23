@@ -1,0 +1,76 @@
+---
+import { CopyEmail } from '~/components/copy-email'
+import Layout from '~/components/layout.astro'
+import GitHub from '~/pages/_sections/_github.mdx'
+import Main from '~/pages/_sections/_main.mdx'
+import { obfuscate } from '~/utils/obfuscate'
+
+const email = 'me@casperengelmann.com'
+
+Astro.response.headers.set(
+  'Cache-Control',
+  'public, max-age=3600, s-maxage=3600'
+)
+---
+
+<Layout>
+  <div
+    class="grid 2xl:grid-cols-4 lg:grid-cols-2 prose max-w-full dark:prose-invert prose-h1:text-2xl dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-li:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white"
+  >
+    <section class="2xl:col-span-4 lg:col-span-2">
+      <h1>Casper Engelmann</h1>
+
+      <p>I'm a frontend developer. Based in Denmark.</p>
+    </section>
+
+    <section>
+      <Main />
+    </section>
+
+    <section>
+      <GitHub />
+    </section>
+
+    <footer class="mt-6 mb-24 2xl:col-span-4 lg:col-span-2">
+      <h3>Contact</h3>
+
+      <!-- In case JS is not loaded, show the email anyways -->
+      <noscript set:html={obfuscate(email)}></noscript>
+
+      <!-- Enhance email copy experience -->
+      <CopyEmail client:visible email={obfuscate(email)} />
+
+      <div
+        class="js-manual-copy text-gray-500 text-xs mt-1 max-w-sm cursor-zoom-in select-none"
+      >
+        <div>
+          To protect me from spammers, you will have to copy this yourself.
+        </div>
+        <div>
+          If you have JavaScript enabled, clicking the email will select it.
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      // Allow user to make the manu copy text larger.
+      const manualCopy = document.querySelector('.js-manual-copy')
+
+      manualCopy.addEventListener('click', () => {
+        if (manualCopy.classList.contains('cursor-zoom-in')) {
+          manualCopy.classList.remove('cursor-zoom-in')
+          manualCopy.classList.add('cursor-zoom-out')
+
+          manualCopy.classList.remove('text-xs')
+          manualCopy.classList.add('text-base')
+        } else if (manualCopy.classList.contains('cursor-zoom-out')) {
+          manualCopy.classList.remove('cursor-zoom-out')
+          manualCopy.classList.add('cursor-zoom-in')
+
+          manualCopy.classList.remove('text-base')
+          manualCopy.classList.add('text-xs')
+        }
+      })
+    </script>
+  </div>
+</Layout>

@@ -1,0 +1,15 @@
+---
+import { getStarredRepos } from '~/services/github-starred'
+
+const starredRepos = await getStarredRepos()
+---
+
+<ul>
+  {starredRepos.slice(0, 10).map((repo) => (
+    <li>
+      <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+        {repo.full_name}
+      </a>
+    </li>
+  ))}
+</ul>
