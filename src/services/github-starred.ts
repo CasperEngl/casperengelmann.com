@@ -22,6 +22,7 @@ export async function getStarredRepos() {
 
     if (cache) {
       console.log('My starred repos: cache hit')
+
       return cache.repos
     }
 
