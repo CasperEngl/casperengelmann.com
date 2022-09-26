@@ -3,7 +3,7 @@ type Nullable<T> = T | null
 export async function upstashRequest<T = unknown>(
   path: string,
   init?: RequestInit
-) {
+): Promise<T> {
   const request = new Request(
     `https://global-welcomed-stinkbug-31627.upstash.io${path}`,
     init

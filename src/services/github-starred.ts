@@ -38,7 +38,7 @@ export async function getStarredRepos() {
     }
   )
 
-  const json = (await response.json()) as Repo[]
+  const json: Awaited<Repo[]> = await response.json()
   const expires = Date.now() + 1000 * 60 * 60 // 1 hour
 
   await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
@@ -50,3 +50,5 @@ export async function getStarredRepos() {
 
   return json.filter((repo) => !repo.private)
 }
+
+export const starredRepos = await getStarredRepos()
