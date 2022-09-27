@@ -1,3 +1,4 @@
+import ms from 'ms'
 import { upstashRequest } from '~/services/upstash'
 
 interface Repo {
@@ -39,7 +40,7 @@ export async function getStarredRepos() {
   )
 
   const json: Awaited<Repo[]> = await response.json()
-  const expires = Date.now() + 1000 * 60 * 60 // 1 hour
+  const expires = ms('1 hour') / 1000 // ms to seconds
 
   await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
     method: 'POST',
