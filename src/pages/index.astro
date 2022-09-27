@@ -7,11 +7,6 @@ import Me from '~/pages/_sections/_me.mdx'
 import { obfuscate } from '~/utils/obfuscate'
 
 const email = 'me@casperengelmann.com'
-
-Astro.response.headers.set(
-  'Cache-Control',
-  'public, max-age=3600, s-maxage=3600'
-)
 ---
 
 <Layout>
