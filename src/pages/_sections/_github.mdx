@@ -1,6 +1,6 @@
 import OutboundLink from '~/components/outbound-link.astro'
+import GitHubStarred from '~/components/github-starred.astro'
 import UpstashIcon from '~/icons/upstash.astro'
-import { getStarredRepos } from '~/services/github-starred'
 
 ### My latest starred repos
 
@@ -12,10 +12,4 @@ import { getStarredRepos } from '~/services/github-starred'
   <UpstashIcon class="inline-block h-6" aria-label="Upstash" />
 </OutboundLink>
 
-{getStarredRepos().slice(0, 10).map((repo) => (
-  <li>
-    <OutboundLink href={repo.html_url}>
-      {repo.full_name}
-    </OutboundLink>
-  </li>
-))}
+<GitHubStarred />
