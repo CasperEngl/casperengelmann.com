@@ -51,5 +51,3 @@ export async function getStarredRepos() {
 
   return json.filter((repo) => !repo.private)
 }
-
-export const starredRepos = await getStarredRepos()
