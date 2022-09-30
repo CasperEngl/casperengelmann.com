@@ -2,18 +2,13 @@ import ms from 'ms'
 import { upstashRequest } from '~/services/upstash'
 
 interface Repo {
-  id: number
-  name: string
-  full_name: string
-  description: string
   html_url: string
-  stargazers_count: number
-  language: string
+  full_name: string
   private: boolean
 }
 
 type CacheResult = {
-  expires: number
+  expires: string
   repos: Repo[]
 }
 
@@ -46,7 +41,11 @@ export async function getStarredRepos() {
     method: 'POST',
     body: JSON.stringify({
       expiresAt: new Date(Date.now() + ms('1 hour')).toISOString(),
-      repos: json,
+      repos: json.map((repo) => ({
+        html_url: repo.html_url,
+        full_name: repo.full_name,
+        private: repo.private,
+      })),
     }),
   })
 
