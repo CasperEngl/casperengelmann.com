@@ -18,17 +18,17 @@ type CacheResult = {
 }
 
 export async function getStarredRepos() {
-  if (import.meta.env.PROD) {
-    const cache = await upstashRequest<CacheResult>('/get/my-starred-repos')
+  // if (import.meta.env.PROD) {
+  const cache = await upstashRequest<CacheResult>('/get/my-starred-repos')
 
-    if (cache) {
-      console.log('My starred repos: cache hit')
+  if (cache) {
+    console.log('My starred repos: cache hit')
 
-      return cache.repos
-    }
-
-    console.log('My starred repos: cache miss')
+    return cache.repos
   }
+
+  console.log('My starred repos: cache miss')
+  // }
 
   const response = await fetch(
     'https://api.github.com/users/casperengl/starred',
