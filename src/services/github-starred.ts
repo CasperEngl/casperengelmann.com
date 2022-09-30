@@ -42,17 +42,12 @@ export async function getStarredRepos() {
   const json: Awaited<Repo[]> = await response.json()
   const expires = ms('1 hour') / 1000 // ms to seconds
 
-  // convert json to readable stream
-  const stream = new ReadableStream({
-    start(controller) {
-      controller.enqueue(JSON.stringify(json))
-      controller.close()
-    },
-  })
-
   await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
     method: 'POST',
-    body: stream,
+    body: JSON.stringify({
+      expiresAt: new Date(Date.now() + ms('1 hour')).toISOString(),
+      repos: json,
+    }),
   })
 
   return json.filter((repo) => !repo.private)
