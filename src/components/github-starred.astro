@@ -7,7 +7,7 @@ const starredRepos = await getStarredRepos()
 
 <ul>
   {
-    starredRepos.slice(0, 10).map((repo) => (
+    starredRepos.map((repo) => (
       <li>
         <OutboundLink href={repo.html_url}>{repo.full_name}</OutboundLink>
       </li>

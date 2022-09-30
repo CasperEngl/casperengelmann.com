@@ -31,7 +31,7 @@ export async function getStarredRepos() {
   // }
 
   const response = await fetch(
-    'https://api.github.com/users/casperengl/starred',
+    'https://api.github.com/users/casperengl/starred?per_page=10',
     {
       headers: {
         Authorization: `token ${import.meta.env.GITHUB_API_KEY}`,
