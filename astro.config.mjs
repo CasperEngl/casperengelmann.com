@@ -1,5 +1,5 @@
 import mdx from '@astrojs/mdx'
-import netlify from '@astrojs/netlify/edge-functions'
+import netlify from '@astrojs/netlify/functions'
 import solid from '@astrojs/solid-js'
 import tailwind from '@astrojs/tailwind'
 import { defineConfig } from 'astro/config'
