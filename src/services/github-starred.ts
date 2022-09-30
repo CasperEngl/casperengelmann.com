@@ -4,7 +4,7 @@ import { upstashRequest } from '~/services/upstash'
 interface Repo {
   html_url: string
   full_name: string
-  private: boolean
+  private?: boolean
 }
 
 type CacheResult = {
@@ -34,20 +34,22 @@ export async function getStarredRepos() {
     }
   )
 
-  const json: Awaited<Repo[]> = await response.json()
+  const json = await response.json()
   const expires = ms('1 hour') / 1000 // ms to seconds
+  const repos: Repo[] = json
+    .filter((repo) => !repo.private)
+    .map((repo) => ({
+      html_url: repo.html_url,
+      full_name: repo.full_name,
+    }))
 
   await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
     method: 'POST',
     body: JSON.stringify({
       expiresAt: new Date(Date.now() + ms('1 hour')).toISOString(),
-      repos: json.map((repo) => ({
-        html_url: repo.html_url,
-        full_name: repo.full_name,
-        private: repo.private,
-      })),
+      repos,
     }),
   })
 
-  return json.filter((repo) => !repo.private)
+  return repos
 }
