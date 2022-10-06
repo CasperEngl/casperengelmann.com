@@ -13,15 +13,15 @@ type CacheResult = {
 }
 
 export async function getStarredRepos() {
-  const cache = await upstashRequest<CacheResult>('/get/my-starred-repos')
+  // const cache = await upstashRequest<CacheResult>('/get/my-starred-repos')
 
-  if (cache) {
-    console.log('My starred repos: cache hit')
+  // if (cache) {
+  //   console.log('My starred repos: cache hit')
 
-    return cache.repos
-  }
+  //   return cache.repos
+  // }
 
-  console.log('My starred repos: cache miss')
+  // console.log('My starred repos: cache miss')
 
   const response = await fetch(
     'https://api.github.com/users/casperengl/starred?per_page=10',
@@ -41,13 +41,13 @@ export async function getStarredRepos() {
       full_name: repo.full_name,
     }))
 
-  await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
-    method: 'POST',
-    body: JSON.stringify({
-      expiresAt: new Date(Date.now() + ms('1 hour')).toISOString(),
-      repos,
-    }),
-  })
+  // await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //     expiresAt: new Date(Date.now() + ms('1 hour')).toISOString(),
+  //     repos,
+  //   }),
+  // })
 
   return repos
 }
