@@ -4,6 +4,10 @@ export function obfuscate(value: string) {
   for (const letter of value) {
     const charCode = letter.codePointAt(0)
 
+    if (!charCode) {
+      continue
+    }
+
     if (charCode > 128) {
       obfuscatedLetters.push(letter)
     } else {

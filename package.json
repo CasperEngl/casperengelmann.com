@@ -8,7 +8,8 @@
     "deploy": "dotenv cross-var -- deployctl deploy -p casperengelmann ./dist/server/entry.mjs --exclude=node_modules --token %DENO_DEPLOY_TOKEN%",
     "dev": "astro dev",
     "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
-    "start": "astro preview"
+    "start": "astro preview",
+    "type-check": "tsc --noEmit --pretty"
   },
   "dependencies": {
     "ms": "^2.1.3",

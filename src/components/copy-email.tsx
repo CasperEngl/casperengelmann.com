@@ -59,13 +59,13 @@ export const CopyEmail = ({ email }: Props) => {
 
   const handleFocus = () => {
     setMessage(helperText)
-    window.getSelection().selectAllChildren(emailRef)
+    window.getSelection()?.selectAllChildren(emailRef)
   }
 
   const handleBlur = () => {
     setMessage('')
     clearTimeout(timeout)
-    window.getSelection().empty()
+    window.getSelection()?.empty()
   }
 
   // Email should be obfuscated on the server and not in the client
