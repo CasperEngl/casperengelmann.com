@@ -17,6 +17,7 @@
     "jsxImportSource": "solid-js",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "strict": true,
     "paths": {
       "~/*": ["*"]
     }

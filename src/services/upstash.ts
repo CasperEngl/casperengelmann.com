@@ -1,9 +1,7 @@
-type Nullable<T> = T | null
-
-export async function upstashRequest<T = unknown>(
+export async function upstashRequest(
   path: string,
   init?: RequestInit
-): Promise<T> {
+): Promise<string> {
   const request = new Request(
     `https://global-welcomed-stinkbug-31627.upstash.io${path}`,
     init
@@ -22,13 +20,5 @@ export async function upstashRequest<T = unknown>(
 
   const { result } = await response.json()
 
-  try {
-    // return json if it is parsable
-    return JSON.parse(result) as Nullable<T>
-  } catch (error) {
-    // return string if it is not parsable
-    if (error instanceof SyntaxError) {
-      return result
-    }
-  }
+  return result as string
 }
