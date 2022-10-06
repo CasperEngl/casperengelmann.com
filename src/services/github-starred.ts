@@ -1,15 +1,7 @@
-import ms from 'ms'
-import { upstashRequest } from '~/services/upstash'
-
 interface Repo {
   html_url: string
   full_name: string
   private?: boolean
-}
-
-type CacheResult = {
-  expires: string
-  repos: Repo[]
 }
 
 export async function getStarredRepos() {
