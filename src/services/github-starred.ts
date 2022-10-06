@@ -23,31 +23,37 @@ export async function getStarredRepos() {
 
   // console.log('My starred repos: cache miss')
 
-  const response = await fetch(
-    'https://api.github.com/users/casperengl/starred?per_page=10',
-    {
-      headers: {
-        Authorization: `token ${import.meta.env.GITHUB_API_KEY}`,
-      },
-    }
-  )
+  try {
+    const response = await fetch(
+      'https://api.github.com/users/casperengl/starred?per_page=10',
+      {
+        headers: {
+          Authorization: `token ${import.meta.env.GITHUB_API_KEY}`,
+        },
+      }
+    )
 
-  const json = await response.json()
-  const expires = ms('1 hour') / 1000 // ms to seconds
-  const repos: Repo[] = json
-    .filter((repo) => !repo.private)
-    .map((repo) => ({
-      html_url: repo.html_url,
-      full_name: repo.full_name,
-    }))
+    const json = await response.json()
+    // const expires = ms('1 hour') / 1000 // ms to seconds
+    const repos: Repo[] = json
+      .filter((repo) => !repo.private)
+      .map((repo) => ({
+        html_url: repo.html_url,
+        full_name: repo.full_name,
+      }))
 
-  // await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     expiresAt: new Date(Date.now() + ms('1 hour')).toISOString(),
-  //     repos,
-  //   }),
-  // })
+    // await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     expiresAt: new Date(Date.now() + ms('1 hour')).toISOString(),
+    //     repos,
+    //   }),
+    // })
 
-  return repos
+    return repos
+  } catch (error) {
+    console.error(error)
+
+    throw error
+  }
 }
