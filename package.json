@@ -5,7 +5,7 @@
   "scripts": {
     "build": "astro build",
     "predeploy": "npm run build",
-    "deploy": "dotenv cross-var -- deployctl deploy -p casperengelmann ./dist/server/entry.mjs --exclude=node_modules --token %DENO_DEPLOY_TOKEN%",
+    "deploy": "cross-var -- deployctl deploy -p %DENO_PROJECT% ./dist/server/entry.mjs --exclude=node_modules --token %DENO_DEPLOY_TOKEN%",
     "dev": "astro dev",
     "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
     "start": "astro preview"
