@@ -45,7 +45,5 @@ export async function getStarredRepos() {
     return repos
   } catch (error) {
     console.error(error)
-
-    throw error
   }
 }
