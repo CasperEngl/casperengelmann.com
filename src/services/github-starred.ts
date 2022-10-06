@@ -35,7 +35,6 @@ export async function getStarredRepos() {
   )
 
   const json: Awaited<Repo[]> = await response.json()
-  const expires = ms('1 hour') / 1000 // ms to seconds
   const repos = json
     .filter((repo) => !repo.private)
     .map((repo) => ({
@@ -43,12 +42,18 @@ export async function getStarredRepos() {
       full_name: repo.full_name,
     }))
 
+  const expires = ms('1 hour')
+  const expiryDate = new Date(Date.now() + expires)
   const body: CacheResult = {
-    expiresAt: new Date(Date.now() + ms('1 hour')).toUTCString(),
+    expiresAt: new Intl.DateTimeFormat('en-GB', {
+      dateStyle: 'short',
+      timeStyle: 'medium',
+      timeZone: 'Europe/Copenhagen',
+    }).format(expiryDate),
     repos,
   }
 
-  await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
+  await upstashRequest(`/set/my-starred-repos?EX=${expires / 1000}`, {
     method: 'POST',
     body: JSON.stringify(body),
   })
