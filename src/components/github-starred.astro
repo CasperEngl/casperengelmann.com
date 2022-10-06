@@ -1,13 +1,13 @@
 ---
 import OutboundLink from '~/components/outbound-link.astro'
-import { getStarredRepos } from '~/services/github-starred'
+import { getStarredRepos } from '~/services/github'
 
 const starredRepos = await getStarredRepos()
 ---
 
 <ul>
   {
-    starredRepos.map((repo) => (
+    starredRepos?.map((repo) => (
       <li>
         <OutboundLink href={repo.html_url}>{repo.full_name}</OutboundLink>
       </li>
