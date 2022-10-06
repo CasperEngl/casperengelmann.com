@@ -1,23 +1,15 @@
 import ms from 'ms'
-import { z } from 'zod'
 import { upstashRequest } from '~/services/upstash'
 
-const repoSchema = z.object({
-  html_url: z.string(),
-  full_name: z.string(),
-  private: z.boolean().optional(),
-})
+interface Repo {
+  html_url: string
+  full_name: string
+  private?: boolean
+}
 
-const cacheResultSchema = z.object({
-  expiresAt: z.string(),
-  repos: z.array(repoSchema),
-})
-
-type CacheResult = z.infer<typeof cacheResultSchema>
-type Repo = CacheResult['repos'][number]
-
-function repoIsPrivate(repo: Repo): repo is Repo & { private: true } {
-  return repo.private === true
+type CacheResult = {
+  expiresAt: string
+  repos: Repo[]
 }
 
 export async function getStarredRepos() {
@@ -26,9 +18,9 @@ export async function getStarredRepos() {
   if (cache) {
     console.log('My starred repos: cache hit')
 
-    const { repos } = cacheResultSchema.parse(JSON.parse(cache))
+    const json: CacheResult = JSON.parse(cache)
 
-    return repos
+    return json.repos
   }
 
   console.log('My starred repos: cache miss')
@@ -42,10 +34,10 @@ export async function getStarredRepos() {
     }
   )
 
-  const repos = z.array(repoSchema).parse(await response.json())
+  const json: Awaited<Repo[]> = await response.json()
   const expires = ms('1 hour') / 1000 // ms to seconds
-  const transformedRepos = repos
-    .filter((repo) => !repoIsPrivate(repo))
+  const repos: Repo[] = json
+    .filter((repo) => !repo.private)
     .map((repo) => ({
       html_url: repo.html_url,
       full_name: repo.full_name,
@@ -53,7 +45,7 @@ export async function getStarredRepos() {
 
   const body: CacheResult = {
     expiresAt: new Date(Date.now() + ms('1 hour')).toISOString(),
-    repos: transformedRepos,
+    repos,
   }
 
   await upstashRequest(`/set/my-starred-repos?EX=${expires}`, {
@@ -61,5 +53,5 @@ export async function getStarredRepos() {
     body: JSON.stringify(body),
   })
 
-  return body.repos
+  return repos
 }
