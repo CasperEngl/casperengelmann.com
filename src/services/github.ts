@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { redis } from '~/services/redis'
 
 export const githubHeaders = new Headers({
-  Authorization: `token ${import.meta.env.GITHUB_API_KEY}`,
+  Authorization: `token ${Deno.env.get('GITHUB_API_KEY')}`,
 })
 
 const repoSchema = z.object({
