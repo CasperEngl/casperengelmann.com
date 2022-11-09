@@ -21,9 +21,8 @@ type CacheResult = z.infer<typeof cacheResultSchema>
 
 export async function getStarredRepos() {
   try {
-    const cache = cacheResultSchema.safeParse(
-      await redis.get('my-starred-repos')
-    )
+    const cachedRepos = await redis.get('my-starred-repos')
+    const cache = cacheResultSchema.safeParse(cachedRepos || {})
 
     if (cache.success) {
       console.log('My starred repos: cache hit')
