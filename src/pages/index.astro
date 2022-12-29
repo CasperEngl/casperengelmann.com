@@ -11,7 +11,7 @@ const email = 'me@casperengelmann.com'
 
 <Layout>
   <div
-    class="pr-24 flex flex-wrap gap-x-12 prose max-w-full dark:prose-invert prose-h1:text-2xl dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-li:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white"
+    class="prose flex max-w-full flex-wrap gap-x-12 pr-24 prose-h1:text-2xl dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white dark:prose-li:text-gray-300"
   >
     <section class="w-full">
       <div class="max-w-prose">
@@ -37,7 +37,7 @@ const email = 'me@casperengelmann.com'
       <Main />
     </section>
 
-    <section class="max-w-prose w-full">
+    <section class="w-full max-w-prose">
       <Me />
 
       <style>
@@ -51,17 +51,17 @@ const email = 'me@casperengelmann.com'
       <GitHub />
     </section>
 
-    <footer class="mt-6 mb-24 2xl:col-span-4 w-full">
+    <footer class="mb-24 mt-6 w-full 2xl:col-span-4">
       <h3>Contact</h3>
 
       <!-- In case JS is not loaded, show the email anyways -->
-      <noscript set:html={obfuscate(email)}></noscript>
+      <noscript set:html={obfuscate(email)} />
 
       <!-- Enhance email copy experience -->
       <CopyEmail client:visible email={obfuscate(email)} />
 
       <div
-        class="js-manual-copy text-gray-500 text-xs mt-1 max-w-sm cursor-zoom-in select-none"
+        class="js-manual-copy mt-1 max-w-sm cursor-zoom-in select-none text-xs text-gray-500"
       >
         <div>
           To protect me from spammers, you will have to copy this yourself.

@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { redis } from '~/services/redis'
 
 export const githubHeaders = new Headers({
-  Authorization: `token ${Deno.env.get('GITHUB_API_KEY')}`,
+  Authorization: `token ${import.meta.env.GITHUB_API_KEY}`,
 })
 
 const repoSchema = z.object({
@@ -21,7 +21,9 @@ type CacheResult = z.infer<typeof cacheResultSchema>
 
 export async function getStarredRepos() {
   try {
-    const cachedRepos = await redis.get('my-starred-repos')
+    const cachedRepos = await redis.get('my-starred-repos').catch((error) => {
+      console.error('Error getting starred repos from Upstash', error)
+    })
     const cache = cacheResultSchema.safeParse(cachedRepos || {})
 
     if (cache.success) {
@@ -41,7 +43,9 @@ export async function getStarredRepos() {
       }
     )
 
-    const repos = z.array(repoSchema).safeParse(await response.json())
+    const json = await response.json()
+
+    const repos = z.array(repoSchema).safeParse(json)
 
     if (repos.success) {
       const transformedRepos = repos.data
