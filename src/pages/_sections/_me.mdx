@@ -46,7 +46,9 @@ import TwitterIcon from '~/icons/twitter.astro'
 
     At the moment we're building a new cross-platform app based on Vue. On the frontend I upgraded our project to Vue 2.7 which unlocked the Composition API. 
     
-    One of my first tasks was to create a TypeScript based query builder for our GraphQL client. We use GraphQL codegen to get types for our queries and mutations. This query builder is used to create queries and mutations in a type-safe way. It's also possible to use fragments to reuse parts of queries and mutations.
+    One of my first tasks was to create a TypeScript based query builder for our GraphQL client. We use GraphQL codegen to get types for our queries and mutations. 
+    
+    The query builder is type-safe, which means all queries, mutations and fragments will return the original type from the GraphQL schema.
   </details>
 - <Experience
     company="Miinto"
