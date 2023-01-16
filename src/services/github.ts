@@ -60,12 +60,8 @@ export async function setStarredRepos() {
   }
 }
 
-export async function getStarredRepos(forceUpdate = false) {
+export async function getStarredRepos() {
   try {
-    if (forceUpdate) {
-      return setStarredRepos()
-    }
-
     const cachedRepos = await redis.get('my-starred-repos').catch((error) => {
       console.error('Error getting starred repos from Upstash', error)
     })
