@@ -1,7 +1,7 @@
-import { getStarredRepos } from '~/services/github'
+import { setStarredRepos } from '~/services/github'
 
 export async function get() {
-  await getStarredRepos()
+  await setStarredRepos()
 
   return new Response('ok')
 }

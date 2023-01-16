@@ -6,6 +6,5 @@ jobs:
   refresh-github-stars:
     runs-on: ubuntu-latest
     steps:
-      # Make a request to my website
-      - name: Request to my website
-        run: curl -s https://casperengelmann.com/
+      - name: Refresh GitHub Stars
+        run: curl -s https://casperengelmann.com/api/refresh-github-starred
