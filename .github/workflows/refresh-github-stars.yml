@@ -1,0 +1,11 @@
+on:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  refresh-github-stars:
+    runs-on: ubuntu-latest
+    steps:
+      # Make a request to my website
+      - name: Request to my website
+        run: curl -s https://casperengelmann.com/

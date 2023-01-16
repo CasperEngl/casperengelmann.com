@@ -13,6 +13,7 @@ const repoSchema = z.object({
 })
 
 const cacheResultSchema = z.object({
+  expiresAt: z.string(),
   repos: z.array(repoSchema),
 })
 
