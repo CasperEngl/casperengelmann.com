@@ -4,12 +4,12 @@ import LinkOut from '~/icons/link-out.astro'
 
 <a {...Astro.props} target="_blank" rel="noopener noreferrer">
   <span
-    class="relative group border-b border-transparent pb-1 hover:border-gray-200 dark:hover:border-gray-500"
+    class="relative group items-center inline-flex border-b border-transparent pb-[0.5em] leading-none hover:border-gray-200 dark:hover:border-gray-500"
   >
     <slot />
 
     <LinkOut
-      class="absolute bottom-[0.2em] right-0 translate-x-full inline-block w-[1.25em] opacity-50 group-hover:opacity-100 group-focus:opacity-100 scale-90 ease-in-out origin-bottom-left group-hover:scale-100 group-focus:scale-100 transition -mr-[0.25em]"
+      class="absolute right-0 translate-x-full inline-block w-[1.25em] opacity-50 group-hover:opacity-100 group-focus:opacity-100 scale-90 ease-in-out origin-bottom-left group-hover:scale-100 group-focus:scale-100 transition -mr-[0.25em]"
     />
   </span>
 </a>
