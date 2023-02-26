@@ -1,9 +1,10 @@
 ---
 import { CopyEmail } from '~/components/copy-email'
+import Experience from '~/components/experience.astro'
+import GithubStarred from '~/components/github-starred.astro'
 import Layout from '~/components/layout.astro'
-import GitHub from '~/pages/_sections/_github.mdx'
-import Main from '~/pages/_sections/_main.mdx'
-import Me from '~/pages/_sections/_me.mdx'
+import OutboundLink from '~/components/outbound-link.astro'
+import UpstashIcon from '~/icons/upstash.astro'
 import { obfuscate } from '~/utils/obfuscate'
 
 const email = 'me@casperengelmann.com'
@@ -11,34 +12,363 @@ const email = 'me@casperengelmann.com'
 
 <Layout>
   <div
-    class="prose flex max-w-full flex-wrap gap-x-12 pr-24 prose-h1:text-2xl prose-h2:text-xl dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white dark:prose-li:text-gray-300"
+    class="js-selector-grid prose grid max-w-full grid-cols-1 gap-x-12 gap-y-4 [grid-template-rows:masonry] [grid-auto-rows:100px] prose-h1:text-2xl prose-h2:text-xl prose-a:no-underline dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white dark:prose-li:text-gray-300 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
   >
-    <section class="w-full">
-      <div class="max-w-prose">
-        <h1>Casper Engelmann</h1>
+    <section class="item col-span-1 md:col-span-2 xl:col-span-3 2xl:col-span-4">
+      <div class="content">
+        <div class="max-w-prose">
+          <h1>Casper Engelmann</h1>
 
-        <p>
-          I'm a frontend developer living in Denmark, in the capital area. I
-          enjoy watching films, series, competetive gaming, and feeding my
-          curious mind.
-        </p>
+          <p>
+            I'm a frontend developer living in Denmark, in the capital area. I
+            enjoy watching films, series, competetive gaming, and feeding my
+            curious mind.
+          </p>
 
-        <p>
-          Professionally I specialise in web apps with a focus on UX values.
-        </p>
+          <p>
+            Professionally I specialise in web apps with a focus on UX values.
+          </p>
 
-        <p class="font-bold">
-          Always attempt to improve UX <em>and</em> DX whenever possible.
-        </p>
+          <p class="font-bold">
+            Always attempt to improve UX <em>and</em> DX whenever possible.
+          </p>
+        </div>
       </div>
     </section>
 
-    <section>
-      <Main />
+    <section class="item">
+      <div class="content">
+        <h2>Most used tech</h2>
+
+        <ul>
+          <li>
+            <OutboundLink href="https://reactjs.org/">React</OutboundLink>
+          </li>
+          <li>
+            <OutboundLink href="https://stitches.dev/">Stitches</OutboundLink>
+          </li>
+          <li>
+            <OutboundLink href="https://www.radix-ui.com/"
+              >Radix UI</OutboundLink
+            >
+          </li>
+          <li>
+            <OutboundLink href="https://tailwindcss.com/"
+              >TailwindCSS</OutboundLink
+            >
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <OutboundLink href="https://www.typescriptlang.org/"
+              >TypeScript</OutboundLink
+            >
+          </li>
+          <li>
+            <OutboundLink href="https://turborepo.org/">Turborepo</OutboundLink>
+          </li>
+          <li>
+            <OutboundLink href="https://vitejs.dev/">Vite</OutboundLink>
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <OutboundLink href="https://nextjs.org/">Next</OutboundLink>
+          </li>
+          <li>
+            <OutboundLink href="https://laravel.com/">Laravel</OutboundLink>
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <section class="w-full max-w-prose">
-      <Me />
+    <section class="item">
+      <div class="content">
+        <h2>Tech I've started to adopt</h2>
+
+        <ul>
+          <li>
+            <OutboundLink href="https://astro.build/">Astro</OutboundLink>
+          </li>
+          <li>
+            <OutboundLink href="https://www.solidjs.com/">SolidJS</OutboundLink>
+          </li>
+          <li>
+            <OutboundLink href="https://github.com/supermacro/neverthrow/">
+              neverthrow
+            </OutboundLink>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="item">
+      <div class="content">
+        <h2>New tech I'm interested in</h2>
+
+        <ul>
+          <li>
+            <OutboundLink href="https://remix.run/">Remix</OutboundLink>
+          </li>
+          <li>
+            <OutboundLink href="https://markojs.com/">Marko</OutboundLink>
+          </li>
+          <li>
+            Anything from
+            <OutboundLink href="https://tanstack.com/">TanStack</OutboundLink>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="item">
+      <div class="content">
+        <h2>My focus areas</h2>
+
+        <ul>
+          <li>Accessibility and user experience</li>
+          <li>Web fundamentals first</li>
+          <li>Type-safe applications</li>
+          <li>
+            <OutboundLink
+              href="https://frontendmastery.com/posts/building-future-facing-frontend-architectures/"
+            >
+              {'Building for the future'}
+            </OutboundLink>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="item">
+      <div class="content">
+        <h2>Interesting reads</h2>
+
+        <ul>
+          <li>
+            <OutboundLink
+              href="https://dev.to/ryansolid/introducing-the-marko-tags-api-preview-37o4/"
+            >
+              {'Introducing the Marko Tags API Preview'}
+            </OutboundLink>
+          </li>
+          <li>
+            <OutboundLink
+              href="https://www.builder.io/blog/qwik-and-qwik-city-have-reached-beta"
+            >
+              {'Qwik and Qwik City have reached beta! 🎉'}
+            </OutboundLink>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="item">
+      <div class="content">
+        <h2>Links</h2>
+
+        <div class="flex flex-col items-start gap-3">
+          <dl class="grid grid-cols-[auto,1fr] gap-x-4 gap-y-4 leading-none">
+            <dt class="font-light text-gray-500 dark:text-gray-300">GitHub</dt>
+            <dd>
+              <OutboundLink
+                href="https://github.com/casperengl/"
+                class="inline-flex items-center gap-2"
+              >
+                <span>github.com/casperengl/</span>
+              </OutboundLink>
+            </dd>
+
+            <dt class="font-light text-gray-500 dark:text-gray-300">LinkedIn</dt>
+            <dd>
+              <OutboundLink
+                href="https://www.linkedin.com/in/casperengl/"
+                class="inline-flex items-center gap-2"
+              >
+                <span>linkedin.com/in/casperengl/</span>
+              </OutboundLink>
+            </dd>
+
+            <dt class="font-light text-gray-500 dark:text-gray-300">Twitter</dt>
+            <dd>
+              <OutboundLink
+                href="https://twitter.com/casperengl"
+                class="inline-flex items-center gap-2"
+              >
+                <span>twitter.com/casperengl</span>
+              </OutboundLink>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="item">
+      <div class="content">
+        <h2>Experience</h2>
+
+        <ul class="list-none pl-0">
+          <li class="pl-0">
+            <Experience
+              company="Make Influence"
+              role="Frontend Lead"
+              startDate="2022-10"
+              link="https://www.makeinfluence.com/"
+            />
+
+            <details class="pl-4">
+              <summary
+                class="max-w-min cursor-default select-none list-outside whitespace-nowrap border-b border-transparent hover:border-gray-200 dark:hover:border-gray-600"
+              >
+                Read more
+              </summary>
+
+              At the moment we're building a new cross-platform app based on
+              Vue. On the frontend I upgraded the app to Vue 3, and I'm
+              currently working on a new design system for the app. One of my
+              first tasks was to create a TypeScript based query builder for our
+              GraphQL client. We use GraphQL codegen to get types for our
+              queries and mutations. The query builder is type-safe, which means
+              all queries, mutations and fragments will return the original type
+              from the GraphQL schema.
+            </details>
+          </li>
+
+          <li class="pl-0">
+            <Experience
+              company="Miinto"
+              role="Senior Frontend developer"
+              startDate="2022-03"
+              endDate="2022-10"
+              link="https://www.miinto-group.com/"
+            />
+
+            <details class="pl-4">
+              <summary
+                class="max-w-min cursor-default select-none list-outside whitespace-nowrap border-b border-transparent hover:border-gray-200 dark:hover:border-gray-600"
+              >
+                Read more
+              </summary>
+              Miinto is a marketplace for physical boutiques in 14 markets across
+              Europe and China. At Miinto, I'm part of the Partners & Back Office
+              team, whose responsibility was to create the foundation for their new
+              admin tools and management systems. My first project was Partner Management
+              System, with a complementary component library/design system. This
+              project is going to be the entry point for each new Partner, where
+              their company information, market selection, contracts, etc. is stored.
+            </details>
+          </li>
+
+          <li class="pl-0">
+            <Experience
+              company="Adapt"
+              role="Frontend Developer"
+              startDate="2020-09"
+              endDate="2022-03"
+              link="https://adaptagency.com/"
+            />
+
+            <details class="pl-4">
+              <summary
+                class="max-w-min cursor-default select-none list-outside whitespace-nowrap border-b border-transparent hover:border-gray-200 dark:hover:border-gray-500"
+              >
+                Read more
+              </summary>
+
+              Adapt is a full-service agency, doing everything from UX, Mobile
+              Apps to web development, both front- and backend. I was hired here
+              because of my experience with front-end frameworks such as React
+              and Vue. Some of the clients I worked with during my time there: *
+              Sygeforsikring "danmark" - self-service platform built in React
+              using Redux, CSS modules etc. and their new website built with
+              Statamic, TailwindCSS and AlpineJS: sygeforsikring.dk * Interflora
+              - B2B universe as a consultant. We made with Vue 3, which was
+              released three months prior (EOY 2020). We used GraphQL with
+              Apollo, TailwindCSS, GSAP (animation), and a lot of other cool
+              stuff. Their focus was to create a modern, luxurious, and
+              user-friendly experience for their customers. * GSV - A
+              heavy-machinery renter, one of Denmark's most extensive. They
+              wanted to break into the digital world with two products named
+              Dashboard and Kundeportal (Customer portal). The frontends were
+              written in TypeScript with React as the framework. We also created
+              an accompanying component library for them, which is being used
+              across their portfolio of products.
+            </details>
+          </li>
+
+          <li class="pl-0">
+            <Experience
+              company="Devant"
+              role="Self-employed"
+              startDate="2019-11"
+              endDate="2020-05"
+            />
+
+            <details class="pl-4">
+              <summary
+                class="max-w-min cursor-default select-none list-outside whitespace-nowrap border-b border-transparent hover:border-gray-200 dark:hover:border-gray-600"
+              >
+                Read more
+              </summary>
+
+              The company that I had together with a partner, where I worked as
+              a consultant. During this period, I did Laravel development,
+              implemented a new payment gateway using Stripe, and did my fair
+              share of other odd jobs.
+            </details>
+          </li>
+
+          <li class="pl-0">
+            <Experience
+              company="Designheroes"
+              role="Fullstack developer"
+              startDate="2019-04"
+              endDate="2019-11"
+              link="https://www.designheroes.dk/"
+            />
+
+            <details class="pl-4">
+              <summary
+                class="max-w-min cursor-default select-none list-outside whitespace-nowrap border-b border-transparent hover:border-gray-200 dark:hover:border-gray-600"
+              >
+                Read more
+              </summary>
+              Designheroes was a small agency doing development and design. My projects
+              ranged from WordPress websites to OpenCart webshops (a reasonably old
+              PHP framework) and Laravel development for our biggest client, both
+              front- and back-end. The largest project built in Laravel was Petsbnb,
+              a pet-sitting platform for pet owners and sitters. We handled everything
+              from login features, calendar management, chat rooms, payments, etc.
+            </details>
+          </li>
+
+          <li class="pl-0">
+            <Experience
+              company="Web-Koncept"
+              role="Student Developer"
+              startDate="2017-05"
+              endDate="2019-04"
+              link="https://web-koncept.dk/"
+            />
+
+            <details class="pl-4">
+              <summary
+                class="max-w-min cursor-default select-none list-outside whitespace-nowrap border-b border-transparent hover:border-gray-200 dark:hover:border-gray-600"
+              >
+                Read more
+              </summary>
+              Web-Koncept has become one of the larger web agencies in Denmark regarding
+              small-medium-sized businesses. At the time, I was the only coder there,
+              which resulted in me creating in-house tools, such as Imapsync App,
+              an email transfer app client that they still use. This is where I gained
+              my first experience with React, which I used extensively at the time
+              to create most of their specialized solutions.
+            </details>
+          </li>
+        </ul>
+      </div>
 
       <style>
         :global(details[open]) {
@@ -47,50 +377,101 @@ const email = 'me@casperengelmann.com'
       </style>
     </section>
 
-    <section>
-      <GitHub />
+    <section class="item">
+      <div class="content">
+        <h2>My latest starred repos</h2>
+
+        <OutboundLink
+          href="https://upstash.com"
+          class="flex items-center gap-2 text-xs no-underline"
+        >
+          <span>Cached with</span>
+
+          <UpstashIcon class="inline-block h-6" aria-label="Upstash" />
+        </OutboundLink>
+
+        <GithubStarred />
+      </div>
     </section>
 
-    <footer class="mb-24 mt-6 w-full 2xl:col-span-4">
-      <h3>Contact</h3>
+    <footer
+      class="item col-span-1 w-full md:col-span-2 xl:col-span-3 2xl:col-span-4"
+    >
+      <div class="content mb-24">
+        <h2>Contact</h2>
 
-      <!-- In case JS is not loaded, show the email anyways -->
-      <noscript set:html={obfuscate(email)} />
+        <!-- In case JS is not loaded, show the email anyways -->
+        <noscript set:html={obfuscate(email)} />
 
-      <!-- Enhance email copy experience -->
-      <CopyEmail client:visible email={obfuscate(email)} />
+        <!-- Enhance email copy experience -->
+        <CopyEmail client:visible email={obfuscate(email)} />
 
-      <div
-        class="js-manual-copy mt-1 max-w-sm cursor-zoom-in select-none text-xs text-gray-500"
-      >
-        <div>
-          To protect me from spammers, you will have to copy this yourself.
-        </div>
-        <div>
-          If you have JavaScript enabled, clicking the email will select it.
+        <div
+          class="js-manual-copy mt-1 max-w-sm cursor-zoom-in select-none text-xs text-gray-500"
+        >
+          <div>
+            To protect me from spammers, you will have to copy this yourself.
+          </div>
+          <div>
+            If you have JavaScript enabled, clicking the email will select it.
+          </div>
         </div>
       </div>
     </footer>
-
-    <script is:inline>
-      // Allow user to make the manu copy text larger.
-      const manualCopy = document.querySelector('.js-manual-copy')
-
-      manualCopy.addEventListener('click', () => {
-        if (manualCopy.classList.contains('cursor-zoom-in')) {
-          manualCopy.classList.remove('cursor-zoom-in')
-          manualCopy.classList.add('cursor-zoom-out')
-
-          manualCopy.classList.remove('text-xs')
-          manualCopy.classList.add('text-base')
-        } else if (manualCopy.classList.contains('cursor-zoom-out')) {
-          manualCopy.classList.remove('cursor-zoom-out')
-          manualCopy.classList.add('cursor-zoom-in')
-
-          manualCopy.classList.remove('text-base')
-          manualCopy.classList.add('text-xs')
-        }
-      })
-    </script>
   </div>
+
+  <script is:inline>
+    // Allow user to make the manu copy text larger.
+    const manualCopy = document.querySelector('.js-manual-copy')
+
+    manualCopy.addEventListener('click', () => {
+      if (manualCopy.classList.contains('cursor-zoom-in')) {
+        manualCopy.classList.remove('cursor-zoom-in')
+        manualCopy.classList.add('cursor-zoom-out')
+
+        manualCopy.classList.remove('text-xs')
+        manualCopy.classList.add('text-base')
+      } else if (manualCopy.classList.contains('cursor-zoom-out')) {
+        manualCopy.classList.remove('cursor-zoom-out')
+        manualCopy.classList.add('cursor-zoom-in')
+
+        manualCopy.classList.remove('text-base')
+        manualCopy.classList.add('text-xs')
+      }
+    })
+  </script>
+
+  <script is:inline>
+    function resizeGridItem(item) {
+      const grid = document.querySelector('.js-selector-grid')
+      const rowHeight = parseInt(
+        window.getComputedStyle(grid).getPropertyValue('grid-auto-rows')
+      )
+      const rowGap = parseInt(
+        window.getComputedStyle(grid).getPropertyValue('row-gap')
+      )
+
+      const rowSpan = Math.ceil(
+        (item.querySelector('.content').getBoundingClientRect().height +
+          rowGap) /
+          (rowHeight + rowGap)
+      )
+
+      console.log(rowSpan)
+
+      item.style.gridRowEnd = 'span ' + rowSpan
+    }
+
+    function resizeAllGridItems() {
+      const allItems = document.getElementsByClassName('item')
+
+      for (x = 0; x < allItems.length; x++) {
+        resizeGridItem(allItems[x])
+      }
+    }
+
+    window.onload = resizeAllGridItems()
+
+    window.addEventListener('resize', resizeAllGridItems)
+  </script>
 </Layout>
