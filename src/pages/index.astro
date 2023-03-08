@@ -171,7 +171,7 @@ const email = 'me@casperengelmann.com'
 
         <div class="flex flex-col items-start gap-3">
           <dl class="grid grid-cols-[auto,1fr] gap-x-4 gap-y-4 leading-none">
-            <dt class="font-light text-gray-500 dark:text-gray-300">GitHub</dt>
+            <dt class="text-gray-500 dark:text-gray-300">GitHub</dt>
             <dd>
               <OutboundLink
                 href="https://github.com/casperengl/"
@@ -181,7 +181,7 @@ const email = 'me@casperengelmann.com'
               </OutboundLink>
             </dd>
 
-            <dt class="font-light text-gray-500 dark:text-gray-300">LinkedIn</dt>
+            <dt class="text-gray-500 dark:text-gray-300">LinkedIn</dt>
             <dd>
               <OutboundLink
                 href="https://www.linkedin.com/in/casperengl/"
@@ -191,7 +191,7 @@ const email = 'me@casperengelmann.com'
               </OutboundLink>
             </dd>
 
-            <dt class="font-light text-gray-500 dark:text-gray-300">Twitter</dt>
+            <dt class="text-gray-500 dark:text-gray-300">Twitter</dt>
             <dd>
               <OutboundLink
                 href="https://twitter.com/casperengl"
@@ -458,8 +458,6 @@ const email = 'me@casperengelmann.com'
           rowGap) /
           (rowHeight + rowGap)
       )
-
-      console.log(rowSpan)
 
       item.style.gridRowEnd = 'span ' + rowSpan
     }
