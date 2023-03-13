@@ -1,5 +1,4 @@
 import { createSignal, Show } from 'solid-js'
-import { clarify } from '~/utils/clarify'
 import { getSuperKey } from '~/utils/get-super-key'
 
 type Props = {
@@ -68,9 +67,6 @@ export const CopyEmail = ({ email }: Props) => {
     window.getSelection()?.empty()
   }
 
-  // Email should be obfuscated on the server and not in the client
-  const emailHTML = typeof window === 'undefined' ? email : clarify(email)
-
   return (
     <div class="relative inline-flex flex-wrap gap-2">
       <div
@@ -80,7 +76,7 @@ export const CopyEmail = ({ email }: Props) => {
         onFocus={handleFocus}
         onBlur={handleBlur}
         onCopy={handleCopy}
-        innerHTML={emailHTML}
+        innerHTML={email}
       />
 
       <Show when={message()} keyed>
