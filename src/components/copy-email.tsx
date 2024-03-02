@@ -5,7 +5,8 @@ type Props = {
   email: string
 }
 
-const helperText = `Email selected and ready to copy, just press ${getSuperKey()} + C`
+const helperText =
+  `Email selected and ready to copy, just press ${getSuperKey()} + C` as const
 
 let emailRef: HTMLDivElement
 let timeout: number | undefined
@@ -15,11 +16,11 @@ export const CopyEmail = ({ email }: Props) => {
   const [copyCount, setCopyCount] = createSignal(0)
   const [timeoutMs, setTimeoutMs] = createSignal(0)
 
-  const emojiCount = () => {
+  function emojiCount() {
     return copyCount() - 15
   }
 
-  const handleCopy = () => {
+  function handleCopy() {
     clearTimeout(timeout)
 
     setCopyCount((count) => count + 1)
@@ -56,12 +57,12 @@ export const CopyEmail = ({ email }: Props) => {
     }, timeoutMs())
   }
 
-  const handleFocus = () => {
+  function handleFocus() {
     setMessage(helperText)
     window.getSelection()?.selectAllChildren(emailRef)
   }
 
-  const handleBlur = () => {
+  function handleBlur() {
     setMessage('')
     clearTimeout(timeout)
     window.getSelection()?.empty()
@@ -71,6 +72,7 @@ export const CopyEmail = ({ email }: Props) => {
     <div class="relative inline-flex flex-wrap gap-2">
       <div
         class="inline-block"
+        // biome-ignore lint/a11y/noNoninteractiveTabindex: <explanation>
         tabIndex={0}
         ref={emailRef}
         onFocus={handleFocus}

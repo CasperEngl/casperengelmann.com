@@ -8,7 +8,9 @@ export const navigator = globalThis?.navigator ?? {
 export function getSuperKey() {
   if (usesCommandKey()) {
     return '⌘'
-  } else if (usesControlKey()) {
+  }
+
+  if (usesControlKey()) {
     return 'ctrl'
   }
 
