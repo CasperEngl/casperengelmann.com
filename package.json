@@ -12,12 +12,13 @@
     "type-check": "tsc --noEmit --pretty"
   },
   "dependencies": {
-    "@astrojs/deno": "^5.0.1",
     "@astrojs/mdx": "^2.3.0",
+    "@astrojs/node": "^8.2.5",
     "@astrojs/solid-js": "^4.1.0",
     "@astrojs/tailwind": "^5.1.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.12",
+    "@types/bun": "^1.0.12",
     "@types/ms": "^0.7.34",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
