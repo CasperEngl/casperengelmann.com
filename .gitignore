@@ -21,6 +21,7 @@ pnpm-debug.log*
 
 # cloudflare
 .dev.vars
+.wrangler
 
 # astro
 .astro
