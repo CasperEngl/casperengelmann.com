@@ -1,11 +1,8 @@
 ---
-import ms from 'ms'
 import OutboundLink from '~/components/outbound-link.astro'
 import { getStarredRepos } from '~/services/github'
 
 const starredRepos = await getStarredRepos()
-
-Astro.response.headers.set('Cache-Control', `public, max-age=${ms('1 hour')}`)
 ---
 
 <ul>
