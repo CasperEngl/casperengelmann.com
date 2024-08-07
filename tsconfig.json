@@ -18,6 +18,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "strict": true,
+    "strictNullChecks": true,
     "paths": {
       "~/*": ["*"]
     }
