@@ -9,7 +9,7 @@ const helperText =
   `Email selected and ready to copy, just press ${getSuperKey()} + C` as const
 
 let emailRef: HTMLDivElement
-let timeout: number | undefined
+let timeout: NodeJS.Timeout
 
 export const CopyEmail = ({ email }: Props) => {
   const [message, setMessage] = createSignal('')
