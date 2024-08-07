@@ -1,10 +1,8 @@
 ---
-import { CopyEmail } from '~/components/copy-email'
 import Experience from '~/components/experience.astro'
 import GithubStarred from '~/components/github-starred.astro'
 import Layout from '~/components/layout.astro'
 import OutboundLink from '~/components/outbound-link.astro'
-import UpstashIcon from '~/icons/upstash.astro'
 import { obfuscate } from '~/utils/obfuscate'
 
 const email = 'me@casperengelmann.com'
@@ -364,15 +362,10 @@ const email = 'me@casperengelmann.com'
     <section>
       <h2>My latest starred repos</h2>
 
-      <OutboundLink href="https://upstash.com">
-        <span class="inline-flex items-center gap-2 text-xs no-underline">
-          <span>Cached with</span>
 
-          <UpstashIcon class="inline-block h-6" aria-label="Upstash" />
-        </span>
-      </OutboundLink>
-
-      <GithubStarred />
+      <GithubStarred server:defer>
+        <div slot="fallback">Loading...</div>
+      </GithubStarred>
     </section>
 
     <footer
@@ -381,44 +374,9 @@ const email = 'me@casperengelmann.com'
       <div class="mb-24">
         <h2>Contact</h2>
 
-        <!-- In case JS is not loaded, show the email anyways -->
-        <noscript set:html={obfuscate(email)} />
-
         <!-- Enhance email copy experience -->
-        <CopyEmail client:visible email={obfuscate(email)} />
-
-        <div
-          class="js-manual-copy mt-1 max-w-sm cursor-zoom-in select-none text-xs text-gray-500"
-        >
-          <div>
-            To protect me from spammers, you will have to copy this yourself.
-          </div>
-          <div>
-            If you have JavaScript enabled, clicking the email will select it.
-          </div>
-        </div>
+        <a href="/api/email" set:html={obfuscate(email)} />
       </div>
     </footer>
   </div>
-
-  <script is:inline>
-    // Allow user to make the manu copy text larger.
-    const manualCopy = document.querySelector('.js-manual-copy')
-
-    manualCopy.addEventListener('click', () => {
-      if (manualCopy.classList.contains('cursor-zoom-in')) {
-        manualCopy.classList.remove('cursor-zoom-in')
-        manualCopy.classList.add('cursor-zoom-out')
-
-        manualCopy.classList.remove('text-xs')
-        manualCopy.classList.add('text-base')
-      } else if (manualCopy.classList.contains('cursor-zoom-out')) {
-        manualCopy.classList.remove('cursor-zoom-out')
-        manualCopy.classList.add('cursor-zoom-in')
-
-        manualCopy.classList.remove('text-base')
-        manualCopy.classList.add('text-xs')
-      }
-    })
-  </script>
 </Layout>
