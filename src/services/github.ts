@@ -1,6 +1,5 @@
 import ms from 'ms'
 import { z } from 'zod'
-import { redis } from '~/services/redis'
 
 export const githubHeaders = new Headers({
   Authorization: `token ${import.meta.env.GITHUB_API_KEY}`,
@@ -48,9 +47,9 @@ export async function setStarredRepos() {
       repos: transformedRepos,
     }
 
-    await redis.set('my-starred-repos', body, {
-      ex: expires / 1000, // ms to seconds
-    })
+    // await redis.set('my-starred-repos', body, {
+    //   ex: expires / 1000, // ms to seconds
+    // })
 
     return transformedRepos
   }
@@ -60,18 +59,18 @@ export async function setStarredRepos() {
 
 export async function getStarredRepos() {
   try {
-    const cachedRepos = await redis.get('my-starred-repos').catch((error) => {
-      console.error('Error getting starred repos from Upstash', error)
-    })
-    const cache = cacheResultSchema.safeParse(cachedRepos || {})
+    // const cachedRepos = await redis.get('my-starred-repos').catch((error) => {
+    //   console.error('Error getting starred repos from cache', error)
+    // })
+    // const cache = cacheResultSchema.safeParse(cachedRepos || {})
 
-    if (cache.success) {
-      console.log('My starred repos: cache hit')
+    // if (cache.success) {
+    //   console.log('My starred repos: cache hit')
 
-      return cache.data.repos
-    }
+    //   return cache.data.repos
+    // }
 
-    console.log('Failed to parse cache', cache.error)
+    // console.log('Failed to parse cache', cache.error)
 
     console.log('My starred repos: cache miss')
 
