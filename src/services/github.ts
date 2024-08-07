@@ -17,14 +17,12 @@ const cacheResultSchema = z.object({
   repos: z.array(repoSchema),
 })
 
-type CacheResult = z.infer<typeof cacheResultSchema>
-
 export async function setStarredRepos() {
   const response = await fetch(
     'https://api.github.com/users/casperengl/starred?per_page=10',
     {
       headers: githubHeaders,
-    }
+    },
   )
 
   const json = await response.json()
@@ -41,7 +39,7 @@ export async function setStarredRepos() {
 
     const expires = ms('1 hour')
     const expiryDate = new Date(Date.now() + expires)
-    const body: CacheResult = {
+    const body: z.infer<typeof cacheResultSchema> = {
       expiresAt: new Intl.DateTimeFormat('en-GB', {
         dateStyle: 'short',
         timeStyle: 'medium',
@@ -55,9 +53,9 @@ export async function setStarredRepos() {
     })
 
     return transformedRepos
-  } else {
-    console.error('Failed to parse repos', repos.error)
   }
+
+  console.error('Failed to parse repos', repos.error)
 }
 
 export async function getStarredRepos() {
@@ -71,9 +69,9 @@ export async function getStarredRepos() {
       console.log('My starred repos: cache hit')
 
       return cache.data.repos
-    } else {
-      console.log('Failed to parse cache', cache.error)
     }
+
+    console.log('Failed to parse cache', cache.error)
 
     console.log('My starred repos: cache miss')
 
