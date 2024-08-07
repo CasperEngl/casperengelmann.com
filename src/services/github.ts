@@ -4,6 +4,7 @@ import { z } from 'zod'
 
 export const githubHeaders = new Headers({
   Authorization: `token ${GITHUB_API_KEY}`,
+  'User-Agent': 'Casper-Engeln',
 })
 
 const repoSchema = z.object({
