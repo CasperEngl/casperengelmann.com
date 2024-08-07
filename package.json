@@ -2,6 +2,7 @@
   "name": "casperengelmann.com",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "astro build",
     "predeploy": "npm run build",
