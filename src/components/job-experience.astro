@@ -1,7 +1,12 @@
 ---
-import OutboundLink from '~/components/outbound-link.astro'
+import type { InferEntrySchema } from 'astro:content'
 import dayjs from 'dayjs'
+import OutboundLink from '~/components/outbound-link.astro'
 import { cn } from '~/utils/cn'
+
+interface Props extends InferEntrySchema<'experience'> {
+  class?: string
+}
 
 const { endDate, startDate, role, link, company } = Astro.props
 
@@ -21,7 +26,9 @@ function isPast(dateString: string) {
   return date.isBefore(dayjs())
 }
 
-function isLastMonth(dateString: string) {
+function isLastMonth(dateString?: string) {
+  if (!dateString) return false
+
   const date = dayjs(dateString)
 
   return date.month() === dayjs().month() - 1
