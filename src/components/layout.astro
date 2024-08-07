@@ -1,4 +1,9 @@
 ---
+import OutboundLink from '~/components/outbound-link.astro'
+import { email } from '~/pages/api/email'
+import { cn } from '~/utils/cn'
+import { obfuscate } from '~/utils/obfuscate'
+
 const { title } = Astro.props
 ---
 
@@ -7,12 +12,84 @@ const { title } = Astro.props
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title || 'Casper Engelmann'}</title>
-    
-    <meta name="description" content="I'm a frontend developer living in Denmark, in the capital area. I enjoy watching films, series, competetive gaming, and feeding my curious mind.">
+
+    <meta
+      name="description"
+      content="I'm a frontend developer living in Denmark, in the capital area. I enjoy watching films, series, competetive gaming, and feeding my curious mind."
+    />
   </head>
   <body class="m-8 dark:bg-black dark:text-white">
-    <main>
-      <slot />
-    </main>
+    <header>
+      <h1 class="text-2xl leading-none font-medium">Casper Engelmann</h1>
+
+      <div
+        class="border-t dark:border-white/25 border-black/10 border-opacity-50 my-2"
+      >
+      </div>
+
+      <nav class="flex gap-2">
+        <a
+          class="px-3 text-sm py-1.5 dark:bg-white/15 rounded bg-black/5 dark:hover:bg-white/25 hover:bg-black/10 transition"
+          href="/"
+        >
+          About
+        </a>
+
+        <a
+          class="px-3 text-sm py-1.5 dark:bg-white/15 rounded bg-black/5 dark:hover:bg-white/25 hover:bg-black/10 transition"
+          href="/experience"
+        >
+          Experience
+        </a>
+
+        <!-- <a
+          class="px-3 text-sm py-1.5 dark:bg-white/15 rounded bg-black/5 dark:hover:bg-white/25 hover:bg-black/10 transition"
+          href="/projects"
+        >
+          Projects
+        </a> -->
+      </nav>
+    </header>
+
+    <div
+      class="prose prose-h1:text-2xl prose-h2:text-xl prose-a:no-underline dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white dark:prose-li:text-gray-300"
+    >
+      <main class={cn('py-8', Astro.props.class)}>
+        <slot />
+      </main>
+
+      <footer class="flex flex-wrap gap-x-8 gap-y-4 pt-8 pb-16">
+        <div class="flex flex-col">
+          <h2>Contact</h2>
+
+          <a href="/api/email" set:html={obfuscate(email)} />
+        </div>
+
+        <div class="flex flex-col">
+          <h2>Links</h2>
+
+          <OutboundLink
+            href="https://github.com/casperengl/"
+            class="inline-flex items-center gap-2"
+          >
+            <span>github.com/casperengl/</span>
+          </OutboundLink>
+
+          <OutboundLink
+            href="https://www.linkedin.com/in/casperengl/"
+            class="inline-flex items-center gap-2"
+          >
+            <span>linkedin.com/in/casperengl/</span>
+          </OutboundLink>
+
+          <OutboundLink
+            href="https://twitter.com/casperengl"
+            class="inline-flex items-center gap-2"
+          >
+            <span>twitter.com/casperengl</span>
+          </OutboundLink>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

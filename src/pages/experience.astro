@@ -1,0 +1,122 @@
+---
+import Layout from '~/components/layout.astro'
+import JobExperience from '~/components/job-experience.astro'
+---
+
+<Layout class="space-y-8">
+  <section>
+    <JobExperience
+      class="mb-2"
+      company="Make Influence"
+      role="Frontend Lead"
+      startDate="2022-10"
+      endDate="2024-09"
+      link="https://www.makeinfluence.com/"
+    />
+
+    At the moment we're building a new cross-platform app based on Vue. On the
+    frontend I upgraded the app to Vue 3, and I'm currently working on a new
+    design system for the app. One of my first tasks was to create a TypeScript
+    based query builder for our GraphQL client. We use GraphQL codegen to get
+    types for our queries and mutations. The query builder is type-safe, which
+    means all queries, mutations and fragments will return the original type
+    from the GraphQL schema.
+  </section>
+
+  <section>
+    <JobExperience
+      class="mb-2"
+      company="Miinto"
+      role="Senior Frontend developer"
+      startDate="2022-03"
+      endDate="2022-10"
+      link="https://www.miinto-group.com/"
+    />
+
+    Miinto is a marketplace for physical boutiques in 14 markets across Europe
+    and China. At Miinto, I'm part of the Partners & Back Office team, whose
+    responsibility was to create the foundation for their new admin tools and
+    management systems. My first project was Partner Management System, with a
+    complementary component library/design system. This project is going to be
+    the entry point for each new Partner, where their company information,
+    market selection, contracts, etc. is stored.
+  </section>
+
+  <section>
+    <JobExperience
+      class="mb-2"
+      company="Adapt"
+      role="Frontend Developer"
+      startDate="2020-09"
+      endDate="2022-03"
+      link="https://adaptagency.com/"
+    />
+
+    Adapt is a full-service agency, doing everything from UX, Mobile Apps to web
+    development, both front- and backend. I was hired here because of my
+    experience with front-end frameworks such as React and Vue. Some of the
+    clients I worked with during my time there: * Sygeforsikring "danmark" -
+    self-service platform built in React using Redux, CSS modules etc. and their
+    new website built with Statamic, TailwindCSS and AlpineJS: sygeforsikring.dk
+    * Interflora - B2B universe as a consultant. We made with Vue 3, which was
+    released three months prior (EOY 2020). We used GraphQL with Apollo,
+    TailwindCSS, GSAP (animation), and a lot of other cool stuff. Their focus
+    was to create a modern, luxurious, and user-friendly experience for their
+    customers. * GSV - A heavy-machinery renter, one of Denmark's most
+    extensive. They wanted to break into the digital world with two products
+    named Dashboard and Kundeportal (Customer portal). The frontends were
+    written in TypeScript with React as the framework. We also created an
+    accompanying component library for them, which is being used across their
+    portfolio of products.
+  </section>
+
+  <section>
+    <JobExperience
+      class="mb-2"
+      company="Devant"
+      role="Self-employed"
+      startDate="2019-11"
+      endDate="2020-05"
+    />
+
+    The company that I had together with a partner, where I worked as a
+    consultant. During this period, I did Laravel development, implemented a new
+    payment gateway using Stripe, and did my fair share of other odd jobs.
+  </section>
+
+  <section>
+    <JobExperience
+      class="mb-2"
+      company="Designheroes"
+      role="Fullstack developer"
+      startDate="2019-04"
+      endDate="2019-11"
+      link="https://www.designheroes.dk/"
+    />
+
+    Designheroes was a small agency doing development and design. My projects
+    ranged from WordPress websites to OpenCart webshops (a reasonably old PHP
+    framework) and Laravel development for our biggest client, both front- and
+    back-end. The largest project built in Laravel was Petsbnb, a pet-sitting
+    platform for pet owners and sitters. We handled everything from login
+    features, calendar management, chat rooms, payments, etc.
+  </section>
+
+  <section>
+    <JobExperience
+      class="mb-2"
+      company="Web-Koncept"
+      role="Student Developer"
+      startDate="2017-05"
+      endDate="2019-04"
+      link="https://web-koncept.dk/"
+    />
+
+    Web-Koncept has become one of the larger web agencies in Denmark regarding
+    small-medium-sized businesses. At the time, I was the only coder there,
+    which resulted in me creating in-house tools, such as Imapsync App, an email
+    transfer app client that they still use. This is where I gained my first
+    experience with React, which I used extensively at the time to create most
+    of their specialized solutions.
+  </section>
+</Layout>

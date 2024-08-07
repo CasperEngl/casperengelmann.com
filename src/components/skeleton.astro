@@ -1,0 +1,19 @@
+---
+import { cn } from '~/utils/cn'
+---
+
+<span
+  class={cn(
+    'relative inline-block max-w-full overflow-hidden dark:bg-white/10 bg-black/10',
+    Astro.props.class,
+  )}
+>
+  <div
+    class={cn(
+      'before:absolute before:inset-x-0 before:-top-1 before:bottom-0 before:-translate-x-full before:-skew-x-12 before:animate-[shimmer_2s_infinite] before:border-t before:bg-gradient-to-r before:from-transparent before:to-transparent before:border-white/5 before:via-white/50 dark:before:border-black/5 dark:before:via-black/50',
+    )}
+  >
+  </div>
+
+  <slot />
+</span>

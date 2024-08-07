@@ -1,9 +1,15 @@
 ---
 import LinkOut from '~/icons/link-out.astro'
+import { cn } from '~/utils/cn'
 ---
 
-<a {...Astro.props} target="_blank" rel="noopener noreferrer">
-  <LinkOut class="-mt-1 inline-block w-[0.75em] h-[0.75em] mr-0.5" />
-
+<a
+  {...Astro.props}
+  class={cn('inline-flex items-baseline', Astro.props.class)}
+  target="_blank"
+  rel="noopener noreferrer"
+>
   <slot />
+
+  <LinkOut class="inline-block w-[0.75em] h-[0.75em] -mt-px ml-1" />
 </a>

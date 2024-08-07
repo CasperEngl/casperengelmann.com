@@ -1,8 +1,9 @@
+import { GITHUB_API_KEY } from 'astro:env/server'
 import ms from 'ms'
 import { z } from 'zod'
 
 export const githubHeaders = new Headers({
-  Authorization: `token ${import.meta.env.GITHUB_API_KEY}`,
+  Authorization: `token ${GITHUB_API_KEY}`,
 })
 
 const repoSchema = z.object({

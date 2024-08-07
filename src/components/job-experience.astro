@@ -1,0 +1,56 @@
+---
+import OutboundLink from '~/components/outbound-link.astro'
+import dayjs from 'dayjs'
+import { cn } from '~/utils/cn'
+
+const { endDate, startDate, role, link, company } = Astro.props
+
+function formatDate(dateString: string) {
+  const date = dayjs(dateString)
+
+  if (date.isAfter(dayjs())) {
+    return 'Present'
+  }
+
+  return date.format('MMMM YYYY')
+}
+
+function isPast(dateString: string) {
+  const date = dayjs(dateString)
+
+  return date.isBefore(dayjs())
+}
+
+function isLastMonth(dateString: string) {
+  const date = dayjs(dateString)
+
+  return date.month() === dayjs().month() - 1
+}
+---
+
+<div class={cn(['not-prose', Astro.props.class])}>
+  <h2 class="font-semibold dark:text-white text-black">
+    {role} @{' '}
+    {company}
+  </h2>
+
+  {
+    endDate && isPast(endDate) ? (
+      <h3 class="text-sm">
+        {formatDate(startDate)} &mdash; {formatDate(endDate)}
+      </h3>
+    ) : isLastMonth(endDate) ? (
+      <h3 class="text-sm">{formatDate(startDate)} &mdash; Ending soon</h3>
+    ) : (
+      <h3 class="text-sm">{formatDate(startDate)} &mdash; Present</h3>
+    )
+  }
+
+  {
+    link ? (
+      <OutboundLink href={link} class="text-xs">
+        Website
+      </OutboundLink>
+    ) : null
+  }
+</div>
