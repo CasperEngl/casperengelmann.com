@@ -1,6 +1,5 @@
 ---
 import OutboundLink from '~/components/outbound-link.astro'
-import { email } from '~/pages/api/email'
 import { cn } from '~/utils/cn'
 import { obfuscate } from '~/utils/obfuscate'
 
@@ -80,7 +79,7 @@ const { title } = Astro.props
         <div class="flex flex-col">
           <h2>Contact</h2>
 
-          <a href="/api/email" set:html={obfuscate(email)} />
+          <p set:html={obfuscate('me@casperengelmann.com')} />
         </div>
 
         <div class="flex flex-col">
