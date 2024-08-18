@@ -4,7 +4,7 @@
 
 type KVNamespace = import('@cloudflare/workers-types').KVNamespace
 type ENV = {
-  MY_KV: KVNamespace
+  GITHUB_STARRED: KVNamespace
 }
 
 // use a default runtime configuration (advanced mode).

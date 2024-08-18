@@ -7,7 +7,7 @@ export const githubHeaders = new Headers({
   'User-Agent': 'Casper-Engeln',
 })
 
-const repoSchema = z.object({
+export const repoSchema = z.object({
   html_url: z.string(),
   full_name: z.string(),
   private: z.boolean().optional(),

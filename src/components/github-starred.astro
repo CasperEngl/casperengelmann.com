@@ -1,13 +1,25 @@
 ---
 import ms from 'ms'
+import { z } from 'zod'
 import OutboundLink from '~/components/outbound-link.astro'
-import { getStarredRepos } from '~/services/github'
+import { getStarredRepos, repoSchema } from '~/services/github'
 
-const starredRepos = await getStarredRepos()
+const { env } = Astro.locals.runtime
 
-const cacheTime = ms('1 hour')
+const cachedReposData = await env.GITHUB_STARRED.get('starred-repos')
+const cachedRepos = cachedReposData
+  ? z.array(repoSchema).parse(JSON.parse(cachedReposData))
+  : null
 
-Astro.response.headers.set('Cache-Control', `public, max-age=${cacheTime} s-maxage=${cacheTime}`)
+let starredRepos = cachedRepos
+
+if (!starredRepos) {
+  starredRepos = await getStarredRepos()
+
+  env.GITHUB_STARRED.put('starred-repos', JSON.stringify(starredRepos), {
+    expirationTtl: ms('1 hour'),
+  })
+}
 ---
 
 <ul>
