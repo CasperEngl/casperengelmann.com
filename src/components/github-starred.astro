@@ -6,17 +6,33 @@ import { getStarredRepos, repoSchema } from '~/services/github'
 
 const { env } = Astro.locals.runtime
 
+const cachedReposSchema = z.object({
+  expiresAt: z.string(),
+  repos: z.array(repoSchema),
+})
+
 const cachedReposData = await env.GITHUB_STARRED.get('starred-repos')
 const cachedRepos = cachedReposData
-  ? z.array(repoSchema).parse(JSON.parse(cachedReposData))
+  ? cachedReposSchema.parse(JSON.parse(cachedReposData))
   : null
 
-let starredRepos = cachedRepos
+let starredRepos = cachedRepos?.repos
 
 if (!starredRepos) {
   starredRepos = await getStarredRepos()
 
-  env.GITHUB_STARRED.put('starred-repos', JSON.stringify(starredRepos), {
+  const expires = ms('1 hour')
+  const expiryDate = new Date(Date.now() + expires)
+  const body = {
+    expiresAt: new Intl.DateTimeFormat('en-GB', {
+      dateStyle: 'short',
+      timeStyle: 'medium',
+      timeZone: 'Europe/Copenhagen',
+    }).format(expiryDate),
+    repos: starredRepos,
+  } satisfies z.infer<typeof cachedReposSchema>
+
+  env.GITHUB_STARRED.put('starred-repos', JSON.stringify(body), {
     expirationTtl: ms('1 hour'),
   })
 }
