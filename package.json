@@ -38,10 +38,6 @@
     "tailwind-merge": "^2.4.0",
     "zod": "^3.22.4"
   },
-  "overrides": {
-    "wrap-ansi": "9.0.0",
-    "string-width": "7.2.0"
-  },
   "patchedDependencies": {
     "ansi-align@3.0.1": "patches/ansi-align@3.0.1.patch"
   }
