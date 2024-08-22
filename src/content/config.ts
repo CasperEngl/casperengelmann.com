@@ -2,6 +2,7 @@ import { defineCollection, z } from 'astro:content'
 import { glob } from 'glob'
 
 const experienceCollection = defineCollection({
+  type: 'content_layer',
   loader: glob(['src/content/experience/**/*.md']),
   schema: z.object({
     company: z.string(),
