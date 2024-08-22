@@ -11,6 +11,7 @@ export default defineConfig({
     },
   }),
   experimental: {
+    contentLayer: true,
     env: {
       schema: {
         GITHUB_API_KEY: envField.string({
