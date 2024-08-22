@@ -2,7 +2,6 @@ import cloudflare from '@astrojs/cloudflare'
 import mdx from '@astrojs/mdx'
 import tailwind from '@astrojs/tailwind'
 import { defineConfig, envField } from 'astro/config'
-import sitemap from '@astrojs/sitemap'
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,7 +21,7 @@ export default defineConfig({
     },
     serverIslands: true,
   },
-  integrations: [tailwind(), mdx(), sitemap()],
+  integrations: [tailwind(), mdx()],
   output: 'hybrid',
   site: 'https://casperengelmann.com',
 })
