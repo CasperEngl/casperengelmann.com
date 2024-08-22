@@ -3,14 +3,17 @@ import OutboundLink from '~/components/outbound-link.astro'
 import { cn } from '~/utils/cn'
 import { obfuscate } from '~/utils/obfuscate'
 
-const { title } = Astro.props
+interface Props {
+  title?: string
+  class?: string
+}
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title || 'Casper Engelmann'}</title>
+    <title>{Astro.props.title || 'Casper Engelmann'}</title>
 
     <meta
       name="description"
@@ -22,6 +25,12 @@ const { title } = Astro.props
       content="web developer, frontend developer, Denmark, web development, React, JavaScript"
     />
     <link rel="canonical" href={Astro.url.href} />
+
+    <style>
+      @view-transition {
+        navigation: auto; /* enabled! */
+      }
+    </style>
 
     <script type="application/ld+json">
       {
@@ -46,25 +55,28 @@ const { title } = Astro.props
 
       <nav class="flex gap-2">
         <a
-          class="px-3 text-sm py-1.5 dark:bg-white/15 rounded bg-black/5 dark:hover:bg-white/25 hover:bg-black/10 transition"
+          class:list={[
+            'px-3 text-sm py-1.5 rounded transition',
+            Astro.url.pathname === '/'
+              ? 'bg-black/10 dark:bg-white/25'
+              : 'bg-black/5 dark:bg-white/15 hover:bg-black/10 dark:hover:bg-white/25',
+          ]}
           href="/"
         >
           About
         </a>
 
         <a
-          class="px-3 text-sm py-1.5 dark:bg-white/15 rounded bg-black/5 dark:hover:bg-white/25 hover:bg-black/10 transition"
+          class:list={[
+            'px-3 text-sm py-1.5 rounded transition',
+            Astro.url.pathname === '/experience'
+              ? 'bg-black/10 dark:bg-white/25'
+              : 'bg-black/5 dark:bg-white/15 hover:bg-black/10 dark:hover:bg-white/25',
+          ]}
           href="/experience"
         >
           Experience
         </a>
-
-        <!-- <a
-          class="px-3 text-sm py-1.5 dark:bg-white/15 rounded bg-black/5 dark:hover:bg-white/25 hover:bg-black/10 transition"
-          href="/projects"
-        >
-          Projects
-        </a> -->
       </nav>
     </header>
 
