@@ -25,5 +25,4 @@ export default defineConfig({
   },
   integrations: [tailwind(), mdx()],
   output: 'hybrid',
-  site: 'https://casperengelmann.com',
 })
