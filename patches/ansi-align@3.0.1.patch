@@ -1,16 +1,19 @@
+diff --git a/node_modules/ansi-align/.bun-tag-d67b75236a31fab0 b/.bun-tag-d67b75236a31fab0
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/index.js b/index.js
-index 67fa826d06306dbf5ef944187f2dcfcbed9a6714..f3390ca3689f79d65be4d3fd2a9b15ffec01e5b9 100644
+index 67fa826d06306dbf5ef944187f2dcfcbed9a6714..3249e50d9d879f8a72f20f44d1ee2b511b54b0c1 100644
 --- a/index.js
 +++ b/index.js
-@@ -1,6 +1,6 @@
- 'use strict'
- 
+@@ -1,6 +1,4 @@
+-'use strict'
+-
 -const stringWidth = require('string-width')
 +const stringWidth = await import('string-width')
  
  function ansiAlign (text, opts) {
    if (!text) return text
-@@ -50,7 +50,7 @@ ansiAlign.right = function right (text) {
+@@ -50,7 +48,7 @@ ansiAlign.right = function right (text) {
    return ansiAlign(text, { align: 'right' })
  }
  
