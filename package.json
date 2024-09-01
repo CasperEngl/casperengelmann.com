@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "11.0.4",
-    "@astrojs/mdx": "3.1.4",
+    "@astrojs/mdx": "3.1.5",
     "@astrojs/tailwind": "^5.1.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.12",
@@ -23,7 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
     "ansi-align": "^3.0.1",
-    "astro": "^4.14.5",
+    "astro": "4.15.1",
     "clsx": "^2.1.1",
     "cross-var": "^1.1.0",
     "dayjs": "^1.11.12",
