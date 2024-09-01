@@ -1,0 +1,8 @@
+This is an Astro (https://astro.build/) project.
+For scripts and node modules we use Bun (https://bun.sh/).
+Project uses Tailwind CSS (https://tailwindcss.com/) for styling.
+For content we use Astro Content Layer (https://docs.astro.build/en/reference/configuration-reference/#experimentalcontentlayer)
+The project deploys to Cloudflare Pages (https://pages.cloudflare.com/).
+Due to being deployed to Cloudflare Pages, the project uses Cloudflare Workers (https://workers.cloudflare.com/) for the backend and must therefore not use any Node.js specific features.
+
+Don't be lazy, write all the code to implement features I ask for.
