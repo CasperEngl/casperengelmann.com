@@ -1,0 +1,35 @@
+---
+import { getEntry } from 'astro:content'
+import dayjs from 'dayjs'
+import Layout from '~/components/layout.astro'
+
+export const prerender = false
+
+const { slug } = Astro.params
+if (!slug) {
+  throw new Error(`Post slug not found`)
+}
+const post = await getEntry('blog', slug)
+
+if (!post) {
+  throw new Error(`Post not found: ${slug}`)
+}
+
+const { Content } = await post.render()
+---
+
+<Layout class="space-y-8">
+  <article>
+    <header>
+      <h1 class="text-3xl font-bold">{post.data.title}</h1>
+      <p class="text-gray-500">
+        <time datetime={dayjs(post.data.date).format('YYYY-MM-DD')}>
+          {dayjs(post.data.date).format('MMMM D, YYYY')}
+        </time>
+      </p>
+    </header>
+    <section>
+      <Content />
+    </section>
+  </article>
+</Layout>

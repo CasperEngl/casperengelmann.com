@@ -1,0 +1,41 @@
+---
+import Layout from "~/components/layout.astro";
+import { getCollection } from "astro:content";
+import dayjs from "dayjs";
+
+const posts = await getCollection("blog");
+---
+
+<Layout class="space-y-8 py-0">
+	<section>
+		{
+			posts
+				.toSorted((a, b) =>
+					// Sort posts by date in descending order (most recent first)
+					dayjs(b.data.date).isAfter(dayjs(a.data.date)) ? 1 : -1,
+				)
+				.map(async (post) => {
+					const { Content } = await post.render();
+					return (
+						<article class="mb-8">
+							<header>
+								<h2>
+									<a href={`/blog/${post.slug}`} class="text-blue-500 hover:underline">
+										{post.data.title}
+									</a>
+								</h2>
+								<p class="text-gray-500">
+									<time datetime={dayjs(post.data.date).format('YYYY-MM-DD')}>
+										{dayjs(post.data.date).format('MMMM D, YYYY')}
+									</time>
+								</p>
+							</header>
+							<section>
+								<Content />
+							</section>
+						</article>
+					);
+				})
+		}
+	</section>
+</Layout>
