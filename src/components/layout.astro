@@ -50,7 +50,7 @@ const currentPath =
       }
     </script>
   </head>
-  <body class="m-8 dark:bg-black dark:text-white">
+  <body class="p-8 dark:bg-black dark:text-white min-h-screen flex flex-col">
     <header class="flex flex-wrap gap-y-3 gap-x-5 items-center">
       <a href="/" class="text-2xl leading-none font-medium no-underline">
         Casper Engelmann
@@ -96,9 +96,9 @@ const currentPath =
     </header>
 
     <div
-      class="prose prose-h1:text-2xl prose-h2:text-xl prose-a:no-underline dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white dark:prose-li:text-gray-300"
+      class="prose prose-h1:text-2xl prose-h2:text-xl prose-a:no-underline dark:prose-invert dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-a:text-gray-200 dark:hover:prose-a:text-white dark:focus:prose-a:text-white dark:prose-li:text-gray-300 flex-1 flex flex-col"
     >
-      <main class={cn('py-8', Astro.props.class)}>
+      <main class={cn('py-8 flex-1', Astro.props.class)}>
         <slot />
       </main>
 
