@@ -1,0 +1,12 @@
+[phases.setup]
+commands = ["bun install"]
+
+[phases.build]
+commands = ["bun run build"]
+
+[phases.start]
+commands = ["node ./dist/server/entry.mjs --host $HOST --port $PORT"]
+
+[variables]
+PORT = "4321"
+HOST = "0.0.0.0"
