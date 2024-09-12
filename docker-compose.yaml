@@ -2,7 +2,7 @@ services:
   app:
     build: .
     ports:
-      - '4321:${PORT:-4321}'
+      - '4322:${PORT:-4322}'
     env_file:
       - .env
     depends_on:
