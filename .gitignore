@@ -19,9 +19,5 @@ pnpm-debug.log*
 .DS_Store
 .vercel
 
-# cloudflare
-.dev.vars
-.wrangler
-
 # astro
 .astro

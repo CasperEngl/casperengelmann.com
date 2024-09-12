@@ -3,15 +3,16 @@ import ms from 'ms'
 import { z } from 'zod'
 import OutboundLink from '~/components/outbound-link.astro'
 import { getStarredRepos, repoSchema } from '~/services/github'
-
-const { env } = Astro.locals.runtime
+import { redis } from '~/services/redis'
 
 const cachedReposSchema = z.object({
   expiresAt: z.string(),
   repos: z.array(repoSchema),
 })
 
-const cachedReposData = await env.GITHUB_STARRED.get('starred-repos')
+await redis.connect()
+
+const cachedReposData = await redis.get('starred-repos')
 const cachedRepos = cachedReposData
   ? cachedReposSchema.parse(JSON.parse(cachedReposData))
   : null
@@ -32,10 +33,12 @@ if (!starredRepos) {
     repos: starredRepos,
   } satisfies z.infer<typeof cachedReposSchema>
 
-  env.GITHUB_STARRED.put('starred-repos', JSON.stringify(body), {
-    expirationTtl: ms('1 hour'),
+  await redis.set('starred-repos', JSON.stringify(body), {
+    EX: expires / 1000,
   })
 }
+
+await redis.disconnect()
 ---
 
 <ul>

@@ -1,14 +1,13 @@
-import cloudflare from '@astrojs/cloudflare'
 import mdx from '@astrojs/mdx'
+import node from '@astrojs/node'
 import tailwind from '@astrojs/tailwind'
 import { defineConfig, envField } from 'astro/config'
+import 'dotenv/config'
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-    },
+  adapter: node({
+    mode: 'standalone',
   }),
   experimental: {
     contentLayer: true,
@@ -25,4 +24,8 @@ export default defineConfig({
   },
   integrations: [tailwind(), mdx()],
   output: 'hybrid',
+  server: {
+    host: process.env.HOST,
+    port: Number.parseInt(process.env.PORT) || 4321,
+  },
 })
