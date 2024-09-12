@@ -13,14 +13,6 @@ const experienceCollection = defineCollection({
   }),
 })
 
-const blog = defineCollection({
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-  }),
-})
-
 export const collections = {
-  blog,
   experienceCollection,
 }
