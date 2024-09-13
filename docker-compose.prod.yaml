@@ -1,0 +1,17 @@
+services:
+  app:
+    build: Dockerfile
+    ports:
+      - '${PORT}:${PORT}'
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+  redis:
+    extends:
+      file: docker-compose.yaml
+      service: redis
+
+volumes:
+  redis-data:

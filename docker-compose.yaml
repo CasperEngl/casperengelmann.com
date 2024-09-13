@@ -1,13 +1,4 @@
 services:
-  app:
-    build: .
-    ports:
-      - '4321:${PORT:-4321}'
-    env_file:
-      - .env
-    depends_on:
-      - redis
-
   redis:
     image: 'redis:alpine'
     ports:
