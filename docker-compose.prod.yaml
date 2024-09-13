@@ -12,6 +12,9 @@ services:
     extends:
       file: docker-compose.yaml
       service: redis
+    volumes:
+      - redis-data:/data
 
 volumes:
   redis-data:
+    driver: local
