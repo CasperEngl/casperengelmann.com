@@ -1,6 +1,6 @@
 services:
   app:
-    build: Dockerfile
+    build: .
     ports:
       - '${PORT}:${PORT}'
     env_file:
