@@ -9,9 +9,9 @@ services:
       - redis
 
   redis:
-    extends:
-      file: docker-compose.yaml
-      service: redis
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'
     volumes:
       - redis-data:/data
 
