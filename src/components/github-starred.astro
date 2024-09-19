@@ -10,7 +10,9 @@ const cachedReposSchema = z.object({
   repos: z.array(repoSchema),
 })
 
-await redis.connect()
+if (!redis.isOpen) {
+  await redis.connect()
+}
 
 const cachedReposData = await redis.get('starred-repos')
 const cachedRepos = cachedReposData
@@ -38,7 +40,9 @@ if (!starredRepos) {
   })
 }
 
-await redis.disconnect()
+if (redis.isOpen) {
+  await redis.disconnect()
+}
 ---
 
 <ul>
