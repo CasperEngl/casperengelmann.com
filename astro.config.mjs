@@ -9,21 +9,16 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-  experimental: {
-    contentLayer: true,
-    contentIntellisense: true,
-    env: {
-      schema: {
-        GITHUB_API_KEY: envField.string({
-          access: 'secret',
-          context: 'server',
-        }),
-      },
+  env: {
+    schema: {
+      GITHUB_API_KEY: envField.string({
+        access: 'secret',
+        context: 'server',
+      }),
     },
-    serverIslands: true,
   },
   integrations: [tailwind(), mdx()],
-  output: 'hybrid',
+  output: 'static',
   server: {
     host: process.env.HOST,
     port: Number.parseInt(process.env.PORT) || 4321,

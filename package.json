@@ -12,9 +12,9 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/mdx": "3.1.5",
-    "@astrojs/node": "^8.3.3",
-    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/mdx": "4.3.1",
+    "@astrojs/node": "9.3.0",
+    "@astrojs/tailwind": "6.0.2",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.12",
     "@types/bun": "^1.0.12",
@@ -22,7 +22,7 @@
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
     "ansi-align": "^3.0.1",
-    "astro": "4.15.1",
+    "astro": "5.12.2",
     "clsx": "^2.1.1",
     "cross-var": "^1.1.0",
     "dayjs": "^1.11.12",
