@@ -12,7 +12,7 @@ RUN bun install
 
 RUN bun run build
 
-ENV PORT=4321
+ENV PORT=3000
 ENV HOST=0.0.0.0
 
 EXPOSE $PORT

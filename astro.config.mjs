@@ -21,6 +21,6 @@ export default defineConfig({
   output: 'static',
   server: {
     host: process.env.HOST,
-    port: Number.parseInt(process.env.PORT) || 4321,
+    port: Number.parseInt(process.env.PORT) || 3000,
   },
 })
