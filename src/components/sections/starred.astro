@@ -7,12 +7,11 @@ import Skeleton from '~/components/ui/skeleton.astro'
 <Section title="Currently Exploring">
   <p class="text-neutral-500 dark:text-neutral-400 mb-4">My latest starred repos on GitHub</p>
   <GithubStarred server:defer>
-    <ul slot="fallback" class="space-y-2">
+    <ul slot="fallback" class="list-['-'] list-inside space-y-2 marker:text-neutral-400 dark:marker:text-neutral-500">
       {
         Array.from({ length: 10 }).map(() => (
-          <li class="flex items-center gap-2">
-            <span class="text-neutral-400">-</span>
-            <Skeleton class="inline-block w-48 h-5" />
+          <li>
+            <Skeleton class="inline-block w-48 h-4 align-middle" />
           </li>
         ))
       }

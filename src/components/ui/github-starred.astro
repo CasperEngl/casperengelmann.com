@@ -45,11 +45,10 @@ if (redis.isOpen) {
 }
 ---
 
-<ul class="space-y-2">
+<ul class="list-['-'] list-inside space-y-2 marker:text-neutral-400 dark:marker:text-neutral-500">
   {
     starredRepos?.map((repo) => (
-      <li class="flex items-center gap-2">
-        <span class="text-neutral-400 dark:text-neutral-500">-</span>
+      <li>
         <OutboundLink href={repo.html_url}>
           {repo.full_name}
         </OutboundLink>

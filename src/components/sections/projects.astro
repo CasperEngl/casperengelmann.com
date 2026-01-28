@@ -12,13 +12,14 @@ const projects = [
 ---
 
 <Section title="Projects">
-  <ul>
+  <ul class="list-['-'] list-inside space-y-2 marker:text-neutral-400 dark:marker:text-neutral-500">
     {
       projects.map((project) => (
         <li>
-          <OutboundLink href={project.link}>{project.title}</OutboundLink>
-          {' - '}
-          {project.description}
+          <div class="inline-block align-top">
+            <OutboundLink href={project.link}>{project.title}</OutboundLink>
+            <p class="text-neutral-500 dark:text-neutral-400 text-sm">{project.description}</p>
+          </div>
         </li>
       ))
     }
