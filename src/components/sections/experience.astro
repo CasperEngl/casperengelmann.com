@@ -17,11 +17,11 @@ const sortedExperiences = experiences.toSorted((a, b) =>
         const { Content } = await experience.render()
         return (
           <div class:list={[
-            "py-4 border-l-2 border-neutral-200 dark:border-neutral-700 pl-4",
-            index > 0 && "border-t border-t-neutral-100 dark:border-t-neutral-800"
+            "py-4 border-l-2 border-neutral-300 dark:border-neutral-500 pl-4",
+            index > 0 && "border-t border-t-neutral-100 dark:border-t-neutral-700"
           ]}>
             <JobExperience {...experience.data} />
-            <div class="mt-2 text-neutral-600 dark:text-neutral-400">
+            <div class="mt-2 text-neutral-600 dark:text-neutral-300">
               <Content />
             </div>
           </div>

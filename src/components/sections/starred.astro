@@ -5,7 +5,7 @@ import Skeleton from '~/components/ui/skeleton.astro'
 ---
 
 <Section title="Currently Exploring">
-  <p class="text-neutral-500 mb-4">My latest starred repos on GitHub</p>
+  <p class="text-neutral-500 dark:text-neutral-400 mb-4">My latest starred repos on GitHub</p>
   <GithubStarred server:defer>
     <ul slot="fallback" class="space-y-2">
       {

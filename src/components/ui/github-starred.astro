@@ -49,7 +49,7 @@ if (redis.isOpen) {
   {
     starredRepos?.map((repo) => (
       <li class="flex items-center gap-2">
-        <span class="text-neutral-400">-</span>
+        <span class="text-neutral-400 dark:text-neutral-500">-</span>
         <OutboundLink href={repo.html_url}>
           {repo.full_name}
         </OutboundLink>

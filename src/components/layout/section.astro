@@ -10,7 +10,7 @@ interface Props {
 const { id, class: className, title } = Astro.props
 ---
 
-<section id={id} class={cn('mb-8 pb-8 border-b border-neutral-200 dark:border-neutral-700', className)}>
-  {title && <h2 class="font-bold mb-4 text-neutral-500 dark:text-neutral-400 uppercase tracking-wide text-xs">// {title}</h2>}
+<section id={id} class={cn('mb-8 pb-8 border-b border-neutral-200 dark:border-neutral-600', className)}>
+  {title && <h2 class="font-bold mb-4 text-neutral-500 dark:text-neutral-300 uppercase tracking-wide text-xs">// {title}</h2>}
   <slot />
 </section>
