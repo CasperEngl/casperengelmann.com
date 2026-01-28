@@ -1,6 +1,6 @@
 ---
 import Section from '~/components/layout/section.astro'
-import ProjectCard from '~/components/ui/project-card.astro'
+import OutboundLink from '~/components/ui/outbound-link.astro'
 
 const projects = [
   {
@@ -11,10 +11,16 @@ const projects = [
 ]
 ---
 
-<Section id="projects">
-  <h2 class="text-2xl md:text-3xl font-bold mb-8">Projects</h2>
-
-  <div class="grid sm:grid-cols-2 gap-4">
-    {projects.map((project) => <ProjectCard {...project} />)}
-  </div>
+<Section title="Projects">
+  <ul>
+    {
+      projects.map((project) => (
+        <li>
+          <OutboundLink href={project.link}>{project.title}</OutboundLink>
+          {' - '}
+          {project.description}
+        </li>
+      ))
+    }
+  </ul>
 </Section>

@@ -19,7 +19,7 @@ function formatDate(dateString?: string) {
     return 'Present'
   }
 
-  return date.format('MMMM YYYY')
+  return date.format('MMM YYYY')
 }
 
 function isPast(dateString?: string) {
@@ -29,31 +29,23 @@ function isPast(dateString?: string) {
 
   return date.isBefore(dayjs())
 }
+
+const dateRange = isPast(endDate)
+  ? `${formatDate(startDate)} - ${formatDate(endDate)}`
+  : endDate
+    ? `${formatDate(startDate)} - Ending soon`
+    : `${formatDate(startDate)} - Present`
 ---
 
 <div class={cn(['not-prose', Astro.props.class])}>
-  <h2 class="font-semibold dark:text-white text-black">
-    {role} @{' '}
-    {company}
-  </h2>
-
-  {
-    isPast(endDate) ? (
-      <h3 class="text-sm">
-        {formatDate(startDate)} &mdash; {formatDate(endDate)}
-      </h3>
-    ) : endDate ? (
-      <h3 class="text-sm">{formatDate(startDate)} &mdash; Ending soon</h3>
+  <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+    <h3 class="font-bold text-black dark:text-white">{role}</h3>
+    <span class="text-neutral-500">@</span>
+    {link ? (
+      <OutboundLink href={link}>{company}</OutboundLink>
     ) : (
-      <h3 class="text-sm">{formatDate(startDate)} &mdash; Present</h3>
-    )
-  }
-
-  {
-    link ? (
-      <OutboundLink href={link} class="text-xs">
-        Website
-      </OutboundLink>
-    ) : null
-  }
+      <span>{company}</span>
+    )}
+  </div>
+  <p class="text-neutral-500 text-xs mt-1">{dateRange}</p>
 </div>

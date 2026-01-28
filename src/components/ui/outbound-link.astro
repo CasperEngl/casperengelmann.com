@@ -1,10 +1,19 @@
 ---
 import LinkOut from '~/icons/link-out.astro'
+import { cn } from '~/utils/cn'
+
+interface Props {
+  href: string
+  class?: string
+}
+
+const { href, class: className, ...rest } = Astro.props
 ---
 
 <a
-  {...Astro.props}
+  href={href}
+  class={cn('text-blue-600 dark:text-blue-400 hover:underline', className)}
   target="_blank"
   rel="noopener noreferrer"
-  ><slot />&nbsp;<LinkOut class="inline-block size-[0.75em] -mt-0.5" /></a
->
+  {...rest}
+><slot />&nbsp;<LinkOut class="inline-block size-[0.75em] -mt-0.5" /></a>
