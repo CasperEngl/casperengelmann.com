@@ -16,13 +16,15 @@ const sortedExperiences = experiences.toSorted((a, b) =>
       sortedExperiences.map(async (experience, index) => {
         const { Content } = await experience.render()
         return (
-          <div class:list={[
-            "py-4 border-l-2 border-neutral-300 dark:border-neutral-500 pl-4",
-            index > 0 && "border-t border-t-neutral-100 dark:border-t-neutral-700"
-          ]}>
-            <JobExperience {...experience.data} />
-            <div class="mt-2 text-neutral-600 dark:text-neutral-300">
-              <Content />
+          <div>
+            {index > 0 && (
+              <div class="border-t border-neutral-100 dark:border-neutral-700" />
+            )}
+            <div class="py-4">
+              <JobExperience {...experience.data} />
+              <div class="mt-2 text-neutral-600 dark:text-neutral-300">
+                <Content />
+              </div>
             </div>
           </div>
         )
