@@ -1,0 +1,57 @@
+---
+import FixedNav from './fixed-nav.astro'
+import Footer from './footer.astro'
+
+interface Props {
+  title?: string
+}
+---
+
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{Astro.props.title || 'Casper Engelmann'}</title>
+
+    <meta
+      name="description"
+      content="I'm a web developer living in Denmark, in the capital area. I enjoy watching films, series, competetive gaming, and feeding my curious mind."
+    />
+    <meta name="author" content="Casper Engelmann" />
+    <meta
+      name="keywords"
+      content="web developer, frontend developer, Denmark, web development, React, JavaScript"
+    />
+    <link rel="canonical" href={Astro.url.href} />
+
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "name": "Casper Engelmann",
+        "jobTitle": "Web Developer",
+        "url": "https://casperengelmann.com",
+        "sameAs": [
+          "https://github.com/casperengl/",
+          "https://www.linkedin.com/in/casperengl/",
+          "https://twitter.com/casperengl"
+        ]
+      }
+    </script>
+  </head>
+  <body class="dark:bg-black dark:text-white min-h-screen scroll-pt-20">
+    <FixedNav />
+
+    <main class="pt-20">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

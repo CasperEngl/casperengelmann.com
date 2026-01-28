@@ -1,68 +1,16 @@
 ---
-import GithubStarred from '~/components/github-starred.astro'
-import Layout from '~/components/layout.astro'
-import OutboundLink from '~/components/outbound-link.astro'
-import Skeleton from '~/components/skeleton.astro'
+import BaseLayout from '~/components/layout/base-layout.astro'
+import Hero from '~/components/sections/hero.astro'
+import Experience from '~/components/sections/experience.astro'
+import Projects from '~/components/sections/projects.astro'
+import Starred from '~/components/sections/starred.astro'
+import Contact from '~/components/sections/contact.astro'
 ---
 
-<Layout>
-  <section class="max-w-prose">
-    <p class="mt-0">
-      I'm a frontend developer living in Denmark, in the capital area. I enjoy
-      watching films, series, competitive gaming, and feeding my curious mind.
-    </p>
-
-    <p>Professionally I specialise in web apps with a focus on UX values.</p>
-
-    <p class="font-bold">
-      Always attempt to improve UX <em>and</em> DX whenever possible.
-    </p>
-  </section>
-
-  <section>
-    <h2>My focus areas</h2>
-
-    <ul>
-      <li>Accessibility and user experience</li>
-      <li>Web fundamentals first</li>
-      <li>Type-safe applications</li>
-      <li>
-        <OutboundLink
-          href="https://frontendmastery.com/posts/building-future-facing-frontend-architectures/"
-        >
-          {'Building for the future'}
-        </OutboundLink>
-      </li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Side projects</h2>
-
-    <ul>
-      <li>
-        <OutboundLink href="https://pendlertjek.vercel.app/">
-          Pendlertjek
-        </OutboundLink>
-        {' - '}
-        Compare commuter tax deduction options in Denmark
-      </li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>My latest starred repos</h2>
-
-    <GithubStarred server:defer>
-      <ul slot="fallback">
-        {
-          Array.from({ length: 10 }).map(() => (
-            <li>
-              <Skeleton class="block w-full h-7 rounded-full" />
-            </li>
-          ))
-        }
-      </ul>
-    </GithubStarred>
-  </section>
-</Layout>
+<BaseLayout>
+  <Hero />
+  <Projects />
+  <Starred />
+  <Experience />
+  <Contact />
+</BaseLayout>
