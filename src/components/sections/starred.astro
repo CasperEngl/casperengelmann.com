@@ -2,9 +2,15 @@
 import Section from '~/components/layout/section.astro'
 import GithubStarred from '~/components/ui/github-starred.astro'
 import Skeleton from '~/components/ui/skeleton.astro'
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
 ---
 
-<Section title="Currently Exploring">
+<Section title={title}>
   <GithubStarred server:defer>
     <ul slot="fallback" class="list-['-'] list-inside space-y-2 marker:text-neutral-400 dark:marker:text-neutral-500">
       {

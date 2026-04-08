@@ -3,23 +3,22 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "packageManager": "bun@1.3.11",
-  "volta": {
-    "node": "22.12.0"
-  },
   "scripts": {
-    "build": "astro build",
     "bootstrap": "emdash init",
-    "predeploy": "bun run build",
+    "build": "astro build",
     "dev": "astro dev",
+    "migrate:emdash": "node scripts/migrate-astro-content-to-emdash.mjs",
+    "predeploy": "bun run build",
+    "preview": "astro preview",
     "start": "node ./dist/server/entry.mjs",
-    "type-check": "astro check",
-    "preview": "astro preview"
+    "type-check": "astro check"
   },
   "dependencies": {
     "@astrojs/mdx": "5.0.3",
     "@astrojs/node": "10.0.4",
     "@astrojs/react": "^5.0.3",
+    "@tanstack/react-form": "^1.28.6",
+    "@tanstack/react-query": "^5.96.2",
     "@types/bun": "^1.3.11",
     "@types/ms": "^0.7.34",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
@@ -55,6 +54,13 @@
     "@tailwindcss/vite": "^4.1.17",
     "tailwindcss": "^4.1.17",
     "typescript": "^6.0.2"
+  },
+  "packageManager": "bun@1.3.11",
+  "volta": {
+    "node": "22.12.0"
+  },
+  "emdash": {
+    "seed": ".emdash/seed.json"
   },
   "patchedDependencies": {
     "emdash@0.1.0": "patches/emdash@0.1.0.patch"

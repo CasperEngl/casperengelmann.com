@@ -1,0 +1,438 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "Casper Engelmann Content Seed",
+    "description": "Schema and seeded content for the portfolio experience and projects collections.",
+    "author": "OpenAI Codex"
+  },
+  "settings": {
+    "title": "Casper Engelmann",
+    "tagline": "Portfolio and experience content"
+  },
+  "collections": [
+    {
+      "slug": "experience",
+      "label": "Experience",
+      "labelSingular": "Experience Entry",
+      "description": "Professional experience entries migrated from the Astro content collection.",
+      "icon": "briefcase",
+      "supports": ["drafts", "revisions", "search"],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "company",
+          "label": "Company",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "role",
+          "label": "Role",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "start_date",
+          "label": "Start Date",
+          "type": "string",
+          "required": true,
+          "validation": {
+            "pattern": "^[0-9]{4}-[0-9]{2}$"
+          }
+        },
+        {
+          "slug": "end_date",
+          "label": "End Date",
+          "type": "string",
+          "validation": {
+            "pattern": "^[0-9]{4}-[0-9]{2}$"
+          }
+        },
+        {
+          "slug": "link",
+          "label": "Link",
+          "type": "string"
+        },
+        {
+          "slug": "body",
+          "label": "Body",
+          "type": "portableText",
+          "required": true,
+          "searchable": true
+        }
+      ]
+    },
+    {
+      "slug": "projects",
+      "label": "Projects",
+      "labelSingular": "Project",
+      "description": "Selected projects shown on the front page.",
+      "icon": "folder",
+      "supports": ["drafts", "revisions", "search"],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "description",
+          "label": "Description",
+          "type": "text",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "link",
+          "label": "Link",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "content": {
+    "projects": [
+      {
+        "id": "project-pendlertjek",
+        "slug": "pendlertjek",
+        "status": "published",
+        "data": {
+          "title": "Pendlertjek",
+          "description": "Compare commuter tax deduction options in Denmark",
+          "link": "https://pendlertjek.vercel.app/"
+        }
+      }
+    ],
+    "experience": [
+      {
+        "id": "experience-adapt",
+        "slug": "adapt",
+        "status": "published",
+        "data": {
+          "title": "Frontend Developer at Adapt",
+          "company": "Adapt",
+          "role": "Frontend Developer",
+          "start_date": "2020-09",
+          "end_date": "2022-03",
+          "link": "https://adaptagency.com/",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "adapt-b1",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "adapt-b1-s1",
+                  "text": "Adapt is a full-service agency, doing everything from UX, mobile apps to web development, both front- and backend. I was hired there because of my experience with front-end frameworks such as React and Vue. Some of the clients I worked with during my time there:",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "adapt-b2",
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1,
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "adapt-b2-s1",
+                  "text": "Sygeforsikring \"danmark\" - self-service platform built in React using Redux, CSS modules etc. and their new website built with Statamic, TailwindCSS and AlpineJS: https://sygeforsikring.dk",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "adapt-b3",
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1,
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "adapt-b3-s1",
+                  "text": "Interflora - B2B universe built with Vue 3 shortly after release. We used GraphQL with Apollo, TailwindCSS, GSAP, and focused on creating a modern, luxurious, and user-friendly experience.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "adapt-b4",
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1,
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "adapt-b4-s1",
+                  "text": "GSV - dashboard and customer portal frontends written in TypeScript with React. We also created a component library used across their portfolio of products.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "experience-designheroes",
+        "slug": "designheroes",
+        "status": "published",
+        "data": {
+          "title": "Fullstack developer at Designheroes",
+          "company": "Designheroes",
+          "role": "Fullstack developer",
+          "start_date": "2019-04",
+          "end_date": "2019-11",
+          "link": "https://www.designheroes.dk/",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "designheroes-b1",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "designheroes-b1-s1",
+                  "text": "Designheroes was a small agency doing development and design. My projects ranged from WordPress websites to OpenCart webshops and Laravel development for our biggest client, both front- and back-end.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "designheroes-b2",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "designheroes-b2-s1",
+                  "text": "The largest project built in Laravel was Petsbnb, a pet-sitting platform for pet owners and sitters. We handled everything from login features and calendar management to chat rooms and payments.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "experience-devant",
+        "slug": "devant",
+        "status": "published",
+        "data": {
+          "title": "Self-employed at Devant",
+          "company": "Devant",
+          "role": "Self-employed",
+          "start_date": "2019-11",
+          "end_date": "2020-05",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "devant-b1",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "devant-b1-s1",
+                  "text": "The company that I had together with a partner, where I served as a consultant. During this period, I developed in Laravel, implemented a new payment gateway using Stripe, and performed various other tasks.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "experience-franklin",
+        "slug": "franklin",
+        "status": "published",
+        "data": {
+          "title": "Fullstack Developer at Franklin",
+          "company": "Franklin",
+          "role": "Fullstack Developer",
+          "start_date": "2024-12",
+          "link": "https://hifranklin.com/",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "franklin-b1",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "franklin-b1-s1",
+                  "text": "At Franklin we do cards made for e-commerce. We provide high spend-limits and 0.5% cashback on all card expenses.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "franklin-b2",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "franklin-b2-s1",
+                  "text": "Since starting here I've quickly gotten up to speed with a cutting edge Next.js 15 application using React Server Components.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "franklin-b3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "franklin-b3-s1",
+                  "text": "We've started working on a mobile companion app that enables customers to use Apple Pay, review transactions, and receive notifications for activity on their accounts.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "experience-make-influence",
+        "slug": "make-influence",
+        "status": "published",
+        "data": {
+          "title": "Frontend Lead at Make Influence",
+          "company": "Make Influence",
+          "role": "Frontend Lead",
+          "start_date": "2022-10",
+          "end_date": "2024-09",
+          "link": "https://www.makeinfluence.com/",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "makeinfluence-b1",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "makeinfluence-b1-s1",
+                  "text": "We built a new web app based on Vue. On the frontend, I migrated the old Vue 2 architecture to Vue 3 and worked on a new design system for the app.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "makeinfluence-b2",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "makeinfluence-b2-s1",
+                  "text": "One of my first tasks was to create a TypeScript-based query builder for our GraphQL client. Together with GraphQL codegen, this gave us end-to-end type safety for queries, mutations, and fragments.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "experience-miinto",
+        "slug": "miinto",
+        "status": "published",
+        "data": {
+          "title": "Senior Frontend developer at Miinto",
+          "company": "Miinto",
+          "role": "Senior Frontend developer",
+          "start_date": "2022-03",
+          "end_date": "2022-10",
+          "link": "https://www.miinto-group.com/",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "miinto-b1",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "miinto-b1-s1",
+                  "text": "Miinto is a marketplace for physical boutiques in 14 markets across Europe and China. I was part of the Partners & Back Office team, responsible for creating the foundation for new admin tools and management systems.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "miinto-b2",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "miinto-b2-s1",
+                  "text": "My first project was the Partner Management System, together with a complementary component library and design system. It became the entry point for each new partner and stored company information, market selection, contracts, and more.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "experience-web-koncept",
+        "slug": "web-koncept",
+        "status": "published",
+        "data": {
+          "title": "Student Developer at Web-Koncept",
+          "company": "Web-Koncept",
+          "role": "Student Developer",
+          "start_date": "2017-05",
+          "end_date": "2019-04",
+          "link": "https://web-koncept.dk/",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "webkoncept-b1",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "webkoncept-b1-s1",
+                  "text": "Web-Koncept has become one of the larger web agencies in Denmark regarding small-medium-sized businesses. During my time there I was the sole coder, which led to me creating in-house tools such as the Imapsync App, an email transfer app client they still use.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "webkoncept-b2",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "webkoncept-b2-s1",
+                  "text": "This is where I gained my initial experience with React, which I utilized extensively at the time to create most of their specialized solutions.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,17 +1,27 @@
 ---
 import Section from '~/components/layout/section.astro'
+
+interface Props {
+  command: string
+  commandFlag: string
+  name: string
+  location: string
+  interests: string
+}
+
+const { command, commandFlag, name, location, interests } = Astro.props
 ---
 
 <Section class="mb-10 pb-10">
-  <h1 class="text-xl font-bold mb-4">$ whoami<span class="ml-2 text-neutral-500">--verbose</span></h1>
+  <h1 class="text-xl font-bold mb-4">{command}<span class="ml-2 text-neutral-500">{commandFlag}</span></h1>
 
   <p class="text-neutral-600 dark:text-neutral-300 mb-2">
-    <span class="text-green-600 dark:text-green-400">name:</span> Casper Engelmann
+    <span class="text-green-600 dark:text-green-400">name:</span> {name}
   </p>
   <p class="text-neutral-600 dark:text-neutral-300 mb-2">
-    <span class="text-green-600 dark:text-green-400">location:</span> Denmark
+    <span class="text-green-600 dark:text-green-400">location:</span> {location}
   </p>
   <p class="text-neutral-600 dark:text-neutral-300">
-    <span class="text-green-600 dark:text-green-400">interests:</span> films, series, competitive gaming, curiosity
+    <span class="text-green-600 dark:text-green-400">interests:</span> {interests}
   </p>
 </Section>

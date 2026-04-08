@@ -2,9 +2,15 @@
 import Section from '~/components/layout/section.astro'
 import OutboundLink from '~/components/ui/outbound-link.astro'
 import { obfuscate } from '~/utils/obfuscate'
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
 ---
 
-<Section title="Contact">
+<Section title={title}>
   <p class="mb-3" set:html={obfuscate('me@casperengelmann.com')} />
 
   <ul>

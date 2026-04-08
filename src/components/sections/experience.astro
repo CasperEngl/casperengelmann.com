@@ -4,13 +4,19 @@ import dayjs from 'dayjs'
 import Section from '~/components/layout/section.astro'
 import JobExperience from '~/components/ui/job-experience.astro'
 
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+
 const experiences = await getCollection('experience')
 const sortedExperiences = experiences.toSorted((a, b) =>
   dayjs(b.data.startDate).isAfter(dayjs(a.data.startDate)) ? 1 : -1
 )
 ---
 
-<Section title="Experience">
+<Section title={title}>
   <div class="space-y-0">
     {
       sortedExperiences.map(async (experience, index) => {

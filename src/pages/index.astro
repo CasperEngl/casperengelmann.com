@@ -5,12 +5,21 @@ import Experience from '~/components/sections/experience.astro'
 import Projects from '~/components/sections/projects.astro'
 import Starred from '~/components/sections/starred.astro'
 import Contact from '~/components/sections/contact.astro'
+import { getFrontPageConfig } from '~/lib/front-page-config'
+
+const frontPage = await getFrontPageConfig(Astro.locals.emdash?.db)
 ---
 
 <BaseLayout>
-  <Hero />
-  <Projects />
-  <Starred />
-  <Experience />
-  <Contact />
+  <Hero
+    command={frontPage.heroCommand}
+    commandFlag={frontPage.heroCommandFlag}
+    name={frontPage.heroName}
+    location={frontPage.heroLocation}
+    interests={frontPage.heroInterests}
+  />
+  {frontPage.showProjects && <Projects title={frontPage.projectsTitle} />}
+  {frontPage.showStarred && <Starred title={frontPage.starredTitle} />}
+  {frontPage.showExperience && <Experience title={frontPage.experienceTitle} />}
+  {frontPage.showContact && <Contact title={frontPage.contactTitle} />}
 </BaseLayout>
