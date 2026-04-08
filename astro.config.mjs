@@ -1,7 +1,7 @@
 import mdx from '@astrojs/mdx'
 import node from '@astrojs/node'
 import react from '@astrojs/react'
-import tailwind from '@astrojs/tailwind'
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig, envField } from 'astro/config'
 import emdash, { local } from 'emdash/astro'
 import { sqlite } from 'emdash/db'
@@ -21,7 +21,6 @@ export default defineConfig({
     },
   },
   integrations: [
-    tailwind(),
     mdx(),
     react(),
     emdash({
@@ -36,5 +35,8 @@ export default defineConfig({
   server: {
     host: process.env.HOST,
     port: Number.parseInt(process.env.PORT) || 3000,
+  },
+  vite: {
+    plugins: [tailwindcss()],
   },
 })

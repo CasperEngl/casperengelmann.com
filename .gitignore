@@ -12,8 +12,7 @@ yarn-error.log*
 pnpm-debug.log*
 
 # environment variables
-.env
-.env.production
+.env.local
 
 # macOS-specific files
 .DS_Store
@@ -21,9 +20,14 @@ pnpm-debug.log*
 
 # astro
 .astro
+emdash-env.d.ts
 
 # EmDash local runtime data
-data/
+data/*
+!data/.gitkeep
+!data/uploads/
+data/uploads/*
+!data/uploads/.gitkeep
 data.db
 data.db-*
-uploads/
+/uploads/
