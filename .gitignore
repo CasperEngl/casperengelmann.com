@@ -21,3 +21,9 @@ pnpm-debug.log*
 
 # astro
 .astro
+
+# EmDash local runtime data
+data/
+data.db
+data.db-*
+uploads/

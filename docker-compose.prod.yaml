@@ -5,11 +5,18 @@ services:
       - .env
     depends_on:
       - redis
+    networks:
+      - internal
+    volumes:
+      - emdash_data:/app/data
 
   redis:
     image: 'redis:alpine'
     networks:
       - internal
+
+volumes:
+  emdash_data:
 
 networks:
   internal:

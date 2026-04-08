@@ -1,10 +1,12 @@
-FROM node:20
+FROM node:22
 
 RUN curl -fsSL https://bun.sh/install | bash
 
 ENV PATH="/root/.bun/bin:$PATH"
 
 WORKDIR /app
+
+RUN mkdir -p /app/data/uploads
 
 COPY . .
 
