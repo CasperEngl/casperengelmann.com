@@ -1,5 +1,5 @@
 import { GITHUB_API_KEY } from 'astro:env/server'
-import { z } from 'zod'
+import { z } from 'astro/zod'
 
 export const githubHeaders = new Headers({
   Authorization: `token ${GITHUB_API_KEY}`,

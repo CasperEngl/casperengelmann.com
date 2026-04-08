@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import dayjs from 'dayjs'
 import Section from '~/components/layout/section.astro'
 import JobExperience from '~/components/ui/job-experience.astro'
@@ -14,7 +14,7 @@ const sortedExperiences = experiences.toSorted((a, b) =>
   <div class="space-y-0">
     {
       sortedExperiences.map(async (experience, index) => {
-        const { Content } = await experience.render()
+        const { Content } = await render(experience)
         return (
           <div>
             {index > 0 && (

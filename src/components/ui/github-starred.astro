@@ -1,6 +1,6 @@
 ---
 import ms from 'ms'
-import { z } from 'zod'
+import { z } from 'astro/zod'
 import OutboundLink from '~/components/ui/outbound-link.astro'
 import { getStarredRepos, repoSchema } from '~/services/github'
 import { redis } from '~/services/redis'
