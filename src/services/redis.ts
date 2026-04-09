@@ -1,3 +1,6 @@
 import { createClient } from 'redis'
+import { REDIS_URL } from 'astro:env/server'
 
-export const redis = createClient({ url: 'redis://redis:6379' })
+export const redis = createClient({
+  url: REDIS_URL,
+})

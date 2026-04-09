@@ -1,8 +1,8 @@
 ---
 company: Web-Koncept
 role: Student Developer
-startDate: 2017-05
-endDate: 2019-04
+startDate: 2017-05-01
+endDate: 2019-04-30
 link: https://web-koncept.dk/
 ---
 

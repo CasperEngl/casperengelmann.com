@@ -1,6 +1,6 @@
 ---
-import { getCollection, render } from 'astro:content'
-import dayjs from 'dayjs'
+import { getEmDashCollection } from 'emdash'
+import { PortableText } from 'emdash/ui'
 import Section from '~/components/layout/section.astro'
 import JobExperience from '~/components/ui/job-experience.astro'
 
@@ -10,31 +10,34 @@ interface Props {
 
 const { title } = Astro.props
 
-const experiences = await getCollection('experience')
-const sortedExperiences = experiences.toSorted((a, b) =>
-  dayjs(b.data.startDate).isAfter(dayjs(a.data.startDate)) ? 1 : -1
-)
+const { entries: experiences } = await getEmDashCollection('experience', {
+  status: 'published',
+  orderBy: {
+    start_date: 'desc',
+  },
+})
 ---
 
-<Section title={title}>
-  <div class="space-y-0">
-    {
-      sortedExperiences.map(async (experience, index) => {
-        const { Content } = await render(experience)
-        return (
-          <div>
-            {index > 0 && (
-              <div class="border-t border-neutral-100 dark:border-neutral-700" />
-            )}
-            <div class="py-4">
-              <JobExperience {...experience.data} />
-              <div class="mt-2 text-neutral-600 dark:text-neutral-300">
-                <Content />
-              </div>
-            </div>
+<Section
+  title={title}
+  class="divide-y divide-neutral-100 dark:divide-neutral-700"
+>
+  {
+    experiences.map((experience, index) => {
+      return (
+        <div class="py-4">
+          <JobExperience
+            company={experience.data.company}
+            role={experience.data.role}
+            link={experience.data.link}
+            startDate={experience.data.start_date}
+            endDate={experience.data.end_date}
+          />
+          <div class="mt-2 text-neutral-600 dark:text-neutral-300">
+            <PortableText value={experience.data.body} />
           </div>
-        )
-      })
-    }
-  </div>
+        </div>
+      )
+    })
+  }
 </Section>

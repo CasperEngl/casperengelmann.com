@@ -352,6 +352,23 @@ function readValue(spec, context) {
   return spec
 }
 
+function normalizeDateField(value) {
+  if (value == null || value === '') {
+    return null
+  }
+
+  if (value instanceof Date) {
+    return value.toISOString().slice(0, 10)
+  }
+
+  const stringValue = String(value)
+  if (/^\d{4}-\d{2}$/.test(stringValue)) {
+    return `${stringValue}-01`
+  }
+
+  return stringValue
+}
+
 async function upsertSeo(db, collectionSlug, contentId, input) {
   const hasAnyField = Object.values(input).some((value) => value !== undefined && value !== null)
   if (!hasAnyField) {
@@ -563,8 +580,8 @@ const COLLECTION_MIGRATIONS = [
       title: ({ frontmatter }) => frontmatter.title ?? `${frontmatter.role} at ${frontmatter.company}`,
       company: 'company',
       role: 'role',
-      start_date: 'startDate',
-      end_date: 'endDate',
+      start_date: ({ frontmatter }) => normalizeDateField(frontmatter.startDate),
+      end_date: ({ frontmatter }) => normalizeDateField(frontmatter.endDate),
       link: 'link',
     },
     bylines: null,

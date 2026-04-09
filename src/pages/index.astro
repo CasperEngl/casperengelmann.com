@@ -5,9 +5,9 @@ import Experience from '~/components/sections/experience.astro'
 import Projects from '~/components/sections/projects.astro'
 import Starred from '~/components/sections/starred.astro'
 import Contact from '~/components/sections/contact.astro'
-import { getFrontPageConfig } from '~/lib/front-page-config'
+import { getFrontPageConfig } from '~/lib/front-page-config.server'
 
-const frontPage = await getFrontPageConfig(Astro.locals.emdash?.db)
+const frontPage = await getFrontPageConfig()
 ---
 
 <BaseLayout>

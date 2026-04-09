@@ -1,19 +1,23 @@
 ---
-import type { InferEntrySchema } from 'astro:content'
 import dayjs from 'dayjs'
 import OutboundLink from '~/components/ui/outbound-link.astro'
 import { cn } from '~/utils/cn'
 
-interface Props extends InferEntrySchema<'experience'> {
+interface Props {
+  company: string
+  role: string
+  startDate: string | Date
+  endDate?: string | Date
+  link?: string
   class?: string
 }
 
 const { endDate, startDate, role, link, company } = Astro.props
 
-function formatDate(dateString?: string) {
-  if (!dateString) return ''
+function formatDate(dateValue?: string | Date) {
+  if (!dateValue) return ''
 
-  const date = dayjs(dateString)
+  const date = dayjs(dateValue)
 
   if (date.isAfter(dayjs())) {
     return 'Present'
@@ -22,10 +26,10 @@ function formatDate(dateString?: string) {
   return date.format('MMM YYYY')
 }
 
-function isPast(dateString?: string) {
-  if (!dateString) return false
+function isPast(dateValue?: string | Date) {
+  if (!dateValue) return false
 
-  const date = dayjs(dateString)
+  const date = dayjs(dateValue)
 
   return date.isBefore(dayjs())
 }

@@ -4,10 +4,12 @@ import { z } from 'astro/zod'
 import { definePlugin } from 'emdash'
 
 import {
+  defaultFrontPageConfig,
   frontPageConfigSchema,
   frontPageConfigUpdateSchema,
   FRONT_PAGE_PLUGIN_ID,
-} from '../../lib/front-page-config'
+  normalizeFrontPageConfig,
+} from '../../lib/front-page-config.server'
 
 const pluginVersion = '0.1.0'
 const settingsKey = 'settings:homepage'
@@ -54,7 +56,9 @@ export function createPlugin() {
     routes: {
       settings: {
         handler: async (ctx: FrontPagePluginContext) =>
-          await ctx.kv.get(settingsKey),
+          normalizeFrontPageConfig(
+            (await ctx.kv.get(settingsKey)) ?? defaultFrontPageConfig,
+          ),
       },
       'settings/save': {
         input: z.union([frontPageConfigSchema, frontPageConfigUpdateSchema]),
@@ -63,13 +67,11 @@ export function createPlugin() {
             throw new Error('Method not allowed')
           }
 
-          const current = await ctx.kv.get(settingsKey)
-          const nextConfig = current
-            ? frontPageConfigSchema.parse({
-                ...toObject(current),
-                ...toObject(ctx.input),
-              })
-            : frontPageConfigSchema.parse(ctx.input)
+          const current = normalizeFrontPageConfig(await ctx.kv.get(settingsKey))
+          const nextConfig = normalizeFrontPageConfig({
+            ...current,
+            ...toObject(ctx.input),
+          })
 
           await ctx.kv.set(settingsKey, nextConfig)
 

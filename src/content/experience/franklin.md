@@ -1,7 +1,7 @@
 ---
 company: Franklin
 role: Fullstack Developer
-startDate: 2024-12
+startDate: 2024-12-01
 link: https://hifranklin.com/
 ---
 

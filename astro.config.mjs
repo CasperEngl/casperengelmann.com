@@ -19,6 +19,10 @@ export default defineConfig({
         access: 'secret',
         context: 'server',
       }),
+      REDIS_URL: envField.string({
+        access: 'secret',
+        context: 'server',
+      }),
     },
   },
   integrations: [
@@ -35,8 +39,8 @@ export default defineConfig({
   ],
   output: 'server',
   server: {
-    host: process.env.HOST,
-    port: Number.parseInt(process.env.PORT) || 3000,
+    host: process.env.HOST ?? '::',
+    port: Number.parseInt(process.env.PORT ?? '3000', 10),
   },
   vite: {
     plugins: [tailwindcss()],

@@ -14,9 +14,6 @@ RUN bun install
 
 RUN bun run build
 
-ENV PORT=3000
-ENV HOST=0.0.0.0
-
 EXPOSE $PORT
 
-CMD node ./dist/server/entry.mjs --host $HOST --port $PORT
+CMD node ./dist/server/entry.mjs --host "${HOST:-::}" --port "${PORT:-3000}"

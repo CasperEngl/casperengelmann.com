@@ -1,8 +1,8 @@
 ---
 company: Make Influence
 role: Frontend Lead
-startDate: 2022-10
-endDate: 2024-09
+startDate: 2022-10-01
+endDate: 2024-09-30
 link: https://www.makeinfluence.com/
 ---
 

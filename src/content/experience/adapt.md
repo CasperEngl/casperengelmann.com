@@ -1,8 +1,8 @@
 ---
 company: Adapt
 role: Frontend Developer
-startDate: 2020-09
-endDate: 2022-03
+startDate: 2020-09-01
+endDate: 2022-03-31
 link: https://adaptagency.com/
 ---
 

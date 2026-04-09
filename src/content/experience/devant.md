@@ -1,8 +1,8 @@
 ---
 company: Devant
 role: Self-employed
-startDate: 2019-11
-endDate: 2020-05
+startDate: 2019-11-01
+endDate: 2020-05-31
 ---
 
 The company that I had together with a partner, where I served as a

@@ -43,19 +43,13 @@
         {
           "slug": "start_date",
           "label": "Start Date",
-          "type": "string",
-          "required": true,
-          "validation": {
-            "pattern": "^[0-9]{4}-[0-9]{2}$"
-          }
+          "type": "datetime",
+          "required": true
         },
         {
           "slug": "end_date",
           "label": "End Date",
-          "type": "string",
-          "validation": {
-            "pattern": "^[0-9]{4}-[0-9]{2}$"
-          }
+          "type": "datetime"
         },
         {
           "slug": "link",
@@ -124,8 +118,8 @@
           "title": "Frontend Developer at Adapt",
           "company": "Adapt",
           "role": "Frontend Developer",
-          "start_date": "2020-09",
-          "end_date": "2022-03",
+          "start_date": "2020-09-01",
+          "end_date": "2022-03-31",
           "link": "https://adaptagency.com/",
           "body": [
             {
@@ -197,8 +191,8 @@
           "title": "Fullstack developer at Designheroes",
           "company": "Designheroes",
           "role": "Fullstack developer",
-          "start_date": "2019-04",
-          "end_date": "2019-11",
+          "start_date": "2019-04-01",
+          "end_date": "2019-11-30",
           "link": "https://www.designheroes.dk/",
           "body": [
             {
@@ -238,8 +232,8 @@
           "title": "Self-employed at Devant",
           "company": "Devant",
           "role": "Self-employed",
-          "start_date": "2019-11",
-          "end_date": "2020-05",
+          "start_date": "2019-11-01",
+          "end_date": "2020-05-31",
           "body": [
             {
               "_type": "block",
@@ -265,7 +259,7 @@
           "title": "Fullstack Developer at Franklin",
           "company": "Franklin",
           "role": "Fullstack Developer",
-          "start_date": "2024-12",
+          "start_date": "2024-12-01",
           "link": "https://hifranklin.com/",
           "body": [
             {
@@ -318,8 +312,8 @@
           "title": "Frontend Lead at Make Influence",
           "company": "Make Influence",
           "role": "Frontend Lead",
-          "start_date": "2022-10",
-          "end_date": "2024-09",
+          "start_date": "2022-10-01",
+          "end_date": "2024-09-30",
           "link": "https://www.makeinfluence.com/",
           "body": [
             {
@@ -359,8 +353,8 @@
           "title": "Senior Frontend developer at Miinto",
           "company": "Miinto",
           "role": "Senior Frontend developer",
-          "start_date": "2022-03",
-          "end_date": "2022-10",
+          "start_date": "2022-03-01",
+          "end_date": "2022-10-31",
           "link": "https://www.miinto-group.com/",
           "body": [
             {
@@ -400,8 +394,8 @@
           "title": "Student Developer at Web-Koncept",
           "company": "Web-Koncept",
           "role": "Student Developer",
-          "start_date": "2017-05",
-          "end_date": "2019-04",
+          "start_date": "2017-05-01",
+          "end_date": "2019-04-30",
           "link": "https://web-koncept.dk/",
           "body": [
             {

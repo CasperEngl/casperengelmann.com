@@ -1,8 +1,8 @@
 ---
 company: Miinto
 role: Senior Frontend developer
-startDate: 2022-03
-endDate: 2022-10
+startDate: 2022-03-01
+endDate: 2022-10-31
 link: https://www.miinto-group.com/
 ---
 

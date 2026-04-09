@@ -7,7 +7,6 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 
-import { type FrontPageConfig } from '../../lib/front-page-config'
 import { useAppForm } from '../ui/form'
 import { Button } from '../ui/button'
 import {
@@ -18,6 +17,22 @@ import {
   CardTitle,
 } from '../ui/card'
 import { useTemporaryState } from '../hooks/use-temporary-state'
+
+type FrontPageConfig = {
+  heroCommand: string
+  heroCommandFlag: string
+  heroName: string
+  heroLocation: string
+  heroInterests: string
+  projectsTitle: string
+  starredTitle: string
+  experienceTitle: string
+  contactTitle: string
+  showProjects: boolean
+  showStarred: boolean
+  showExperience: boolean
+  showContact: boolean
+}
 
 // ---------------------------------------------------------------------------
 // API
@@ -31,7 +46,7 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } },
 })
 
-async function parseResponse<T>(response: Response): Promise<T> {
+async function parseResponse<T>(response: Response) {
   const payload: unknown = await response.json()
   const hasError =
     typeof payload === 'object' &&
@@ -61,15 +76,13 @@ async function parseResponse<T>(response: Response): Promise<T> {
   ) as T
 }
 
-async function fetchSettings(): Promise<FrontPageConfig | null> {
-  return parseResponse<FrontPageConfig | null>(
+async function fetchSettings() {
+  return parseResponse<FrontPageConfig>(
     await fetch(settingsEndpoint),
   )
 }
 
-async function saveSettings(
-  config: FrontPageConfig,
-): Promise<FrontPageConfig> {
+async function saveSettings(config: FrontPageConfig) {
   return parseResponse<FrontPageConfig>(
     await fetch(saveEndpoint, {
       method: 'POST',
@@ -302,18 +315,7 @@ function FrontPageSettingsPage() {
         </Card>
       )}
 
-      {settingsQuery.isSuccess && !settingsQuery.data && (
-        <Card>
-          <CardContent>
-            <p className="m-0 text-kumo-danger">
-              No front-page config exists yet. Insert the content first, then
-              reload this screen.
-            </p>
-          </CardContent>
-        </Card>
-      )}
-
-      {settingsQuery.isSuccess && settingsQuery.data && (
+      {settingsQuery.isSuccess && (
         <FrontPageForm initialData={settingsQuery.data} />
       )}
     </div>
