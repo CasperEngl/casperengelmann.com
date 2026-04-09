@@ -1,8 +1,4 @@
-FROM node:22
-
-RUN curl -fsSL https://bun.sh/install | bash
-
-ENV PATH="/root/.bun/bin:$PATH"
+FROM oven/bun:1.3.11
 
 WORKDIR /app
 
@@ -10,10 +6,10 @@ RUN mkdir -p /app/data/uploads
 
 COPY . .
 
-RUN bun install
+RUN bun install --frozen-lockfile
 
 RUN bun run build
 
-EXPOSE $PORT
+EXPOSE 3000
 
-CMD node ./dist/server/entry.mjs --host "${HOST:-::}" --port "${PORT:-3000}"
+CMD ["sh", "-lc", "exec bun ./dist/server/entry.mjs --host \"${HOST:-::}\" --port \"${PORT:-3000}\""]

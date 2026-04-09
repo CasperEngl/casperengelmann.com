@@ -4,14 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "bootstrap": "emdash init",
-    "build": "astro build",
-    "dev": "astro dev",
-    "migrate:emdash": "node scripts/migrate-astro-content-to-emdash.mjs",
-    "predeploy": "bun run build",
-    "preview": "astro preview",
-    "start": "node ./dist/server/entry.mjs",
-    "type-check": "astro check"
+    "bootstrap": "bun --bun emdash init",
+    "build": "bun --bun astro build",
+    "dev": "bun --bun astro dev",
+    "migrate:emdash": "bun --bun scripts/migrate-astro-content-to-emdash.mjs",
+    "predeploy": "bun --bun astro build",
+    "preview": "bun --bun astro preview",
+    "start": "bun --bun ./dist/server/entry.mjs",
+    "type-check": "bun --bun astro check"
   },
   "dependencies": {
     "@astrojs/mdx": "5.0.3",

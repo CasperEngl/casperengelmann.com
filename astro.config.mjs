@@ -13,6 +13,23 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
+  site: 'https://casperengelmann.com',
+  security: {
+    allowedDomains: [
+      {
+        hostname: 'casperengelmanncom-production.up.railway.app',
+        protocol: 'https',
+      },
+      {
+        hostname: 'casperengelmann.com',
+        protocol: 'https',
+      },
+      {
+        hostname: 'www.casperengelmann.com',
+        protocol: 'https',
+      },
+    ],
+  },
   env: {
     schema: {
       GITHUB_API_KEY: envField.string({
