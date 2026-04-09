@@ -96,10 +96,26 @@
       ]
     }
   ],
+  "taxonomies": [
+    {
+      "name": "category",
+      "label": "Categories",
+      "labelSingular": "Category",
+      "hierarchical": true,
+      "collections": ["posts"]
+    },
+    {
+      "name": "tag",
+      "label": "Tags",
+      "labelSingular": "Tag",
+      "hierarchical": false,
+      "collections": ["posts"]
+    }
+  ],
   "content": {
     "projects": [
       {
-        "id": "project-pendlertjek",
+        "id": "01KNPWGQA4PG8X20RB3CK6QYAV",
         "slug": "pendlertjek",
         "status": "published",
         "data": {
@@ -111,15 +127,15 @@
     ],
     "experience": [
       {
-        "id": "experience-adapt",
+        "id": "01KNPWFXCJ0WRNAWKGSKV4PRK8",
         "slug": "adapt",
         "status": "published",
         "data": {
           "title": "Frontend Developer at Adapt",
           "company": "Adapt",
           "role": "Frontend Developer",
-          "start_date": "2020-09-01",
-          "end_date": "2022-03-31",
+          "start_date": "2020-09-01T00:00:00.000Z",
+          "end_date": "2022-03-31T00:00:00.000Z",
           "link": "https://adaptagency.com/",
           "body": [
             {
@@ -184,15 +200,15 @@
         }
       },
       {
-        "id": "experience-designheroes",
+        "id": "01KNPWFXCPWD2296FQMBR365V0",
         "slug": "designheroes",
         "status": "published",
         "data": {
           "title": "Fullstack developer at Designheroes",
           "company": "Designheroes",
           "role": "Fullstack developer",
-          "start_date": "2019-04-01",
-          "end_date": "2019-11-30",
+          "start_date": "2019-04-01T00:00:00.000Z",
+          "end_date": "2019-11-30T00:00:00.000Z",
           "link": "https://www.designheroes.dk/",
           "body": [
             {
@@ -225,15 +241,16 @@
         }
       },
       {
-        "id": "experience-devant",
+        "id": "01KNPWFXCRT7291NEPBWB0WWFK",
         "slug": "devant",
         "status": "published",
         "data": {
           "title": "Self-employed at Devant",
           "company": "Devant",
           "role": "Self-employed",
-          "start_date": "2019-11-01",
-          "end_date": "2020-05-31",
+          "start_date": "2019-11-01T00:00:00.000Z",
+          "end_date": "2020-05-31T00:00:00.000Z",
+          "link": null,
           "body": [
             {
               "_type": "block",
@@ -252,14 +269,15 @@
         }
       },
       {
-        "id": "experience-franklin",
+        "id": "01KNPWFXCSMKT6H203X71SFJ65",
         "slug": "franklin",
         "status": "published",
         "data": {
           "title": "Fullstack Developer at Franklin",
           "company": "Franklin",
           "role": "Fullstack Developer",
-          "start_date": "2024-12-01",
+          "start_date": "2024-12-01T00:00:00.000Z",
+          "end_date": "",
           "link": "https://hifranklin.com/",
           "body": [
             {
@@ -305,15 +323,15 @@
         }
       },
       {
-        "id": "experience-make-influence",
+        "id": "01KNPWFXCTVH6GHJ949GEP2174",
         "slug": "make-influence",
         "status": "published",
         "data": {
           "title": "Frontend Lead at Make Influence",
           "company": "Make Influence",
           "role": "Frontend Lead",
-          "start_date": "2022-10-01",
-          "end_date": "2024-09-30",
+          "start_date": "2022-10-01T00:00:00.000Z",
+          "end_date": "2024-09-30T00:00:00.000Z",
           "link": "https://www.makeinfluence.com/",
           "body": [
             {
@@ -346,15 +364,15 @@
         }
       },
       {
-        "id": "experience-miinto",
+        "id": "01KNPWFXCWT20J7J7TX1XSRPF5",
         "slug": "miinto",
         "status": "published",
         "data": {
           "title": "Senior Frontend developer at Miinto",
           "company": "Miinto",
           "role": "Senior Frontend developer",
-          "start_date": "2022-03-01",
-          "end_date": "2022-10-31",
+          "start_date": "2022-03-01T00:00:00.000Z",
+          "end_date": "2022-10-31T00:00:00.000Z",
           "link": "https://www.miinto-group.com/",
           "body": [
             {
@@ -387,15 +405,15 @@
         }
       },
       {
-        "id": "experience-web-koncept",
+        "id": "01KNPWFXCYRZZQTRPJ8Q3WQC10",
         "slug": "web-koncept",
         "status": "published",
         "data": {
           "title": "Student Developer at Web-Koncept",
           "company": "Web-Koncept",
           "role": "Student Developer",
-          "start_date": "2017-05-01",
-          "end_date": "2019-04-30",
+          "start_date": "2017-05-01T00:00:00.000Z",
+          "end_date": "2019-04-30T00:00:00.000Z",
           "link": "https://web-koncept.dk/",
           "body": [
             {

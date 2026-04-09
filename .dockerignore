@@ -1,5 +1,9 @@
 dist
 .git
+node_modules
+.astro
+.env.local
+.DS_Store
 data
 uploads
 *.tgz
