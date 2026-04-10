@@ -147,7 +147,6 @@ export async function applySeed(
 						const existingField = await registry.getField(collection.slug, field.slug);
 						if (existingField) {
 							await registry.updateField(collection.slug, field.slug, {
-								type: field.type,
 								label: field.label,
 								required: field.required || false,
 								unique: field.unique || false,

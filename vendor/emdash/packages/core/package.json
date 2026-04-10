@@ -1,6 +1,6 @@
 {
   "name": "emdash",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Astro-native CMS with WordPress migration support",
   "type": "module",
   "main": "dist/index.mjs",
@@ -143,25 +143,38 @@
     "#comments/*": "./src/comments/*",
     "#types": "./src/astro/types.js"
   },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "prepublishOnly": "node --run build",
+    "typecheck": "tsgo --noEmit",
+    "check": "publint && attw --pack --ignore-rules=cjs-resolves-to-esm --ignore-rules=no-resolution --ignore-rules=internal-resolution-error",
+    "test": "vitest",
+    "test:smoke": "vitest run --config vitest.smoke.config.ts",
+    "test:integration": "vitest run --config vitest.integration.config.ts"
+  },
   "dependencies": {
+    "@emdash-cms/admin": "workspace:*",
+    "@emdash-cms/auth": "workspace:*",
+    "@emdash-cms/gutenberg-to-portable-text": "workspace:*",
     "@floating-ui/react": "^0.27.16",
     "@modelcontextprotocol/sdk": "^1.26.0",
     "@portabletext/toolkit": "^5.0.1",
-    "@tiptap/core": "^3.20.0",
-    "@tiptap/extension-focus": "^3.20.0",
-    "@tiptap/extension-image": "^3.20.0",
-    "@tiptap/extension-link": "^3.20.0",
-    "@tiptap/extension-placeholder": "^3.20.0",
-    "@tiptap/extension-text-align": "^3.20.0",
-    "@tiptap/extension-typography": "^3.20.0",
-    "@tiptap/extension-underline": "^3.20.0",
-    "@tiptap/react": "^3.20.0",
-    "@tiptap/starter-kit": "^3.20.0",
-    "@tiptap/suggestion": "^3.20.0",
+    "@tiptap/core": "catalog:",
+    "@tiptap/extension-focus": "catalog:",
+    "@tiptap/extension-image": "catalog:",
+    "@tiptap/extension-link": "catalog:",
+    "@tiptap/extension-placeholder": "catalog:",
+    "@tiptap/extension-text-align": "catalog:",
+    "@tiptap/extension-typography": "catalog:",
+    "@tiptap/extension-underline": "catalog:",
+    "@tiptap/react": "catalog:",
+    "@tiptap/starter-kit": "catalog:",
+    "@tiptap/suggestion": "catalog:",
     "@unpic/placeholder": "^0.1.2",
     "arctic": "^3.7.0",
     "astro-portabletext": "^0.11.0",
-    "better-sqlite3": "^11.10.0",
+    "better-sqlite3": "catalog:",
     "blurhash": "^2.0.5",
     "citty": "^0.1.6",
     "consola": "^3.4.2",
@@ -177,10 +190,7 @@
     "sax": "^1.4.1",
     "ulidx": "^2.4.1",
     "upng-js": "^2.1.0",
-    "zod": "^4.3.5",
-    "@emdash-cms/admin": "workspace:*",
-    "@emdash-cms/auth": "0.1.0",
-    "@emdash-cms/gutenberg-to-portable-text": "0.1.0"
+    "zod": "^4.3.5"
   },
   "optionalDependencies": {
     "@libsql/kysely-libsql": "^0.4.0",
@@ -196,19 +206,19 @@
   },
   "devDependencies": {
     "@apidevtools/swagger-parser": "^12.1.0",
-    "@arethetypeswrong/cli": "^0.18.2",
+    "@arethetypeswrong/cli": "catalog:",
+    "@emdash-cms/blocks": "workspace:*",
     "@types/better-sqlite3": "^7.6.12",
     "@types/pg": "^8.16.0",
     "@types/sanitize-html": "^2.16.0",
     "@types/sax": "^1.2.7",
     "@vitest/ui": "^4.0.17",
-    "publint": "0.3.17",
-    "tsdown": "0.20.3",
-    "typescript": "^5.9.3",
+    "publint": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
     "vite": "^6.0.0",
-    "vitest": "^4.0.18",
-    "zod-openapi": "^5.4.6",
-    "@emdash-cms/blocks": "0.1.0"
+    "vitest": "catalog:",
+    "zod-openapi": "^5.4.6"
   },
   "repository": {
     "type": "git",
@@ -223,12 +233,5 @@
     "wordpress"
   ],
   "author": "Matt Kane",
-  "license": "MIT",
-  "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "typecheck": "tsgo --noEmit",
-    "check": "publint && attw --pack --ignore-rules=cjs-resolves-to-esm --ignore-rules=no-resolution --ignore-rules=internal-resolution-error",
-    "test": "vitest"
-  }
+  "license": "MIT"
 }

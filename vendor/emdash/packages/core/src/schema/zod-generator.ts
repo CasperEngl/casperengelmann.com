@@ -67,9 +67,6 @@ function getBaseSchema(type: FieldType, field: Field): ZodTypeAny {
 		case "boolean":
 			return z.boolean();
 
-		case "date":
-			return z.string().date();
-
 		case "datetime":
 			return z.string().datetime().or(z.string().date());
 
@@ -333,7 +330,6 @@ function fieldTypeToTypeScript(field: Field): string {
 		case "string":
 		case "text":
 		case "slug":
-		case "date":
 		case "datetime":
 			return "string";
 

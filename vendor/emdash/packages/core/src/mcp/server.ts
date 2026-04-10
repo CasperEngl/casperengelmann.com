@@ -859,7 +859,7 @@ export function createMcpServer(): McpServer {
 			description:
 				"Add a new field to a collection's schema. This adds a column to the " +
 				"database table. Field types: string (short text), text (long text), " +
-				"number (decimal), integer, boolean, date, datetime, select (single choice), " +
+				"number (decimal), integer, boolean, datetime, select (single choice), " +
 				"multiSelect (multiple), portableText (rich text), image, file, " +
 				"reference (link to another collection), json, slug (URL-safe id). " +
 				"For select/multiSelect, provide choices in validation.options array.",
@@ -877,7 +877,6 @@ export function createMcpServer(): McpServer {
 						"number",
 						"integer",
 						"boolean",
-						"date",
 						"datetime",
 						"select",
 						"multiSelect",

@@ -33,7 +33,6 @@ const FIELD_TYPES = [
 	"number",
 	"integer",
 	"boolean",
-	"date",
 	"datetime",
 	"select",
 	"multiSelect",
@@ -43,6 +42,7 @@ const FIELD_TYPES = [
 	"reference",
 	"json",
 	"slug",
+	"repeater",
 ] as const;
 
 export const HOOK_NAMES = [
@@ -54,6 +54,8 @@ export const HOOK_NAMES = [
 	"content:afterSave",
 	"content:beforeDelete",
 	"content:afterDelete",
+	"content:afterPublish",
+	"content:afterUnpublish",
 	"media:beforeUpload",
 	"media:afterUpload",
 	"cron",
