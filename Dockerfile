@@ -9,8 +9,7 @@ RUN apt-get update \
 FROM build-base AS deps
 
 COPY package.json bun.lock ./
-COPY vendor/emdash/packages/core/package.json ./vendor/emdash/packages/core/package.json
-COPY vendor/emdash/packages/admin/package.json ./vendor/emdash/packages/admin/package.json
+COPY vendor ./vendor
 
 RUN bun install --frozen-lockfile
 
@@ -23,8 +22,7 @@ RUN bun run build
 FROM build-base AS prod-deps
 
 COPY package.json bun.lock ./
-COPY vendor/emdash/packages/core/package.json ./vendor/emdash/packages/core/package.json
-COPY vendor/emdash/packages/admin/package.json ./vendor/emdash/packages/admin/package.json
+COPY vendor ./vendor
 
 RUN bun install --frozen-lockfile --production
 
