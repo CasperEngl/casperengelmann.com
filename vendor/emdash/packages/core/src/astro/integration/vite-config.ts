@@ -60,6 +60,8 @@ function linguiMacroPlugin(adminSourcePath: string, adminDistPath: string): Plug
 	// Resolve @babel/core from admin's devDependencies, not core's.
 	const adminRequire = createRequire(resolve(adminDistPath, "index.js"));
 	const babelCorePath = adminRequire.resolve("@babel/core");
+	const linguiConfPath = adminRequire.resolve("@lingui/conf");
+	const linguiConfigPath = resolve(adminDistPath, "..", "lingui.config.ts");
 
 	return {
 		name: "emdash-lingui-macro",
@@ -67,9 +69,11 @@ function linguiMacroPlugin(adminSourcePath: string, adminDistPath: string): Plug
 		async transform(code, id) {
 			if (!id.startsWith(adminSourcePath) || !code.includes("@lingui")) return;
 			const { transformAsync } = (await import(babelCorePath)) as typeof import("@babel/core");
+			const { getConfig } = (await import(linguiConfPath)) as typeof import("@lingui/conf");
+			const linguiConfig = getConfig({ configPath: linguiConfigPath });
 			const result = await transformAsync(code, {
 				filename: id,
-				plugins: ["@lingui/babel-plugin-lingui-macro"],
+				plugins: [["@lingui/babel-plugin-lingui-macro", { linguiConfig }]],
 				parserOpts: { plugins: ["jsx", "typescript"] },
 			});
 			if (!result?.code) return;
@@ -82,8 +86,8 @@ function linguiMacroPlugin(adminSourcePath: string, adminDistPath: string): Plug
  * Resolve path to the admin package dist directory.
  * Used for Vite alias to ensure the package is found in pnpm's isolated node_modules.
  */
-function resolveAdminDist(): string {
-	const require = createRequire(import.meta.url);
+function resolveAdminDist(projectRoot: string): string {
+	const require = createRequire(resolve(projectRoot, "package.json"));
 	const adminPath = require.resolve("@emdash-cms/admin");
 	// Return the directory containing the built package (dist/)
 	return dirname(adminPath);
@@ -94,8 +98,8 @@ function resolveAdminDist(): string {
  * In dev mode, we alias @emdash-cms/admin to the source so Vite processes it
  * directly — giving instant HMR instead of requiring a rebuild + restart.
  */
-function resolveAdminSource(): string | undefined {
-	const require = createRequire(import.meta.url);
+function resolveAdminSource(projectRoot: string): string | undefined {
+	const require = createRequire(resolve(projectRoot, "package.json"));
 	const adminPath = require.resolve("@emdash-cms/admin");
 	// dist/index.js -> go up to package root, then into src/
 	const packageRoot = resolve(dirname(adminPath), "..");
@@ -255,7 +259,8 @@ export function createViteConfig(
 	options: VitePluginOptions,
 	command: "dev" | "build" | "preview" | "sync",
 ): NonNullable<AstroConfig["vite"]> {
-	const adminDistPath = resolveAdminDist();
+	const projectRoot = fileURLToPath(options.astroConfig.root);
+	const adminDistPath = resolveAdminDist(projectRoot);
 	const cloudflare = isCloudflareAdapter(options.astroConfig);
 	const isDev = command === "dev";
 
@@ -263,7 +268,7 @@ export function createViteConfig(
 	// CSS always comes from dist/ (pre-compiled by @tailwindcss/cli) since Tailwind's
 	// Vite plugin has native deps that don't bundle well. Run `pnpm dev` in packages/admin
 	// alongside the demo server to get CSS watch-rebuilds too.
-	const adminSourcePath = isDev ? resolveAdminSource() : undefined;
+	const adminSourcePath = isDev ? resolveAdminSource(projectRoot) : undefined;
 	const useSource = adminSourcePath !== undefined;
 
 	return {
