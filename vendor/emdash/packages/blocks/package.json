@@ -4,6 +4,8 @@
   "description": "Declarative plugin UI blocks for EmDash CMS",
   "type": "module",
   "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
