@@ -36,8 +36,11 @@ COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/vendor ./vendor
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/.emdash ./.emdash
+COPY --from=build /app/scripts/start-prod.sh ./scripts/start-prod.sh
 COPY package.json bun.lock ./
+
+RUN chmod +x ./scripts/start-prod.sh
 
 EXPOSE 3000
 
-CMD ["sh", "-lc", "exec bun ./dist/server/entry.mjs --host \"${HOST:-::}\" --port \"${PORT:-3000}\""]
+CMD ["sh", "./scripts/start-prod.sh"]
