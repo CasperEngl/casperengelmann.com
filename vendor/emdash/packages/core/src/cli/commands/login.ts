@@ -18,6 +18,7 @@ import pc from "picocolors";
 
 import {
 	createHeaderAwareFetch,
+	type FetchLike,
 	getCachedAccessToken,
 	isAccessRedirect,
 	resolveCustomHeaders,
@@ -74,7 +75,7 @@ async function pollForToken(
 	deviceCode: string,
 	interval: number,
 	expiresIn: number,
-	fetchFn: typeof fetch,
+	fetchFn: FetchLike,
 ): Promise<TokenResponse> {
 	const deadline = Date.now() + expiresIn * 1000;
 	let currentInterval = interval;

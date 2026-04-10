@@ -29,6 +29,7 @@ import { promisify } from "node:util";
 import type { Interceptor } from "./transport.js";
 
 const execFileAsync = promisify(execFile);
+export type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
 /**
  * Parse a single "Name: Value" header string. Returns null if malformed.
@@ -127,9 +128,9 @@ export function customHeadersInterceptor(headers: Record<string, string>): Inter
  * Creates a fetch wrapper that injects custom headers.
  * Used by the login command for raw fetch calls before the client is created.
  */
-export function createHeaderAwareFetch(headers: Record<string, string>): typeof fetch {
+export function createHeaderAwareFetch(headers: Record<string, string>): FetchLike {
 	if (Object.keys(headers).length === 0) {
-		return globalThis.fetch.bind(globalThis);
+		return globalThis.fetch.bind(globalThis) as FetchLike;
 	}
 	return (input: RequestInfo | URL, init?: RequestInit) => {
 		const h = new Headers(init?.headers);

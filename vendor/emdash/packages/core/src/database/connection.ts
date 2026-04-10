@@ -1,21 +1,21 @@
-import BetterSqlite3 from "better-sqlite3";
-import { Kysely, SqliteDialect } from "kysely";
+import { Kysely, SqliteDialect } from 'kysely'
 
-import type { Database } from "./types.js";
+import { createSqliteDatabase } from '../db/bun-sqlite.js'
+import type { Database } from './types.js'
 
 export interface DatabaseConfig {
-	url: string;
-	authToken?: string;
+  url: string
+  authToken?: string
 }
 
 export class EmDashDatabaseError extends Error {
-	constructor(
-		message: string,
-		public override cause?: unknown,
-	) {
-		super(message);
-		this.name = "EmDashDatabaseError";
-	}
+  constructor(
+    message: string,
+    public override cause?: unknown,
+  ) {
+    super(message)
+    this.name = 'EmDashDatabaseError'
+  }
 }
 
 /**
@@ -26,42 +26,37 @@ export class EmDashDatabaseError extends Error {
  * - libsql://... (Turso/libSQL with auth token) - TODO
  */
 export function createDatabase(config: DatabaseConfig): Kysely<Database> {
-	try {
-		// Handle file-based SQLite
-		if (config.url.startsWith("file:") || config.url === ":memory:") {
-			const dbPath = config.url === ":memory:" ? ":memory:" : config.url.replace("file:", "");
+  try {
+    // Handle file-based SQLite
+    if (config.url.startsWith('file:') || config.url === ':memory:') {
+      const dbPath =
+        config.url === ':memory:' ? ':memory:' : config.url.replace('file:', '')
 
-			const sqlite = new BetterSqlite3(dbPath);
+      const dialect = new SqliteDialect({
+        database: () => createSqliteDatabase(dbPath),
+      })
 
-			// Enable WAL mode for crash safety — writes go to a write-ahead log
-			// before being applied, preventing FTS5 shadow table corruption on
-			// process kill during content writes. No-op for :memory: databases.
-			sqlite.pragma("journal_mode = WAL");
+      return new Kysely<Database>({ dialect })
+    }
 
-			// Enable foreign key constraints
-			sqlite.pragma("foreign_keys = ON");
+    // Handle libSQL (Turso)
+    if (config.url.startsWith('libsql:')) {
+      if (!config.authToken) {
+        throw new EmDashDatabaseError(
+          'Auth token required for remote libSQL database',
+        )
+      }
+      // LibSQL implementation would use @libsql/kysely-libsql
+      throw new EmDashDatabaseError('LibSQL not yet implemented')
+    }
 
-			const dialect = new SqliteDialect({
-				database: sqlite,
-			});
-
-			return new Kysely<Database>({ dialect });
-		}
-
-		// Handle libSQL (Turso)
-		if (config.url.startsWith("libsql:")) {
-			if (!config.authToken) {
-				throw new EmDashDatabaseError("Auth token required for remote libSQL database");
-			}
-			// LibSQL implementation would use @libsql/kysely-libsql
-			throw new EmDashDatabaseError("LibSQL not yet implemented");
-		}
-
-		throw new EmDashDatabaseError(`Unsupported database URL scheme: ${config.url}`);
-	} catch (error) {
-		if (error instanceof EmDashDatabaseError) {
-			throw error;
-		}
-		throw new EmDashDatabaseError("Failed to create database", error);
-	}
+    throw new EmDashDatabaseError(
+      `Unsupported database URL scheme: ${config.url}`,
+    )
+  } catch (error) {
+    if (error instanceof EmDashDatabaseError) {
+      throw error
+    }
+    throw new EmDashDatabaseError('Failed to create database', error)
+  }
 }
