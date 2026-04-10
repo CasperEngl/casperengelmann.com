@@ -1,8 +1,6 @@
 import { fileURLToPath } from 'node:url'
 
 import { definePlugin } from 'emdash'
-import { RESEND_API_KEY } from 'astro:env/server'
-import { EMAIL_FROM } from 'astro:env/server'
 
 const RESEND_EMAIL_PLUGIN_ID = 'resend-email'
 const pluginVersion = '0.1.0'
