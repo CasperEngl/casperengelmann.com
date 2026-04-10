@@ -26,8 +26,8 @@ export function createPlugin() {
     capabilities: ['email:provide', 'network:fetch:any'],
     hooks: {
       'email:deliver': async ({ message }) => {
-        const apiKey = RESEND_API_KEY
-        const from = EMAIL_FROM
+        const apiKey = process.env.RESEND_API_KEY
+        const from = process.env.EMAIL_FROM
 
         const response = await fetch(RESEND_API_URL, {
           method: 'POST',
