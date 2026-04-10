@@ -23,29 +23,32 @@ export function createPlugin() {
     version: pluginVersion,
     capabilities: ['email:provide', 'network:fetch:any'],
     hooks: {
-      'email:deliver': async ({ message }) => {
-        const apiKey = process.env.RESEND_API_KEY
-        const from = process.env.EMAIL_FROM
+      'email:deliver': {
+        exclusive: true,
+        handler: async ({ message }) => {
+          const apiKey = process.env.RESEND_API_KEY
+          const from = process.env.EMAIL_FROM
 
-        const response = await fetch(RESEND_API_URL, {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            from,
-            to: [message.to],
-            subject: message.subject,
-            text: message.text,
-            html: message.html,
-          }),
-        })
+          const response = await fetch(RESEND_API_URL, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from,
+              to: [message.to],
+              subject: message.subject,
+              text: message.text,
+              html: message.html,
+            }),
+          })
 
-        if (!response.ok) {
-          const details = await response.text()
-          throw new Error(`Resend email delivery failed: ${details}`)
-        }
+          if (!response.ok) {
+            const details = await response.text()
+            throw new Error(`Resend email delivery failed: ${details}`)
+          }
+        },
       },
     },
   })

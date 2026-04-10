@@ -30,6 +30,10 @@ FROM oven/bun:1.3.11 AS runtime
 
 WORKDIR /app
 
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends sqlite3 \
+  && rm -rf /var/lib/apt/lists/*
+
 RUN mkdir -p /app/data/uploads
 
 COPY --from=prod-deps /app/node_modules ./node_modules
