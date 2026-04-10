@@ -57,6 +57,7 @@
     "seed": ".emdash/seed.json"
   },
   "patchedDependencies": {
-    "emdash@0.1.0": "patches/emdash@0.1.0.patch"
+    "emdash@0.1.0": "patches/emdash@0.1.0.patch",
+    "@emdash-cms/admin@0.1.0": "patches/@emdash-cms%2Fadmin@0.1.0.patch"
   }
 }

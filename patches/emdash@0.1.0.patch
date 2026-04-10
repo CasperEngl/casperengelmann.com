@@ -4,8 +4,51 @@ index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2
 diff --git a/node_modules/emdash/.bun-tag-d26c73ca39bb7249 b/.bun-tag-d26c73ca39bb7249
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/emdash/.bun-tag-e3c72faf2b93cb12 b/.bun-tag-e3c72faf2b93cb12
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/emdash/.bun-tag-fd2c1e1b3544dc30 b/.bun-tag-fd2c1e1b3544dc30
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/dist/apply-Bjfq_b4-.mjs b/dist/apply-Bjfq_b4-.mjs
+index 7d6ed8f33345c1ede8900fb8a1a64e4167b4589d..783bbae25457601d9c11c3e0e96b07f0d01d0b61 100644
+--- a/dist/apply-Bjfq_b4-.mjs
++++ b/dist/apply-Bjfq_b4-.mjs
+@@ -683,6 +683,7 @@ async function applySeed(db, seed, options = {}) {
+ 					result.collections.updated++;
+ 					for (const field of collection.fields) if (await registry.getField(collection.slug, field.slug)) {
+ 						await registry.updateField(collection.slug, field.slug, {
++							type: field.type,
+ 							label: field.label,
+ 							required: field.required || false,
+ 							unique: field.unique || false,
+diff --git a/dist/astro/middleware.mjs b/dist/astro/middleware.mjs
+index af52a7402ac6969ba46f76279a22f34fcfebc01e..ca23e4f6fe6a86a7d3641523477de4da3624c1c0 100644
+--- a/dist/astro/middleware.mjs
++++ b/dist/astro/middleware.mjs
+@@ -317,6 +317,7 @@ const FIELD_TYPE_TO_KIND = {
+ 	number: "number",
+ 	integer: "number",
+ 	boolean: "boolean",
++	date: "date",
+ 	datetime: "datetime",
+ 	select: "select",
+ 	multiSelect: "multiSelect",
+diff --git a/dist/cli/index.mjs b/dist/cli/index.mjs
+index d73acce5fc244968bf0e3ddb01117afddcec17f4..c4490a699636dc03b44c7c312d9184bc53c40d7b 100755
+--- a/dist/cli/index.mjs
++++ b/dist/cli/index.mjs
+@@ -3388,7 +3388,7 @@ const addFieldCommand = defineCommand({
+ 		},
+ 		type: {
+ 			type: "string",
+-			description: "Field type (string, text, number, integer, boolean, datetime, image, reference, portableText, json)",
++			description: "Field type (string, text, number, integer, boolean, date, datetime, image, reference, portableText, json)",
+ 			required: true
+ 		},
+ 		label: {
 diff --git a/dist/connection-B4zVnQIa.mjs b/dist/connection-B4zVnQIa.mjs
-index ade9bbb3d89555ee2c21bcaf23d8764e3792e46a..ec62c2afd7c4827d4bb9f7ac246ebee3d59a8727 100644
+index ade9bbb3d89555ee2c21bcaf23d8764e3792e46a..d6468f60ba295d033254907110ae5530334d82b6 100644
 --- a/dist/connection-B4zVnQIa.mjs
 +++ b/dist/connection-B4zVnQIa.mjs
 @@ -1,4 +1,3 @@
@@ -135,6 +178,106 @@ index 1b1f31f2e3973d3133c8e85235c4f663a1e9ffe4..433f4341b8b06b234afb2fcc69628c5a
  }
  
  //#endregion
+diff --git a/dist/manifest-schema-Dcl0R6nM.mjs b/dist/manifest-schema-Dcl0R6nM.mjs
+index a5cb092c48fdc9327441474e3e9dcdd6ee31fd46..63b89894786a75759a6cdad61e7de5ac5e86858f 100644
+--- a/dist/manifest-schema-Dcl0R6nM.mjs
++++ b/dist/manifest-schema-Dcl0R6nM.mjs
+@@ -30,6 +30,7 @@ const FIELD_TYPES = [
+ 	"number",
+ 	"integer",
+ 	"boolean",
++	"date",
+ 	"datetime",
+ 	"select",
+ 	"multiSelect",
+diff --git a/dist/registry-D_w5HW4G.mjs b/dist/registry-D_w5HW4G.mjs
+index 840438e7ebb49bd9d6d66c002549fe1a12c9c4cb..d5f91e07e683cb5c694845423191da231c1d742a 100644
+--- a/dist/registry-D_w5HW4G.mjs
++++ b/dist/registry-D_w5HW4G.mjs
+@@ -518,7 +518,19 @@ var SchemaRegistry = class {
+ 	async updateField(collectionSlug, fieldSlug, input) {
+ 		const field = await this.getField(collectionSlug, fieldSlug);
+ 		if (!field) throw new SchemaError(`Field "${fieldSlug}" not found in collection "${collectionSlug}"`, "FIELD_NOT_FOUND");
++		const nextType = input.type ?? field.type;
++		const nextColumnType = FIELD_TYPE_TO_COLUMN[nextType];
++		if (input.type && input.type !== field.type && nextColumnType !== field.columnType) throw new SchemaError(`Cannot change field "${fieldSlug}" from "${field.type}" to "${input.type}" without a column migration`, "FIELD_TYPE_MISMATCH", {
++			collectionSlug,
++			fieldSlug,
++			currentType: field.type,
++			nextType: input.type,
++			currentColumnType: field.columnType,
++			nextColumnType
++		});
+ 		await this.db.updateTable("_emdash_fields").set({
++			type: nextType,
++			column_type: nextColumnType,
+ 			label: input.label ?? field.label,
+ 			required: input.required !== void 0 ? input.required ? 1 : 0 : field.required ? 1 : 0,
+ 			unique: input.unique !== void 0 ? input.unique ? 1 : 0 : field.unique ? 1 : 0,
+diff --git a/dist/search-DG603UrT.mjs b/dist/search-DG603UrT.mjs
+index a7d99e740509b3d2bed8228ec59774d403a08dfb..6494b23883f4a1abc14df64b7c23688d008a7116 100644
+--- a/dist/search-DG603UrT.mjs
++++ b/dist/search-DG603UrT.mjs
+@@ -2813,6 +2813,7 @@ const fieldTypeValues = z$1.enum([
+ 	"number",
+ 	"integer",
+ 	"boolean",
++	"date",
+ 	"datetime",
+ 	"select",
+ 	"multiSelect",
+diff --git a/dist/types-C4-fAxN3.d.mts b/dist/types-C4-fAxN3.d.mts
+index 6a3a586eff4a673b64b111548b306994c9e961f2..d71cd6ac3ebe853151653e492862f9623ca2e6b1 100644
+--- a/dist/types-C4-fAxN3.d.mts
++++ b/dist/types-C4-fAxN3.d.mts
+@@ -150,10 +150,11 @@ interface CreateFieldInput {
+  * Input for updating a field
+  */
+ interface UpdateFieldInput {
+-  label?: string;
+-  required?: boolean;
+-  unique?: boolean;
+-  defaultValue?: unknown;
++	type?: FieldType;
++	label?: string;
++	required?: boolean;
++	unique?: boolean;
++	defaultValue?: unknown;
+   validation?: FieldValidation;
+   widget?: string;
+   options?: FieldWidgetOptions;
+diff --git a/dist/types-DY5zk5HN.mjs b/dist/types-DY5zk5HN.mjs
+index 07484f017f7da9bbb446d718ebeda770fd9b648b..fc16547ef01a9aebd543a70afad93056ef3805dc 100644
+--- a/dist/types-DY5zk5HN.mjs
++++ b/dist/types-DY5zk5HN.mjs
+@@ -8,6 +8,7 @@ const FIELD_TYPES = [
+ 	"number",
+ 	"integer",
+ 	"boolean",
++	"date",
+ 	"datetime",
+ 	"select",
+ 	"multiSelect",
+@@ -27,6 +28,7 @@ const FIELD_TYPE_TO_COLUMN = {
+ 	number: "REAL",
+ 	integer: "INTEGER",
+ 	boolean: "INTEGER",
++	date: "TEXT",
+ 	datetime: "TEXT",
+ 	select: "TEXT",
+ 	multiSelect: "JSON",
+diff --git a/src/api/schemas/schema.ts b/src/api/schemas/schema.ts
+index cfd1d61b44408476f40fac44ea4fef03259b28d4..f031aa1cd61c30be2e0ce25be4677077f04a79da 100644
+--- a/src/api/schemas/schema.ts
++++ b/src/api/schemas/schema.ts
+@@ -16,6 +16,7 @@ const fieldTypeValues = z.enum([
+ 	"number",
+ 	"integer",
+ 	"boolean",
++	"date",
+ 	"datetime",
+ 	"select",
+ 	"multiSelect",
 diff --git a/src/astro/routes/admin.astro b/src/astro/routes/admin.astro
 index 9b5709b5140aa4b478ff526653393c035f0387cf..dde799f7a65458ea5bb9cbd191778c76ceb2a691 100644
 --- a/src/astro/routes/admin.astro
@@ -360,3 +503,152 @@ index ea01d89d38aad6a5a350f6e0b3ec9581a4ec2e66..43eaddadc1e354a9961fee0b612dc01b
 +		database: () => createDatabase(filePath),
 +	});
  }
+diff --git a/src/emdash-runtime.ts b/src/emdash-runtime.ts
+index e5a74116cfd442a43ad50303685c797948791e65..09c52479d843d199427390082bf91e520fedb189 100644
+--- a/src/emdash-runtime.ts
++++ b/src/emdash-runtime.ts
+@@ -152,6 +152,7 @@ const FIELD_TYPE_TO_KIND: Record<FieldType, string> = {
+ 	number: "number",
+ 	integer: "number",
+ 	boolean: "boolean",
++	date: "date",
+ 	datetime: "datetime",
+ 	select: "select",
+ 	multiSelect: "multiSelect",
+diff --git a/src/mcp/server.ts b/src/mcp/server.ts
+index 1a73499c2665d303a295224eba747983d61e4a09..836551f311e311e4538b662a32f4d57dc80cda06 100644
+--- a/src/mcp/server.ts
++++ b/src/mcp/server.ts
+@@ -859,7 +859,7 @@ export function createMcpServer(): McpServer {
+ 			description:
+ 				"Add a new field to a collection's schema. This adds a column to the " +
+ 				"database table. Field types: string (short text), text (long text), " +
+-				"number (decimal), integer, boolean, datetime, select (single choice), " +
++				"number (decimal), integer, boolean, date, datetime, select (single choice), " +
+ 				"multiSelect (multiple), portableText (rich text), image, file, " +
+ 				"reference (link to another collection), json, slug (URL-safe id). " +
+ 				"For select/multiSelect, provide choices in validation.options array.",
+@@ -877,6 +877,7 @@ export function createMcpServer(): McpServer {
+ 						"number",
+ 						"integer",
+ 						"boolean",
++						"date",
+ 						"datetime",
+ 						"select",
+ 						"multiSelect",
+diff --git a/src/plugins/manifest-schema.ts b/src/plugins/manifest-schema.ts
+index a39c9f6b25a69d01c5bab952f358958147bd6ae5..f3c7556661572991c68d067a5c62a9f5c5418493 100644
+--- a/src/plugins/manifest-schema.ts
++++ b/src/plugins/manifest-schema.ts
+@@ -33,6 +33,7 @@ const FIELD_TYPES = [
+ 	"number",
+ 	"integer",
+ 	"boolean",
++	"date",
+ 	"datetime",
+ 	"select",
+ 	"multiSelect",
+diff --git a/src/schema/registry.ts b/src/schema/registry.ts
+index 6d112600b086b42aea5955ae371c2d082b07c202..e8cd2f09778a5766dae25f43892b9e8eb79a45cc 100644
+--- a/src/schema/registry.ts
++++ b/src/schema/registry.ts
+@@ -387,9 +387,29 @@ export class SchemaRegistry {
+ 			);
+ 		}
+ 
++		const nextType = input.type ?? field.type;
++		const nextColumnType = FIELD_TYPE_TO_COLUMN[nextType];
++
++		if (input.type && input.type !== field.type && nextColumnType !== field.columnType) {
++			throw new SchemaError(
++				`Cannot change field "${fieldSlug}" from "${field.type}" to "${input.type}" without a column migration`,
++				"FIELD_TYPE_MISMATCH",
++				{
++					collectionSlug,
++					fieldSlug,
++					currentType: field.type,
++					nextType: input.type,
++					currentColumnType: field.columnType,
++					nextColumnType,
++				},
++			);
++		}
++
+ 		await this.db
+ 			.updateTable("_emdash_fields")
+ 			.set({
++				type: nextType,
++				column_type: nextColumnType,
+ 				label: input.label ?? field.label,
+ 				required: input.required !== undefined ? (input.required ? 1 : 0) : field.required ? 1 : 0,
+ 				unique: input.unique !== undefined ? (input.unique ? 1 : 0) : field.unique ? 1 : 0,
+diff --git a/src/schema/types.ts b/src/schema/types.ts
+index 940fbd4bf03796d5dc874b603a2e3e65ebef3561..79fc79e92df356a407f032ced424a264fe590ed8 100644
+--- a/src/schema/types.ts
++++ b/src/schema/types.ts
+@@ -14,6 +14,7 @@ export type FieldType =
+ 	| "number"
+ 	| "integer"
+ 	| "boolean"
++	| "date"
+ 	| "datetime"
+ 	| "select"
+ 	| "multiSelect"
+@@ -33,6 +34,7 @@ export const FIELD_TYPES: readonly FieldType[] = [
+ 	"number",
+ 	"integer",
+ 	"boolean",
++	"date",
+ 	"datetime",
+ 	"select",
+ 	"multiSelect",
+@@ -58,6 +60,7 @@ export const FIELD_TYPE_TO_COLUMN: Record<FieldType, ColumnType> = {
+ 	number: "REAL",
+ 	integer: "INTEGER",
+ 	boolean: "INTEGER",
++	date: "TEXT",
+ 	datetime: "TEXT",
+ 	select: "TEXT",
+ 	multiSelect: "JSON",
+@@ -222,6 +225,7 @@ export interface CreateFieldInput {
+  * Input for updating a field
+  */
+ export interface UpdateFieldInput {
++	type?: FieldType;
+ 	label?: string;
+ 	required?: boolean;
+ 	unique?: boolean;
+diff --git a/src/schema/zod-generator.ts b/src/schema/zod-generator.ts
+index d87ef10fb2a3bdbd0f11f58f0a7eb3c02f710313..bb956fbd6f85cb67d5e4e3d101552540b55d0b21 100644
+--- a/src/schema/zod-generator.ts
++++ b/src/schema/zod-generator.ts
+@@ -67,6 +67,9 @@ function getBaseSchema(type: FieldType, field: Field): ZodTypeAny {
+ 		case "boolean":
+ 			return z.boolean();
+ 
++		case "date":
++			return z.string().date();
++
+ 		case "datetime":
+ 			return z.string().datetime().or(z.string().date());
+ 
+@@ -330,6 +333,7 @@ function fieldTypeToTypeScript(field: Field): string {
+ 		case "string":
+ 		case "text":
+ 		case "slug":
++		case "date":
+ 		case "datetime":
+ 			return "string";
+ 
+diff --git a/src/seed/apply.ts b/src/seed/apply.ts
+index aa28b400b67103cd53c716cabc86ea50be3cda90..00e0d8cde322300ab2a1adfafe8ceddc67a762d6 100644
+--- a/src/seed/apply.ts
++++ b/src/seed/apply.ts
+@@ -147,6 +147,7 @@ export async function applySeed(
+ 						const existingField = await registry.getField(collection.slug, field.slug);
+ 						if (existingField) {
+ 							await registry.updateField(collection.slug, field.slug, {
++								type: field.type,
+ 								label: field.label,
+ 								required: field.required || false,
+ 								unique: field.unique || false,
