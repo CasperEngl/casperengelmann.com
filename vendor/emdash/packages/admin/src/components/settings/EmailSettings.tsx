@@ -94,9 +94,9 @@ export function EmailSettings() {
 					}`}
 				>
 					{status.type === "success" ? (
-						<CheckCircle className="h-4 w-4 flex-shrink-0" />
+						<CheckCircle className="h-4 w-4 shrink-0" />
 					) : (
-						<WarningCircle className="h-4 w-4 flex-shrink-0" />
+						<WarningCircle className="h-4 w-4 shrink-0" />
 					)}
 					{status.message}
 				</div>
@@ -154,7 +154,7 @@ function PipelineStatus({ settings }: { settings: EmailSettingsData | undefined 
 		return (
 			<div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 p-4">
 				<div className="flex items-start gap-3">
-					<WarningCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+					<WarningCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 mt-0.5 shrink-0" />
 					<div>
 						<p className="text-sm font-medium text-amber-800 dark:text-amber-200">
 							No email provider configured
@@ -176,7 +176,7 @@ function PipelineStatus({ settings }: { settings: EmailSettingsData | undefined 
 		<div className="space-y-4">
 			{/* Provider */}
 			<div className="flex items-center gap-3 p-3 rounded-md bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800">
-				<CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+				<CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 shrink-0" />
 				<div>
 					<p className="text-sm font-medium text-green-800 dark:text-green-200">
 						Email provider active
