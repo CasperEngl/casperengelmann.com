@@ -30,7 +30,7 @@ interface Props {
       }
     </style>
 
-    <script type="application/ld+json">
+    <script type="application/ld+json" is:inline>
       {
         "@context": "http://schema.org",
         "@type": "Person",
@@ -45,7 +45,9 @@ interface Props {
       }
     </script>
   </head>
-  <body class="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 min-h-screen p-6 md:p-8 font-mono text-sm">
+  <body
+    class="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 min-h-screen p-6 md:p-8 font-mono text-sm"
+  >
     <main class="max-w-2xl mx-auto">
       <slot />
     </main>

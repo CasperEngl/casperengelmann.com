@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "prepublishOnly": "node --run build",
+    "prepublishOnly": "bun --bun run build",
     "check": "publint && attw --pack --ignore-rules=cjs-resolves-to-esm --ignore-rules=no-resolution",
     "test": "vitest",
     "typecheck": "tsgo --noEmit"

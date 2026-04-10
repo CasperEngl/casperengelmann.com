@@ -17,7 +17,7 @@ FROM deps AS build
 
 COPY . .
 
-RUN bun run build
+RUN bun --bun run build
 
 FROM build-base AS prod-deps
 

@@ -20,14 +20,14 @@
     "./locales/*": "./dist/locales/*"
   },
   "scripts": {
-    "build": "node --run locale:compile && tsdown && node --run locale:copy && npx @tailwindcss/cli -i src/styles.css -o dist/styles.css --minify",
+    "build": "bun --bun run locale:compile && tsdown && bun --bun run locale:copy && tailwindcss -i src/styles.css -o dist/styles.css --minify",
     "dev": "tsdown src/index.ts --format esm --dts --watch",
-    "prepublishOnly": "node --run build",
+    "prepublishOnly": "bun --bun run build",
     "check": "publint && attw --pack --ignore-rules=cjs-resolves-to-esm --ignore-rules=no-resolution",
     "test": "vitest",
     "typecheck": "tsgo --noEmit",
     "locale:compile": "lingui compile --namespace es",
-    "locale:copy": "node ./scripts/copy-locales.js",
+    "locale:copy": "bun ./scripts/copy-locales.js",
     "locale:extract": "lingui extract --clean"
   },
   "dependencies": {

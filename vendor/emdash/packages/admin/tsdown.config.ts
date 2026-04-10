@@ -1,10 +1,9 @@
 import { transformAsync } from "@babel/core";
-import type { Plugin } from "rolldown";
 import { defineConfig } from "tsdown";
 
 const JS_TS_RE = /\.[jt]sx?$/;
 
-function linguiMacroPlugin(): Plugin {
+function linguiMacroPlugin() {
 	return {
 		name: "lingui-macro",
 		transform: {

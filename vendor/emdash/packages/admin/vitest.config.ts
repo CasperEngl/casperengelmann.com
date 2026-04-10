@@ -1,24 +1,24 @@
-import react from "@vitejs/plugin-react";
-import { playwright } from "@vitest/browser-playwright";
-import { defineConfig } from "vitest/config";
+import react from '@vitejs/plugin-react'
+import { playwright } from '@vitest/browser-playwright'
+import { defineConfig, type Plugin } from 'vitest/config'
 
 export default defineConfig({
-	plugins: [
-		react({
-			babel: {
-				plugins: ["@lingui/babel-plugin-lingui-macro"],
-			},
-		}) as Plugin[],
-	],
-	test: {
-		globals: true,
-		include: ["tests/**/*.test.{ts,tsx}"],
-		setupFiles: ["./tests/setup.ts"],
-		browser: {
-			enabled: true,
-			provider: playwright(),
-			instances: [{ browser: "chromium" }],
-			headless: true,
-		},
-	},
-});
+  plugins: [
+    react({
+      babel: {
+        plugins: ['@lingui/babel-plugin-lingui-macro'],
+      },
+    }) as Plugin[],
+  ],
+  test: {
+    globals: true,
+    include: ['tests/**/*.test.{ts,tsx}'],
+    setupFiles: ['./tests/setup.ts'],
+    browser: {
+      enabled: true,
+      provider: playwright(),
+      instances: [{ browser: 'chromium' }],
+      headless: true,
+    },
+  },
+})

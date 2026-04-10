@@ -171,12 +171,17 @@ export const devCommand = defineCommand({
 			},
 		});
 
-		child.on("error", (error) => {
+		const childProcess = child as typeof child & {
+			on(event: "error", listener: (error: Error) => void): void;
+			on(event: "exit", listener: (code: number | null) => void): void;
+		};
+
+		childProcess.on("error", (error) => {
 			consola.error("Failed to start dev server:", error);
 			process.exit(1);
 		});
 
-		child.on("exit", (code) => {
+		childProcess.on("exit", (code) => {
 			process.exit(code ?? 0);
 		});
 

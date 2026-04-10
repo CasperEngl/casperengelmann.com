@@ -18,7 +18,7 @@
     "build": "tsdown src/index.ts --format esm --dts --clean",
     "dev": "tsdown src/index.ts --format esm --dts --watch",
     "test": "vitest",
-    "prepublishOnly": "node --run build",
+    "prepublishOnly": "bun --bun run build",
     "check": "publint && attw --pack --ignore-rules=cjs-resolves-to-esm",
     "typecheck": "tsgo --noEmit"
   },
