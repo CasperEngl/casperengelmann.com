@@ -79,6 +79,12 @@ const FIELD_TYPES: {
 		icon: ToggleLeft,
 	},
 	{
+		type: "date",
+		label: "Date",
+		description: "Date picker",
+		icon: Calendar,
+	},
+	{
 		type: "datetime",
 		label: "Date & Time",
 		description: "Date and time picker",

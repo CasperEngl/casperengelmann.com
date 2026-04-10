@@ -979,6 +979,31 @@ interface FieldRendererProps {
 	manifest?: import("../lib/api/client.js").AdminManifest | null;
 }
 
+function padDateSegment(value: number): string {
+	return String(value).padStart(2, "0");
+}
+
+function formatDateInputValue(value: unknown): string {
+	if (typeof value !== "string") return "";
+	const trimmed = value.trim();
+	if (trimmed === "") return "";
+	if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) return trimmed;
+	const parsed = new Date(trimmed);
+	if (Number.isNaN(parsed.getTime())) return "";
+	return `${parsed.getFullYear()}-${padDateSegment(parsed.getMonth() + 1)}-${padDateSegment(parsed.getDate())}`;
+}
+
+function formatDateTimeLocalInputValue(value: unknown): string {
+	if (typeof value !== "string") return "";
+	const trimmed = value.trim();
+	if (trimmed === "") return "";
+	if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(trimmed)) return trimmed;
+	if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) return `${trimmed}T00:00`;
+	const parsed = new Date(trimmed);
+	if (Number.isNaN(parsed.getTime())) return "";
+	return `${formatDateInputValue(trimmed)}T${padDateSegment(parsed.getHours())}:${padDateSegment(parsed.getMinutes())}`;
+}
+
 /**
  * Render field based on type
  */
@@ -1186,13 +1211,25 @@ function FieldRenderer({
 			);
 		}
 
+		case "date":
+			return (
+				<Input
+					label={label}
+					id={id}
+					type="date"
+					value={formatDateInputValue(value)}
+					onChange={(e) => handleChange(e.target.value)}
+					required={field.required}
+				/>
+			);
+
 		case "datetime":
 			return (
 				<Input
 					label={label}
 					id={id}
 					type="datetime-local"
-					value={typeof value === "string" ? value : ""}
+					value={formatDateTimeLocalInputValue(value)}
 					onChange={(e) => handleChange(e.target.value)}
 					required={field.required}
 				/>

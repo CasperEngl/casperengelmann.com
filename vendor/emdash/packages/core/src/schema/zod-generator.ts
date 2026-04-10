@@ -67,8 +67,11 @@ function getBaseSchema(type: FieldType, field: Field): ZodTypeAny {
 		case "boolean":
 			return z.boolean();
 
+		case "date":
+			return z.iso.date();
+
 		case "datetime":
-			return z.string().datetime().or(z.string().date());
+			return z.iso.datetime().or(z.iso.date());
 
 		case "select": {
 			const options = field.validation?.options;
@@ -330,6 +333,7 @@ function fieldTypeToTypeScript(field: Field): string {
 		case "string":
 		case "text":
 		case "slug":
+		case "date":
 		case "datetime":
 			return "string";
 

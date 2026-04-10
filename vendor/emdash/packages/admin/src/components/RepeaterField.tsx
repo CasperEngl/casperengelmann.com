@@ -319,6 +319,16 @@ function SubFieldInput({ subField, value, onChange }: SubFieldInputProps) {
 					<span className="text-sm">{subField.label}</span>
 				</label>
 			);
+		case "date":
+			return (
+				<Input
+					label={subField.label}
+					type="date"
+					value={typeof value === "string" ? value : ""}
+					onChange={(e) => onChange(e.target.value)}
+					required={subField.required}
+				/>
+			);
 		case "datetime":
 			return (
 				<Input

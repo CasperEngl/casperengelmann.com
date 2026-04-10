@@ -10,6 +10,7 @@ export type FieldType =
 	| "number"
 	| "integer"
 	| "boolean"
+	| "date"
 	| "datetime"
 	| "select"
 	| "multiSelect"

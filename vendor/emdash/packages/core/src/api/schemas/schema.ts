@@ -16,6 +16,7 @@ const fieldTypeValues = z.enum([
 	"number",
 	"integer",
 	"boolean",
+	"date",
 	"datetime",
 	"select",
 	"multiSelect",
@@ -30,7 +31,7 @@ const fieldTypeValues = z.enum([
 
 const repeaterSubFieldSchema = z.object({
 	slug: z.string().min(1).max(63).regex(slugPattern, "Invalid slug format"),
-	type: z.enum(["string", "text", "number", "integer", "boolean", "datetime", "select"]),
+	type: z.enum(["string", "text", "number", "integer", "boolean", "date", "datetime", "select"]),
 	label: z.string().min(1),
 	required: z.boolean().optional(),
 	options: z.array(z.string()).optional(),

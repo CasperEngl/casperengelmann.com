@@ -387,9 +387,29 @@ export class SchemaRegistry {
 			);
 		}
 
+		const nextType = input.type ?? field.type;
+		const nextColumnType = FIELD_TYPE_TO_COLUMN[nextType];
+
+		if (input.type && input.type !== field.type && nextColumnType !== field.columnType) {
+			throw new SchemaError(
+				`Cannot change field "${fieldSlug}" from "${field.type}" to "${input.type}" without a column migration`,
+				"FIELD_TYPE_MISMATCH",
+				{
+					collectionSlug,
+					fieldSlug,
+					currentType: field.type,
+					nextType: input.type,
+					currentColumnType: field.columnType,
+					nextColumnType,
+				},
+			);
+		}
+
 		await this.db
 			.updateTable("_emdash_fields")
 			.set({
+				type: nextType,
+				column_type: nextColumnType,
 				label: input.label ?? field.label,
 				required: input.required !== undefined ? (input.required ? 1 : 0) : field.required ? 1 : 0,
 				unique: input.unique !== undefined ? (input.unique ? 1 : 0) : field.unique ? 1 : 0,

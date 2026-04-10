@@ -14,6 +14,7 @@ export type FieldType =
 	| "number"
 	| "integer"
 	| "boolean"
+	| "date"
 	| "datetime"
 	| "select"
 	| "multiSelect"
@@ -34,6 +35,7 @@ export const FIELD_TYPES: readonly FieldType[] = [
 	"number",
 	"integer",
 	"boolean",
+	"date",
 	"datetime",
 	"select",
 	"multiSelect",
@@ -60,6 +62,7 @@ export const FIELD_TYPE_TO_COLUMN: Record<FieldType, ColumnType> = {
 	number: "REAL",
 	integer: "INTEGER",
 	boolean: "INTEGER",
+	date: "TEXT",
 	datetime: "TEXT",
 	select: "TEXT",
 	multiSelect: "JSON",
@@ -99,7 +102,7 @@ export type CollectionSource =
 /** Sub-field definition for repeater fields */
 export interface RepeaterSubField {
 	slug: string;
-	type: "string" | "text" | "number" | "integer" | "boolean" | "datetime" | "select";
+	type: "string" | "text" | "number" | "integer" | "boolean" | "date" | "datetime" | "select";
 	label: string;
 	required?: boolean;
 	options?: string[]; // For select sub-fields
@@ -112,6 +115,7 @@ export const REPEATER_SUB_FIELD_TYPES = [
 	"number",
 	"integer",
 	"boolean",
+	"date",
 	"datetime",
 	"select",
 ] as const;
@@ -248,6 +252,7 @@ export interface CreateFieldInput {
  * Input for updating a field
  */
 export interface UpdateFieldInput {
+	type?: FieldType;
 	label?: string;
 	required?: boolean;
 	unique?: boolean;
