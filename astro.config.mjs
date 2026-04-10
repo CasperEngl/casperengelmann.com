@@ -9,11 +9,6 @@ import 'dotenv/config'
 import { resendEmailPlugin } from './src/emdash/email/resend'
 import { frontPagePlugin } from './src/emdash/front-page'
 
-const emdashPlugins = [
-  frontPagePlugin(),
-  ...(process.env.RESEND_API_KEY && process.env.EMAIL_FROM ? [resendEmailPlugin()] : []),
-]
-
 // https://astro.build/config
 export default defineConfig({
   adapter: node({
@@ -45,12 +40,10 @@ export default defineConfig({
       RESEND_API_KEY: envField.string({
         access: 'secret',
         context: 'server',
-        optional: true,
       }),
       EMAIL_FROM: envField.string({
         access: 'secret',
         context: 'server',
-        optional: true,
       }),
       REDIS_URL: envField.string({
         access: 'secret',
@@ -63,7 +56,7 @@ export default defineConfig({
     react(),
     emdash({
       database: sqlite({ url: 'file:./data/data.db' }),
-      plugins: emdashPlugins,
+      plugins: [frontPagePlugin(), resendEmailPlugin()],
       storage: local({
         directory: './data/uploads',
         baseUrl: '/_emdash/api/media/file',

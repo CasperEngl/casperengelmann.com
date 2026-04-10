@@ -1,21 +1,13 @@
 import { fileURLToPath } from 'node:url'
 
 import { definePlugin } from 'emdash'
+import { RESEND_API_KEY } from 'astro:env/server'
+import { EMAIL_FROM } from 'astro:env/server'
 
 const RESEND_EMAIL_PLUGIN_ID = 'resend-email'
 const pluginVersion = '0.1.0'
 const pluginEntrypoint = fileURLToPath(import.meta.url)
 const RESEND_API_URL = 'https://api.resend.com/emails'
-
-function getRequiredEnv(name: 'RESEND_API_KEY' | 'EMAIL_FROM') {
-  const value = process.env[name]
-
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`)
-  }
-
-  return value
-}
 
 export function resendEmailPlugin() {
   return {
@@ -34,8 +26,8 @@ export function createPlugin() {
     capabilities: ['email:provide', 'network:fetch:any'],
     hooks: {
       'email:deliver': async ({ message }) => {
-        const apiKey = getRequiredEnv('RESEND_API_KEY')
-        const from = getRequiredEnv('EMAIL_FROM')
+        const apiKey = RESEND_API_KEY
+        const from = EMAIL_FROM
 
         const response = await fetch(RESEND_API_URL, {
           method: 'POST',
