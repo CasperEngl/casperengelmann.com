@@ -25,4 +25,19 @@ if [ ! -f "$DB_PATH" ] || ! bun --bun emdash doctor -d "$DB_PATH" --cwd "$APP_DI
   bun --bun emdash seed -d "$DB_PATH" --uploads-dir "$UPLOADS_DIR" --cwd "$APP_DIR" --on-conflict update
 fi
 
+# Existing databases predate homepage previews. Update only the relevant
+# collection metadata so CMS-managed content and fields stay untouched.
+sqlite3 "$DB_PATH" <<'SQL'
+UPDATE _emdash_collections
+SET supports = CASE
+      WHEN EXISTS (
+        SELECT 1 FROM json_each(_emdash_collections.supports)
+        WHERE value = 'preview'
+      ) THEN supports
+      ELSE json_insert(supports, '$[#]', 'preview')
+    END,
+    url_pattern = '/'
+WHERE slug IN ('experience', 'projects');
+SQL
+
 exec bun ./dist/server/entry.mjs --host "${HOST:-::}" --port "${PORT:-3000}"

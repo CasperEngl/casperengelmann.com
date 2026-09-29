@@ -17,7 +17,8 @@
       "labelSingular": "Experience Entry",
       "description": "Professional experience entries migrated from the Astro content collection.",
       "icon": "briefcase",
-      "supports": ["drafts", "revisions", "search"],
+      "supports": ["drafts", "revisions", "preview", "search"],
+      "urlPattern": "/",
       "fields": [
         {
           "slug": "title",
@@ -75,7 +76,8 @@
       "labelSingular": "Project",
       "description": "Selected projects shown on the front page.",
       "icon": "folder",
-      "supports": ["drafts", "revisions", "search"],
+      "supports": ["drafts", "revisions", "preview", "search"],
+      "urlPattern": "/",
       "fields": [
         {
           "slug": "title",
