@@ -6,6 +6,7 @@ import { defineConfig, envField } from 'astro/config'
 import emdash, { local } from 'emdash/astro'
 import { sqlite } from 'emdash/db'
 import 'dotenv/config'
+import { datePlugin } from './src/emdash/date'
 import { resendEmailPlugin } from './src/emdash/email/resend'
 import { frontPagePlugin } from './src/emdash/front-page'
 
@@ -56,7 +57,7 @@ export default defineConfig({
     react(),
     emdash({
       database: sqlite({ url: 'file:./data/data.db' }),
-      plugins: [frontPagePlugin(), resendEmailPlugin()],
+      plugins: [datePlugin(), frontPagePlugin(), resendEmailPlugin()],
       storage: local({
         directory: './data/uploads',
         baseUrl: '/_emdash/api/media/file',
