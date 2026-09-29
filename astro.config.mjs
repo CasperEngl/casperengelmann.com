@@ -71,5 +71,23 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    // Pre-bundle deps that Vite would otherwise discover after the admin
+    // loads. A late discovery re-bundles React under a new hash, and open
+    // tabs end up with two copies ("reading 'useContext'" errors).
+    optimizeDeps: {
+      include: [
+        'astro/runtime/client/dev-toolbar/entrypoint.js',
+        '@base-ui/react/button',
+        '@base-ui/react/input',
+        '@base-ui/react/popover',
+        '@base-ui/react/separator',
+        '@date-fns/tz',
+        'class-variance-authority',
+        'date-fns',
+        'emdash/plugin-utils',
+        'lucide-react',
+        'react-day-picker',
+      ],
+    },
   },
 })

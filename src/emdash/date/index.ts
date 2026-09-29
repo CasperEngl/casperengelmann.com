@@ -3,7 +3,8 @@ import { fileURLToPath } from 'node:url'
 import { definePlugin } from 'emdash'
 
 // EmDash only ships `datetime`. Date-only fields are `string` fields with
-// `widget: "date:date"` and a `YYYY-MM-DD` validation pattern.
+// `widget: "date:date"` and a `YYYY-MM-DD` validation pattern. Datetime
+// fields opt into the shadcn picker with `widget: "date:datetime"`.
 const DATE_PLUGIN_ID = 'date'
 
 const pluginVersion = '0.1.0'
@@ -32,6 +33,11 @@ export function createPlugin() {
           name: 'date',
           label: 'Date',
           fieldTypes: ['string'],
+        },
+        {
+          name: 'datetime',
+          label: 'Date and time',
+          fieldTypes: ['datetime'],
         },
       ],
     },

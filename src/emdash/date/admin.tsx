@@ -1,9 +1,19 @@
-import React from 'react'
+import '../admin.css'
 
-import { Input } from '../ui/input'
-import { Label } from '../ui/label'
+import React, { useEffect, useState } from 'react'
+import { TZDate } from '@date-fns/tz'
+import { format, parse } from 'date-fns'
+import { CalendarIcon } from 'lucide-react'
+import { apiFetch, parseApiResponse } from 'emdash/plugin-utils'
+import { cn } from '~/utils/cn'
 
-type DateFieldProps = {
+import { Button } from '../shadcn/button'
+import { Calendar } from '../shadcn/calendar'
+import { Field, FieldGroup, FieldLabel } from '../shadcn/field'
+import { Input } from '../shadcn/input'
+import { Popover, PopoverContent, PopoverTrigger } from '../shadcn/popover'
+
+type FieldWidgetProps = {
   value: unknown
   onChange: (value: unknown) => void
   label: string
@@ -12,33 +22,202 @@ type DateFieldProps = {
   minimal?: boolean
 }
 
-function DateField({
-  value,
-  onChange,
-  label,
+const DATE_FORMAT = 'yyyy-MM-dd'
+const TIME_FORMAT = 'HH:mm'
+
+function toDate(value: unknown) {
+  if (typeof value !== 'string' || value === '') return undefined
+  const date = parse(value, DATE_FORMAT, new Date())
+  return Number.isNaN(date.getTime()) ? undefined : date
+}
+
+// Datetime values are stored in UTC and edited in the site timezone, like
+// EmDash's built-in datetime input.
+let siteTimezone: Promise<string> | undefined
+
+function loadSiteTimezone() {
+  siteTimezone ??= apiFetch('/_emdash/api/manifest')
+    .then((response) =>
+      parseApiResponse<{ timezone?: string }>(
+        response,
+        'Could not load site timezone',
+      ),
+    )
+    .then((manifest) => manifest.timezone ?? 'UTC')
+  return siteTimezone
+}
+
+function useSiteTimezone() {
+  const [timezone, setTimezone] = useState<string>()
+
+  useEffect(() => {
+    let active = true
+    void loadSiteTimezone().then((value) => {
+      if (active) setTimezone(value)
+    })
+    return () => {
+      active = false
+    }
+  }, [])
+
+  return timezone
+}
+
+function toZonedDate(value: unknown, timezone: string) {
+  if (typeof value !== 'string' || value === '') return undefined
+  const date = new TZDate(value, timezone)
+  return Number.isNaN(date.getTime()) ? undefined : date
+}
+
+function toUtcIsoString(day: Date, time: string, timezone: string) {
+  const [hours = 0, minutes = 0] = time.split(':').map(Number)
+  const date = new TZDate(
+    day.getFullYear(),
+    day.getMonth(),
+    day.getDate(),
+    hours,
+    minutes,
+    timezone,
+  )
+  return new Date(date.getTime()).toISOString()
+}
+
+function WidgetLabel({
   id,
+  label,
   required,
   minimal,
-}: DateFieldProps) {
+}: Omit<FieldWidgetProps, 'value' | 'onChange'>) {
+  if (minimal) return null
   return (
-    <div className="grid gap-2">
-      {!minimal && (
-        <Label htmlFor={id}>
-          {label}
-          {required && <span className="text-kumo-danger ms-0.5">*</span>}
-        </Label>
-      )}
-      <Input
-        id={id}
-        type="date"
-        value={typeof value === 'string' ? value : ''}
-        onChange={(event) => onChange(event.target.value || null)}
-        required={required}
+    <FieldLabel htmlFor={id}>
+      {label}
+      {required && <span className="text-destructive">*</span>}
+    </FieldLabel>
+  )
+}
+
+type DatePopoverProps = {
+  id: string
+  date: Date | undefined
+  onSelect: (date: Date | undefined) => void
+  required?: boolean
+  disabled?: boolean
+  className?: string
+}
+
+function DatePopover({
+  id,
+  date,
+  onSelect,
+  required,
+  disabled,
+  className,
+}: DatePopoverProps) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger
+        render={
+          <Button
+            id={id}
+            variant="outline"
+            data-empty={!date}
+            disabled={disabled}
+            className={cn(
+              'data-[empty=true]:text-muted-foreground justify-start font-normal',
+              className,
+            )}
+          />
+        }
+      >
+        <CalendarIcon data-icon="inline-start" />
+        {date ? format(date, 'PPP') : 'Pick a date'}
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0" align="start">
+        <Calendar
+          mode="single"
+          selected={date}
+          defaultMonth={date}
+          captionLayout="dropdown"
+          onSelect={(next) => {
+            onSelect(next)
+            setOpen(false)
+          }}
+        />
+        {!required && date && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="mx-2.5 mb-2.5"
+            onClick={() => {
+              onSelect(undefined)
+              setOpen(false)
+            }}
+          >
+            Clear
+          </Button>
+        )}
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+function DateField({ value, onChange, ...props }: FieldWidgetProps) {
+  return (
+    <Field>
+      <WidgetLabel {...props} />
+      <DatePopover
+        id={props.id}
+        date={toDate(value)}
+        required={props.required}
+        className="w-full"
+        onSelect={(date) => onChange(date ? format(date, DATE_FORMAT) : null)}
       />
-    </div>
+    </Field>
+  )
+}
+
+function DateTimeField({ value, onChange, ...props }: FieldWidgetProps) {
+  const timezone = useSiteTimezone()
+  const date = timezone ? toZonedDate(value, timezone) : undefined
+  const time = date ? format(date, TIME_FORMAT) : '00:00'
+
+  return (
+    <Field>
+      <WidgetLabel {...props} />
+      <FieldGroup className="flex-row gap-2">
+        <DatePopover
+          id={props.id}
+          date={date}
+          required={props.required}
+          disabled={!timezone}
+          className="flex-1"
+          onSelect={(day) =>
+            onChange(
+              day && timezone ? toUtcIsoString(day, time, timezone) : null,
+            )
+          }
+        />
+        <Input
+          type="time"
+          aria-label={`${props.label} time`}
+          value={date ? time : ''}
+          disabled={!timezone || !date}
+          onChange={(event) => {
+            if (date && timezone && event.target.value) {
+              onChange(toUtcIsoString(date, event.target.value, timezone))
+            }
+          }}
+          className="w-32 appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+        />
+      </FieldGroup>
+    </Field>
   )
 }
 
 export const fields = {
   date: DateField,
+  datetime: DateTimeField,
 }
