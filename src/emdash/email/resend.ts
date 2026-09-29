@@ -21,7 +21,10 @@ export function createPlugin() {
   return definePlugin({
     id: RESEND_EMAIL_PLUGIN_ID,
     version: pluginVersion,
-    capabilities: ['email:provide', 'network:fetch:any'],
+    capabilities: [
+      'hooks.email-transport:register',
+      'network:request:unrestricted',
+    ],
     hooks: {
       'email:deliver': {
         exclusive: true,

@@ -6,6 +6,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
+import { apiFetch, parseApiResponse } from 'emdash/plugin-utils'
 
 import { useAppForm } from '../ui/form'
 import { Button } from '../ui/button'
@@ -46,52 +47,21 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } },
 })
 
-async function parseResponse<T>(response: Response) {
-  const payload: unknown = await response.json()
-  const hasError =
-    typeof payload === 'object' &&
-    payload !== null &&
-    'error' in payload &&
-    payload.error
-
-  if (!response.ok || hasError) {
-    const message =
-      typeof payload === 'object' &&
-        payload !== null &&
-        'error' in payload &&
-        payload.error &&
-        typeof payload.error === 'object' &&
-        'message' in payload.error &&
-        typeof payload.error.message === 'string'
-        ? payload.error.message
-        : 'Request failed'
-
-    throw new Error(message)
-  }
-
-  return (
-    typeof payload === 'object' && payload !== null && 'data' in payload
-      ? payload.data
-      : payload
-  ) as T
-}
-
 async function fetchSettings() {
-  return parseResponse<FrontPageConfig>(
-    await fetch(settingsEndpoint),
+  return parseApiResponse<FrontPageConfig>(
+    await apiFetch(settingsEndpoint),
+    'Could not load front page settings',
   )
 }
 
 async function saveSettings(config: FrontPageConfig) {
-  return parseResponse<FrontPageConfig>(
-    await fetch(saveEndpoint, {
+  return parseApiResponse<FrontPageConfig>(
+    await apiFetch(saveEndpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-EmDash-Request': '1',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(config),
     }),
+    'Could not save front page settings',
   )
 }
 
@@ -101,8 +71,9 @@ async function saveSettings(config: FrontPageConfig) {
 
 function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
   const tanstackQueryClient = useQueryClient()
-  const [status, setTemporaryStatus, clearStatus] =
-    useTemporaryState<string | null>(null, 3000)
+  const [status, setTemporaryStatus, clearStatus] = useTemporaryState<
+    string | null
+  >(null, 3000)
   const [saveError, setSaveError] = useState<string | null>(null)
 
   const saveMutation = useMutation({
@@ -141,7 +112,7 @@ function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
     })
 
     return () => subscription.unsubscribe()
-  }, [clearStatus, status, form.store, form.state.isDirty])
+  }, [clearStatus, status, form])
 
   // Warn before navigating away with unsaved changes
   useEffect(() => {
@@ -151,7 +122,7 @@ function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
 
     window.addEventListener('beforeunload', onBeforeUnload)
     return () => window.removeEventListener('beforeunload', onBeforeUnload)
-  }, [form.state.isDirty])
+  }, [form])
 
   return (
     <form
@@ -252,7 +223,7 @@ function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
           <form.Subscribe selector={(s) => s.isDirty}>
             {(isDirty) =>
               isDirty ? (
-                <span className="text-sm text-kumo-subtle">
+                <span className="text-kumo-subtle text-sm">
                   Unsaved changes
                 </span>
               ) : null
@@ -261,10 +232,10 @@ function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
 
           <div aria-live="polite" aria-atomic="true">
             {status && (
-              <p className="m-0 text-sm text-kumo-success">{status}</p>
+              <p className="text-kumo-success m-0 text-sm">{status}</p>
             )}
             {saveError && (
-              <p className="m-0 text-sm text-kumo-danger">{saveError}</p>
+              <p className="text-kumo-danger m-0 text-sm">{saveError}</p>
             )}
           </div>
         </div>
@@ -286,20 +257,20 @@ function FrontPageSettingsPage() {
   return (
     <div className="mx-auto max-w-2xl px-5 py-8 pb-16">
       <div className="mb-8">
-        <h1 className="m-0 text-2xl font-bold text-pretty">Front Page</h1>
-        <p className="mt-1.5 text-sm text-kumo-subtle">
+        <h1 className="m-0 text-pretty text-2xl font-bold">Front Page</h1>
+        <p className="text-kumo-subtle mt-1.5 text-sm">
           Manage homepage copy and section visibility.
         </p>
       </div>
 
       {settingsQuery.isPending && (
-        <p className="text-sm text-kumo-subtle">Loading\u2026</p>
+        <p className="text-kumo-subtle text-sm">Loading\u2026</p>
       )}
 
       {settingsQuery.isError && (
         <Card>
           <CardContent>
-            <p className="m-0 text-kumo-danger">
+            <p className="text-kumo-danger m-0">
               {settingsQuery.error.message}. Check your connection and try
               again.
             </p>

@@ -1,4 +1,4 @@
-FROM oven/bun:1.3.11 AS build-base
+FROM oven/bun:1.4.2 AS build-base
 
 WORKDIR /app
 
@@ -9,7 +9,6 @@ RUN apt-get update \
 FROM build-base AS deps
 
 COPY package.json bun.lock ./
-COPY vendor ./vendor
 
 RUN bun install --frozen-lockfile
 
@@ -22,11 +21,10 @@ RUN bun --bun run build
 FROM build-base AS prod-deps
 
 COPY package.json bun.lock ./
-COPY vendor ./vendor
 
 RUN bun install --frozen-lockfile --production
 
-FROM oven/bun:1.3.11 AS runtime
+FROM oven/bun:1.4.2 AS runtime
 
 WORKDIR /app
 
@@ -37,7 +35,6 @@ RUN apt-get update \
 RUN mkdir -p /app/data/uploads
 
 COPY --from=prod-deps /app/node_modules ./node_modules
-COPY --from=build /app/vendor ./vendor
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/.emdash ./.emdash
 COPY --from=build /app/scripts/start-prod.sh ./scripts/start-prod.sh
