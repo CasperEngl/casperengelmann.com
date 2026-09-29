@@ -1,11 +1,23 @@
 import { fileURLToPath } from 'node:url'
 
+import { Effect, Layer } from 'effect'
+import { FetchHttpClient } from 'effect/http'
 import { definePlugin } from 'emdash'
+
+import { Resend } from '../../services/resend'
 
 const RESEND_EMAIL_PLUGIN_ID = 'resend-email'
 const pluginVersion = '0.1.0'
 const pluginEntrypoint = fileURLToPath(import.meta.url)
-const RESEND_API_URL = 'https://api.resend.com/emails'
+const deliverEmail = Effect.fn('deliverEmail')(function* (message: {
+  to: string
+  subject: string
+  text?: string
+  html?: string
+}) {
+  const resend = yield* Resend
+  return yield* resend.deliver(message)
+})
 
 export function resendEmailPlugin() {
   return {
@@ -28,30 +40,13 @@ export function createPlugin() {
     hooks: {
       'email:deliver': {
         exclusive: true,
-        handler: async ({ message }) => {
-          const apiKey = process.env.RESEND_API_KEY
-          const from = process.env.EMAIL_FROM
-
-          const response = await fetch(RESEND_API_URL, {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${apiKey}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              from,
-              to: [message.to],
-              subject: message.subject,
-              text: message.text,
-              html: message.html,
-            }),
-          })
-
-          if (!response.ok) {
-            const details = await response.text()
-            throw new Error(`Resend email delivery failed: ${details}`)
-          }
-        },
+        handler: ({ message }) =>
+          deliverEmail(message).pipe(
+            Effect.provide(
+              Resend.layer.pipe(Layer.provide(FetchHttpClient.layer)),
+            ),
+            Effect.runPromise,
+          ),
       },
     },
   })

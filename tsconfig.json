@@ -1,9 +1,19 @@
 {
+  "$schema": "./node_modules/@effect/language-service/schema.json",
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
       "~/*": ["*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "@effect/language-service",
+        "diagnosticSeverity": {
+          "missedPipeableOpportunity": "warning",
+          "multipleEffectProvide": "warning"
+        }
+      }
+    ]
   }
 }

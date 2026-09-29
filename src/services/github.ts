@@ -1,27 +1,40 @@
-import { GITHUB_API_KEY } from 'astro:env/server'
-import { z } from 'astro/zod'
+import { Config, Context, Effect, Layer, Schema } from 'effect'
+import { HttpClient, HttpClientResponse } from 'effect/http'
 
-export const githubHeaders = new Headers({
-  Authorization: `token ${GITHUB_API_KEY}`,
-  'User-Agent': 'Casper-Engeln',
-})
+export class GitHubRepo extends Schema.Class<GitHubRepo>('GitHubRepo')({
+  html_url: Schema.String,
+  full_name: Schema.String,
+  private: Schema.optional(Schema.Boolean),
+}) {}
 
-export const repoSchema = z.object({
-  html_url: z.string(),
-  full_name: z.string(),
-  private: z.boolean().optional(),
-})
+const GitHubRepos = Schema.Array(GitHubRepo)
 
-export async function getStarredRepos() {
-  const response = await fetch(
-    'https://api.github.com/users/casperengl/starred?per_page=10',
-    {
-      headers: githubHeaders,
-    },
-  )
-  const json = await response.json()
-  const repos = z.array(repoSchema).parse(json)
-  const filteredRepos = repos.filter((repo) => !repo.private)
+export class GitHub extends Context.Service<GitHub>()('app/GitHub', {
+  make: Effect.gen(function* () {
+    const apiKey = yield* Config.String('GITHUB_API_KEY')
+    const client = (yield* HttpClient.HttpClient).pipe(
+      HttpClient.filterStatusOk,
+    )
 
-  return filteredRepos
+    const getStarredRepos = Effect.fn('GitHub.getStarredRepos')(function* () {
+      const response = yield* client.get(
+        'https://api.github.com/users/casperengl/starred?per_page=10',
+        {
+          headers: {
+            Authorization: `token ${apiKey}`,
+            'User-Agent': 'Casper-Engeln',
+          },
+        },
+      )
+      const repos = yield* response.pipe(
+        HttpClientResponse.schemaBodyJson(GitHubRepos),
+      )
+
+      return repos.filter((repo) => !repo.private)
+    })
+
+    return { getStarredRepos } as const
+  }),
+}) {
+  static readonly layer = Layer.effect(this)(this.make)
 }

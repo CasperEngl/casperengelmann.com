@@ -6,8 +6,9 @@ import Projects from '~/components/sections/projects.astro'
 import Starred from '~/components/sections/starred.astro'
 import Contact from '~/components/sections/contact.astro'
 import { getFrontPageConfig } from '~/lib/front-page-config.server'
+import { siteRuntime } from '~/services/server-runtime'
 
-const frontPage = await getFrontPageConfig()
+const frontPage = await siteRuntime.runPromise(getFrontPageConfig())
 ---
 
 <BaseLayout>

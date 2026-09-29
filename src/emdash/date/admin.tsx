@@ -3,8 +3,8 @@ import '../admin.css'
 import React, { useEffect, useState } from 'react'
 import { TZDate } from '@date-fns/tz'
 import { format, parse } from 'date-fns'
+import { Effect } from 'effect'
 import { CalendarIcon } from 'lucide-react'
-import { apiFetch, parseApiResponse } from 'emdash/plugin-utils'
 import { cn } from '~/utils/cn'
 
 import { Button } from '../shadcn/button'
@@ -12,6 +12,7 @@ import { Calendar } from '../shadcn/calendar'
 import { Field, FieldGroup, FieldLabel } from '../shadcn/field'
 import { Input } from '../shadcn/input'
 import { Popover, PopoverContent, PopoverTrigger } from '../shadcn/popover'
+import { EmDashApi, emDashApiRuntime } from '../services/api'
 
 type FieldWidgetProps = {
   value: unknown
@@ -31,30 +32,31 @@ function toDate(value: unknown) {
   return Number.isNaN(date.getTime()) ? undefined : date
 }
 
-// Datetime values are stored in UTC and edited in the site timezone, like
-// EmDash's built-in datetime input.
-let siteTimezone: Promise<string> | undefined
-
-function loadSiteTimezone() {
-  siteTimezone ??= apiFetch('/_emdash/api/manifest')
-    .then((response) =>
-      parseApiResponse<{ timezone?: string }>(
-        response,
-        'Could not load site timezone',
-      ),
-    )
-    .then((manifest) => manifest.timezone ?? 'UTC')
-  return siteTimezone
-}
+const loadSiteTimezone = Effect.fn('loadSiteTimezone')(function* () {
+  const api = yield* EmDashApi
+  const response = yield* api.request('/_emdash/api/manifest')
+  const manifest = yield* api.parse<{ timezone?: string }>(
+    response,
+    'Could not load site timezone',
+  )
+  return manifest.timezone ?? 'UTC'
+})
 
 function useSiteTimezone() {
   const [timezone, setTimezone] = useState<string>()
 
   useEffect(() => {
     let active = true
-    void loadSiteTimezone().then((value) => {
-      if (active) setTimezone(value)
-    })
+    emDashApiRuntime.runFork(
+      loadSiteTimezone().pipe(
+        Effect.tap((value) =>
+          Effect.sync(() => {
+            if (active) setTimezone(value)
+          }),
+        ),
+        Effect.catch(() => Effect.void),
+      ),
+    )
     return () => {
       active = false
     }

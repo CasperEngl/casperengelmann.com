@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Effect, Schema } from 'effect'
 import {
   QueryClient,
   QueryClientProvider,
@@ -6,8 +7,8 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { apiFetch, parseApiResponse } from 'emdash/plugin-utils'
 
+import { EmDashApi, emDashApiRuntime } from '../services/api'
 import { useAppForm } from '../ui/form'
 import { Button } from '../ui/button'
 import {
@@ -43,27 +44,41 @@ const settingsEndpoint = '/_emdash/api/plugins/front-page-config/settings'
 const saveEndpoint = '/_emdash/api/plugins/front-page-config/settings/save'
 const settingsQueryKey = ['front-page-settings'] as const
 
+class FrontPageAdminError extends Schema.TaggedError<FrontPageAdminError>()(
+  'FrontPageAdminError',
+  {
+    message: Schema.String,
+    cause: Schema.Unknown,
+  },
+) {}
+
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } },
 })
 
-async function fetchSettings() {
-  return parseApiResponse<FrontPageConfig>(
-    await apiFetch(settingsEndpoint),
+const fetchSettings = Effect.fn('fetchFrontPageSettings')(function* () {
+  const api = yield* EmDashApi
+  const response = yield* api.request(settingsEndpoint)
+  return yield* api.parse<FrontPageConfig>(
+    response,
     'Could not load front page settings',
   )
-}
+})
 
-async function saveSettings(config: FrontPageConfig) {
-  return parseApiResponse<FrontPageConfig>(
-    await apiFetch(saveEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(config),
-    }),
+const saveSettings = Effect.fn('saveFrontPageSettings')(function* (
+  config: FrontPageConfig,
+) {
+  const api = yield* EmDashApi
+  const response = yield* api.request(saveEndpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(config),
+  })
+  return yield* api.parse<FrontPageConfig>(
+    response,
     'Could not save front page settings',
   )
-}
+})
 
 // ---------------------------------------------------------------------------
 // Form
@@ -77,7 +92,8 @@ function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
   const [saveError, setSaveError] = useState<string | null>(null)
 
   const saveMutation = useMutation({
-    mutationFn: saveSettings,
+    mutationFn: (config: FrontPageConfig) =>
+      emDashApiRuntime.runPromise(saveSettings(config)),
     onSuccess: (data) => {
       tanstackQueryClient.setQueryData(settingsQueryKey, data)
     },
@@ -85,21 +101,30 @@ function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
 
   const form = useAppForm({
     defaultValues: initialData,
-    onSubmit: async ({ value, formApi }) => {
+    onSubmit: ({ value, formApi }) => {
       clearStatus()
       setSaveError(null)
 
-      try {
-        const data = await saveMutation.mutateAsync(value)
-        formApi.reset(data)
-        setTemporaryStatus('Saved')
-      } catch (cause) {
-        setSaveError(
-          cause instanceof Error
-            ? cause.message
-            : 'Failed to save. Check your connection and try again.',
-        )
-      }
+      return emDashApiRuntime.runPromise(
+        Effect.tryPromise({
+          try: () => saveMutation.mutateAsync(value),
+          catch: (cause) =>
+            new FrontPageAdminError({
+              message: 'Could not save front page settings',
+              cause,
+            }),
+        }).pipe(
+          Effect.tap((data) =>
+            Effect.sync(() => {
+              formApi.reset(data)
+              setTemporaryStatus('Saved')
+            }),
+          ),
+          Effect.catch((cause) =>
+            Effect.sync(() => setSaveError(cause.message)),
+          ),
+        ),
+      )
     },
   })
 
@@ -251,13 +276,13 @@ function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
 function FrontPageSettingsPage() {
   const settingsQuery = useQuery({
     queryKey: settingsQueryKey,
-    queryFn: fetchSettings,
+    queryFn: () => emDashApiRuntime.runPromise(fetchSettings()),
   })
 
   return (
     <div className="mx-auto max-w-2xl px-5 py-8 pb-16">
       <div className="mb-8">
-        <h1 className="m-0 text-pretty text-2xl font-bold">Front Page</h1>
+        <h1 className="m-0 text-2xl font-bold text-pretty">Front Page</h1>
         <p className="text-kumo-subtle mt-1.5 text-sm">
           Manage homepage copy and section visibility.
         </p>

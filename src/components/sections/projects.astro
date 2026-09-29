@@ -1,7 +1,8 @@
 ---
-import { getEmDashCollection } from 'emdash'
 import Section from '~/components/layout/section.astro'
 import OutboundLink from '~/components/ui/outbound-link.astro'
+import { ContentCollections } from '~/services/content-collections'
+import { siteRuntime } from '~/services/server-runtime'
 
 interface Props {
   title: string
@@ -9,25 +10,24 @@ interface Props {
 
 const { title } = Astro.props
 
-const { entries: projects } = await getEmDashCollection('projects', {
-  status: 'published',
-  orderBy: {
-    created_at: 'desc',
-  },
-})
+const { entries: projects } = await siteRuntime.runPromise(
+  ContentCollections.use((collections) => collections.getProjects()),
+)
 ---
 
 <Section title={title}>
   <ul class="list-['-'] list-inside space-y-2 marker:text-neutral-400 dark:marker:text-neutral-500">
-    {
-      projects.map((project) => (
-        <li>
-          <div class="inline-block align-top">
-            <OutboundLink href={project.data.link}>{project.data.title}</OutboundLink>
-            <p class="text-neutral-500 dark:text-neutral-400 text-sm">{project.data.description}</p>
-          </div>
-        </li>
-      ))
-    }
+    {projects.map((project) => (
+      <li>
+        <div class="inline-block align-top">
+          <OutboundLink href={project.data.link}>
+            {project.data.title}
+          </OutboundLink>
+          <p class="text-neutral-500 dark:text-neutral-400 text-sm">
+            {project.data.description}
+          </p>
+        </div>
+      </li>
+    ))}
   </ul>
 </Section>
