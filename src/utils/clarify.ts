@@ -1,12 +1,11 @@
 export function clarify(value: string) {
-  const clarifiedLetters: string[] = []
+  return value
+    .split(';')
+    .map((letter) => {
+      const digitsString = letter.replace(/[^\d.]+/g, '')
+      const codePoint = Number.parseInt(digitsString, 10)
 
-  for (const letter of value.split(';')) {
-    const digitsString = letter.replace(/[^\d.]+/g, '')
-    const codePoint = Number.parseInt(digitsString, 10)
-
-    clarifiedLetters.push(String.fromCodePoint(codePoint))
-  }
-
-  return clarifiedLetters.join('')
+      return String.fromCodePoint(codePoint)
+    })
+    .join('')
 }

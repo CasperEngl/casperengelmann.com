@@ -151,9 +151,9 @@ function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault()
-        e.stopPropagation()
+      onSubmit={(event) => {
+        event.preventDefault()
+        event.stopPropagation()
         form.handleSubmit()
       }}
       className="grid gap-6"

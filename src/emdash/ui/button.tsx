@@ -9,7 +9,7 @@ export type ButtonProps = React.ComponentProps<'button'> & {
   size?: ButtonSize
 }
 
-const variantClasses: Record<ButtonVariant, string> = {
+const variantClasses = {
   default: cn(
     'bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900',
     'hover:bg-neutral-800 dark:hover:bg-neutral-200',
@@ -25,13 +25,13 @@ const variantClasses: Record<ButtonVariant, string> = {
     'hover:bg-neutral-100 dark:hover:bg-neutral-800',
     'active:bg-neutral-200 dark:active:bg-neutral-700',
   ),
-}
+} satisfies Record<ButtonVariant, string>
 
-const sizeClasses: Record<ButtonSize, string> = {
+const sizeClasses = {
   sm: 'h-8 px-3 text-xs',
   default: 'h-10 px-4 text-sm',
   lg: 'h-11 px-6 text-sm',
-}
+} satisfies Record<ButtonSize, string>
 
 export function Button({
   variant = 'default',

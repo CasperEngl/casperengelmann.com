@@ -1,8 +1,5 @@
 import React from 'react'
-import {
-  createFormHook,
-  createFormHookContexts,
-} from '@tanstack/react-form'
+import { createFormHook, createFormHookContexts } from '@tanstack/react-form'
 
 import { Input } from './input'
 import { Label } from './label'
@@ -28,19 +25,13 @@ function TextField({ label }: { label: string }) {
         autoComplete="off"
         value={field.state.value}
         onBlur={field.handleBlur}
-        onChange={(e) => field.handleChange(e.target.value)}
+        onChange={(event) => field.handleChange(event.target.value)}
       />
     </div>
   )
 }
 
-function TextAreaField({
-  label,
-  rows = 4,
-}: {
-  label: string
-  rows?: number
-}) {
+function TextAreaField({ label, rows = 4 }: { label: string; rows?: number }) {
   const field = useFieldContext<string>()
   return (
     <div className="grid gap-2">
@@ -52,7 +43,7 @@ function TextAreaField({
         rows={rows}
         value={field.state.value}
         onBlur={field.handleBlur}
-        onChange={(e) => field.handleChange(e.target.value)}
+        onChange={(event) => field.handleChange(event.target.value)}
       />
     </div>
   )

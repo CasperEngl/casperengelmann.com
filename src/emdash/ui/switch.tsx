@@ -23,7 +23,9 @@ export function Switch({
         'transition-colors duration-150',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-line focus-visible:ring-offset-2',
         'disabled:cursor-not-allowed disabled:opacity-50',
-        checked ? 'bg-neutral-900 dark:bg-neutral-100' : 'bg-neutral-200 dark:bg-neutral-700',
+        checked
+          ? 'bg-neutral-900 dark:bg-neutral-100'
+          : 'bg-neutral-200 dark:bg-neutral-700',
         className,
       )}
       onClick={() => onCheckedChange?.(!checked)}

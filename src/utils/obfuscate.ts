@@ -1,19 +1,13 @@
 export function obfuscate(value: string) {
-  const obfuscatedLetters: string[] = []
+  return Array.from(value)
+    .flatMap((letter) => {
+      const charCode = letter.codePointAt(0)
 
-  for (const letter of value) {
-    const charCode = letter.codePointAt(0)
+      if (!charCode) {
+        return []
+      }
 
-    if (!charCode) {
-      continue
-    }
-
-    if (charCode > 128) {
-      obfuscatedLetters.push(letter)
-    } else {
-      obfuscatedLetters.push('&#'.concat(charCode.toString()))
-    }
-  }
-
-  return obfuscatedLetters.join(';')
+      return charCode > 128 ? letter : '&#'.concat(charCode.toString())
+    })
+    .join(';')
 }

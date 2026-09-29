@@ -24,10 +24,7 @@ export function CardHeader({ className, ...props }: CardProps) {
   )
 }
 
-export function CardTitle({
-  className,
-  ...props
-}: React.ComponentProps<'h3'>) {
+export function CardTitle({ className, ...props }: React.ComponentProps<'h3'>) {
   return (
     <h3
       className={cn(
@@ -44,10 +41,7 @@ export function CardDescription({
   ...props
 }: React.ComponentProps<'p'>) {
   return (
-    <p
-      className={cn('m-0 text-sm text-kumo-subtle', className)}
-      {...props}
-    />
+    <p className={cn('m-0 text-sm text-kumo-subtle', className)} {...props} />
   )
 }
 
@@ -57,9 +51,6 @@ export function CardContent({ className, ...props }: CardProps) {
 
 export function CardFooter({ className, ...props }: CardProps) {
   return (
-    <div
-      className={cn('flex items-center p-5 pt-0', className)}
-      {...props}
-    />
+    <div className={cn('flex items-center p-5 pt-0', className)} {...props} />
   )
 }

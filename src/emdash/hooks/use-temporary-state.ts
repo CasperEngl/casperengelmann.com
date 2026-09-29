@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-export function useTemporaryState<T>(
-  initialState: T,
-  duration = 3000,
-) {
+export function useTemporaryState<T>(initialState: T, duration = 3000) {
   const [state, setState] = useState(initialState)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
