@@ -10,6 +10,34 @@ import { datePlugin } from './src/emdash/date'
 import { resendEmailPlugin } from './src/emdash/email/resend'
 import { frontPagePlugin } from './src/emdash/front-page'
 
+// In dev, Vite serves prebundled deps as immutable, but a restart can reuse
+// a URL for different content. Browsers then mix old and new chunks and
+// load React twice ("reading 'useContext'"). Revalidate them instead, and
+// clear anything already cached immutable on each page load.
+function revalidateDevModules() {
+  return {
+    name: 'revalidate-dev-modules',
+    apply: 'serve',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (req.headers['sec-fetch-dest'] === 'document') {
+          res.setHeader('Clear-Site-Data', '"cache"')
+        }
+        const setHeader = res.setHeader.bind(res)
+        res.setHeader = (name, value) =>
+          setHeader(
+            name,
+            name.toLowerCase() === 'cache-control' &&
+              String(value).includes('immutable')
+              ? 'no-cache'
+              : value,
+          )
+        next()
+      })
+    },
+  }
+}
+
 // https://astro.build/config
 export default defineConfig({
   adapter: node({
@@ -70,7 +98,7 @@ export default defineConfig({
     port: Number.parseInt(process.env.PORT ?? '3000', 10),
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), revalidateDevModules()],
     // Pre-bundle deps that Vite would otherwise discover after the admin
     // loads. A late discovery re-bundles React under a new hash, and open
     // tabs end up with two copies ("reading 'useContext'" errors).
