@@ -1,4 +1,4 @@
-FROM oven/bun:1.3.11 AS build-base
+FROM oven/bun:1.4.2 AS build-base
 
 WORKDIR /app
 
@@ -24,7 +24,7 @@ COPY package.json bun.lock ./
 
 RUN bun install --frozen-lockfile --production
 
-FROM oven/bun:1.3.11 AS runtime
+FROM oven/bun:1.4.2 AS runtime
 
 WORKDIR /app
 
