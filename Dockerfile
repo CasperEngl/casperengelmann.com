@@ -22,7 +22,7 @@ FROM build-base AS prod-deps
 
 COPY package.json bun.lock ./
 
-RUN bun install --frozen-lockfile --production
+RUN bun install --frozen-lockfile --production --ignore-scripts
 
 FROM oven/bun:1.4.2 AS runtime
 
