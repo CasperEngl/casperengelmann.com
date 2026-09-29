@@ -12,7 +12,7 @@ const { title } = Astro.props
 
 <Section title={title}>
   <GithubStarred server:defer>
-    <ul slot="fallback" class="list-['-'] list-inside space-y-2 marker:text-neutral-400 dark:marker:text-neutral-500">
+    <ul slot="fallback" class="space-y-2 *:before:mr-2 *:before:text-neutral-400 *:before:content-['-'] dark:*:before:text-neutral-500">
       {
         Array.from({ length: 10 }).map(() => (
           <li>

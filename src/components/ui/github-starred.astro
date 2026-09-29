@@ -60,7 +60,7 @@ const starredRepos = await loadStarredRepos().pipe(
 )
 ---
 
-<ul class="list-['-'] list-inside space-y-2 marker:text-neutral-400 dark:marker:text-neutral-500">
+<ul class="space-y-2 *:before:mr-2 *:before:text-neutral-400 *:before:content-['-'] dark:*:before:text-neutral-500">
   {starredRepos?.map((repo) => (
     <li>
       <OutboundLink href={repo.html_url}>{repo.full_name}</OutboundLink>
