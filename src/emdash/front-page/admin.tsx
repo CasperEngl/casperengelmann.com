@@ -112,7 +112,7 @@ function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
     })
 
     return () => subscription.unsubscribe()
-  }, [clearStatus, status, form.store, form.state.isDirty])
+  }, [clearStatus, status, form])
 
   // Warn before navigating away with unsaved changes
   useEffect(() => {
@@ -122,7 +122,7 @@ function FrontPageForm({ initialData }: { initialData: FrontPageConfig }) {
 
     window.addEventListener('beforeunload', onBeforeUnload)
     return () => window.removeEventListener('beforeunload', onBeforeUnload)
-  }, [form.state.isDirty])
+  }, [form])
 
   return (
     <form
